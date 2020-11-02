@@ -18,65 +18,64 @@
 - Local dev reuses existing Linux VMs or container hosting for sandbox development
 
 ### Linux VM setup
+Locally, my team runs a Windows only environment, so instructions specific to Windows. Ideally, environment should run Linux natively.
 
 #### Installing a Linux Virtual Machine on Windows 10
-1.	Get Installation Binaries
+1. Get Installation Binaries
 - Ubuntu latest LTS 64 bit
 - Hyper V or Virtualbox
-   - Virtualbox, for Windows, got 6.1.12-139181-Win, latest as of 2020-07-27
-1.1	Troubleshooting
-Either download the files on the host from the internet or copy the files using remote desktop clipboard copy and paste. Mounting local drives or secure file transfer may also be an option
-2.	Install/Activate Virtualization
-a.	Install VirtualBox (VB) or activate Hyper V on the host machine.
-a.	Note the VB installation will temporarily disconnect the network. Simply reconnect to your remote server if needed.
-3.	Create Linux Virtual Machine
-3.1	Guide to create the Linux VM on VirtualBox
-https://medium.com/nycdev/how-to-ssh-from-a-host-to-a-guest-vm-on-your-local-machine-6cb4c91acc2e written for VirtualBox v6 and Ubuntu 18.04 LTS
-Activate SSH using Virtualbox port forwarding and configure guest machine network.
-Alternate instructions at 
+  - Virtualbox, for Windows, got 6.1.12-139181-Win, latest as of 2020-07-27
+- Either download the files on the host from the internet or copy the files using remote desktop clipboard copy and paste. Mounting local drives or secure file transfer may also be an option
+2. Install/Activate Virtualization:
+- Install VirtualBox (VB) or activate Hyper V on the host machine.
+- Note the VB installation will temporarily disconnect the network. Simply reconnect to your remote server if needed.
+3. Create Linux Virtual Machine
+- Resources:
+  - https://medium.com/nycdev/how-to-ssh-from-a-host-to-a-guest-vm-on-your-local-machine-6cb4c91acc2e written for VirtualBox v6 and Ubuntu 18.04 LTS
+  - Activate SSH using Virtualbox port forwarding and configure guest machine network. Alternate instructions at 
 https://medium.com/@pierangelo1982/setting-ssh-connection-to-ubuntu-on-virtualbox-af243f737b8b 
 
-When your VM is started, open your terminal and try to connect:
-ssh yourusername@127.0.0.1 -p 2222
+- When your VM is started, open your terminal and try to connect: `ssh yourusername@127.0.0.1 -p 2222`
 
-3.2	Guide to create the Linux VM on Hyper-V
+#### Guide to create the Linux VM on Hyper-V
 Follow steps at https://www.nakivo.com/blog/run-linux-hyper-v/  
 Settings used during the set up were:
-1.	Specific Name and Location: Ubuntu 18 and use default VM location on Windows
-a.	C:\ProgramData\Microsoft\Windows\Hyper-V\
-2.	Specify Generation: 1 
-a.	For compatibility reasons
-3.	Assign Memory: 2 GB 
-a.	2048 mb or half of host OS
-4.	Connection: Default Switch
-a.	Later other virtual switches can be created/used
-5.	Connect Virtual Hard Disk: Use default name and location. Set size 10 GB. 16 GB is recommended but host machine is not large enough at this time.
-a.	Installation Option: Select the Linux image you downloaded in the earlier step
-6.	Select a static MAC address. Right click VM > Settings > Network > +plus icon > Advanced Features. Set static MAC address, change 00-00-00-00-00-00 to 00-15-3D-33-02-00. Click apply and ok.
-7.	Run the VM by right click on the VM then Connect.
+- Specific Name and Location: Ubuntu 18 and use default VM location on Windows C:\ProgramData\Microsoft\Windows\Hyper-V\
+- Specify Generation: 1 for compatibility reasons
+- Assign Memory: 2 GB 
+- 2048 mb or half of host OS
+- Connection: Default Switch
+  - Later other virtual switches can be created/used
+- Connect Virtual Hard Disk: Use default name and location. Set size 10 GB. 16 GB is recommended but host machine is not large enough at this time.
+- Installation Option: Select the Linux image you downloaded in the earlier step
+- Select a static MAC address. Right click VM > Settings > Network > +plus icon > Advanced Features. Set static MAC address, change 00-00-00-00-00-00 to 00-15-3D-33-02-00. Click apply and ok.
+- Run the VM by right click on the VM then Connect.
+- To get IP of machine using ifconfig. IP is assigned by default switch in Hyper-V. Use external switch if external IPs are required.
 
-# Troubleshooting - nested virtualization
-## Setup - Windows 10 machine:
+### Troubleshooting VM Install
+
+#### Setup - Windows 10 machine
+Example specifications for the host of the Linux VM
 - Uses Processor - Intel(R) Xeon(R) CPU E5-2690 v4 @ 2.60GHz, 2600 Mhz, 2 Core(s), 2 Logical Processor(s). https://ark.intel.com/content/www/us/en/ark/products/64596/intel-xeon-processor-e5-2690-20m-cache-2-90-ghz-8-00-gt-s-intel-qpi.html 
 - 4 GB RAM
 - Intel® Virtualization Technology (VT-x) is supported, so 64 bit guests are supported on it.
 - Only has limited GB free, may need to free space in future for use
 
-## Virtualbox cannot detect 64 bit. 
+#### Virtualbox cannot detect 64 bit. 
 Follow these steps https://forums.virtualbox.org/viewtopic.php?f=1&t=62339 
 
-## VT-X is not enabled
-### About the issue
-https://timothygruber.com/hyper-v-2/run-a-nested-vm-on-kvm-qemu-vm-in-hyper-v/ 
-https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/nested-virtualization 
-
-### Errors
-Not Hyper-V CPUID signature: 0x61774d56 0x4d566572 0x65726177 (expected 0x7263694d 0x666f736f 0x76482074) (VERR_NEM_NOT_AVAILABLE).
-VT-x is not available (VERR_VMX_NO_VMX).
+#### Nested virtualization
+From error messages like 
+- VT-X is not enabled
+- Not Hyper-V CPUID signature: 0x61774d56 0x4d566572 0x65726177 (expected 0x7263694d 0x666f736f 0x76482074) (VERR_NEM_NOT_AVAILABLE).
+- VT-x is not available (VERR_VMX_NO_VMX)
+About the issue and suggested fixes
+- https://timothygruber.com/hyper-v-2/run-a-nested-vm-on-kvm-qemu-vm-in-hyper-v/ 
+- https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/nested-virtualization 
 Remove App & Browser settings for VMcompute and related executables: https://stackoverflow.com/questions/41182714/unable-to-start-docker-in-windows-10-hyper-v-error-is-thrown 
 Restart VMM
 
-# Clean up
+#### VM Clean up
 Remove Hyper-V configured VM or delete VirtualBox VM
 
 # Linux setup
@@ -113,11 +112,6 @@ Acquire {
 ```
 or set up shell `proxy_http=204.40.130.129:3128`
 
-## VM Network
-Hyper-V: get IP of machine using ifconfig. IP is assigned by default switch in Hyper-V. Use external switch if external IPs are required.
-	Update again
-
 ## Install Docker 
 Use instructions provided by Docker
 https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository 
-
