@@ -3,7 +3,7 @@
 My team runs a Windows only environment, so instructions are focusing on Windows. 
 Ideally, the sandbox environment should run Linux natively with the developer having full access.
 
-## Option 1 Windows Subsystem for Linux (WSL) =
+## Option 1 Windows Subsystem for Linux (WSL)
 - Install WSL using Microsoft's [Windows Subsystem for Linux Installation Guide for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md).
 - Restart your machine manually
 -  Install flavour of Linux from Microsoft Store
@@ -75,8 +75,11 @@ Remove Hyper-V configured VM or delete VirtualBox VM
 # Linux setup
 
 ## Update
-- Try installing package updates executing this command in terminal:
-```$ sudo apt update && sudo apt upgrade -y```
+- Try installing package updates executing this command in terminal. The commands will check updates and then upgrade packages, then remove any unused packages due to upgrades.
+```
+$ sudo apt update && sudo apt upgrade -y
+$ sudo apt-get autoremove
+```
 - If there are proxy problems, follow the "Proxy set up" section below and try the command again.
 - Get SSH running for secure remote access
 ```
