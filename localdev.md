@@ -5,7 +5,7 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
 
 ## Option 1 Windows Subsystem for Linux (WSL) =
 1. Install WSL using instructions below.
-2. Summary of instructions from [Setting up a Windows/Linux dev env](https://dev.to/mattetti/setting-up-a-windows-linux-dev-env-2oi):
+2. Summary of instructions from Microsoft's [Windows Subsystem for Linux Installation Guide for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md):
 - Launch PowerShell as Administrator (click the start menu, type PowerShell, expand the options and pick run as Administrator).
 - Enter these commands 
 ```shell
