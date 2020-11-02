@@ -1,15 +1,7 @@
-**Table of Contents**
+# Steps to set up a sandbox environment to test debezium
 
-[TOCM]
-
-[TOC]
-
-# Option 1 Local Command line 
-- Cygwin
-- Local dev reuses existing Linux VMs or container hosting for sandbox development
-
-# Option 2 Windows Subsystem for Linux (WSL) =
-1. Install WSL
+## Option 1 Windows Subsystem for Linux (WSL) =
+1. Install WSL using instructions below.
 2. Summary of instructions from [Setting up a Windows/Linux dev env](https://dev.to/mattetti/setting-up-a-windows-linux-dev-env-2oi):
 - Launch PowerShell as Administrator (click the start menu, type PowerShell, expand the options and pick run as Administrator).
 - Enter these commands 
@@ -20,3 +12,112 @@
 - Restart your machine manually
 -  Install flavour of Linux from Microsoft Store
 -  Launch the flavour and configure it
+
+## Option 2 Local Command line 
+- Install Cygwin on local machine, get packages for curl, git, etc.
+- Local dev reuses existing Linux VMs or container hosting for sandbox development
+
+### Linux VM setup
+
+#### Installing a Linux Virtual Machine on Windows 10
+1.	Get Installation Binaries
+- Ubuntu latest LTS 64 bit
+- Hyper V or Virtualbox
+   - Virtualbox, for Windows, got 6.1.12-139181-Win, latest as of 2020-07-27
+1.1	Troubleshooting
+Either download the files on the host from the internet or copy the files using remote desktop clipboard copy and paste. Mounting local drives or secure file transfer may also be an option
+2.	Install/Activate Virtualization
+a.	Install VirtualBox (VB) or activate Hyper V on the host machine.
+a.	Note the VB installation will temporarily disconnect the network. Simply reconnect to your remote server if needed.
+3.	Create Linux Virtual Machine
+3.1	Guide to create the Linux VM on VirtualBox
+https://medium.com/nycdev/how-to-ssh-from-a-host-to-a-guest-vm-on-your-local-machine-6cb4c91acc2e written for VirtualBox v6 and Ubuntu 18.04 LTS
+Activate SSH using Virtualbox port forwarding and configure guest machine network.
+Alternate instructions at 
+https://medium.com/@pierangelo1982/setting-ssh-connection-to-ubuntu-on-virtualbox-af243f737b8b 
+
+When your VM is started, open your terminal and try to connect:
+ssh yourusername@127.0.0.1 -p 2222
+
+3.2	Guide to create the Linux VM on Hyper-V
+Follow steps at https://www.nakivo.com/blog/run-linux-hyper-v/  
+Settings used during the set up were:
+1.	Specific Name and Location: Ubuntu 18 and use default VM location on Windows
+a.	C:\ProgramData\Microsoft\Windows\Hyper-V\
+2.	Specify Generation: 1 
+a.	For compatibility reasons
+3.	Assign Memory: 2 GB 
+a.	2048 mb or half of host OS
+4.	Connection: Default Switch
+a.	Later other virtual switches can be created/used
+5.	Connect Virtual Hard Disk: Use default name and location. Set size 10 GB. 16 GB is recommended but host machine is not large enough at this time.
+a.	Installation Option: Select the Linux image you downloaded in the earlier step
+6.	Select a static MAC address. Right click VM > Settings > Network > +plus icon > Advanced Features. Set static MAC address, change 00-00-00-00-00-00 to 00-15-3D-33-02-00. Click apply and ok.
+7.	Run the VM by right click on the VM then Connect.
+
+# Troubleshooting - nested virtualization
+## Setup - Windows 10 machine:
+- Uses Processor - Intel(R) Xeon(R) CPU E5-2690 v4 @ 2.60GHz, 2600 Mhz, 2 Core(s), 2 Logical Processor(s). https://ark.intel.com/content/www/us/en/ark/products/64596/intel-xeon-processor-e5-2690-20m-cache-2-90-ghz-8-00-gt-s-intel-qpi.html 
+- 4 GB RAM
+- Intel® Virtualization Technology (VT-x) is supported, so 64 bit guests are supported on it.
+- Only has limited GB free, may need to free space in future for use
+
+## Virtualbox cannot detect 64 bit. 
+Follow these steps https://forums.virtualbox.org/viewtopic.php?f=1&t=62339 
+
+## VT-X is not enabled
+### About the issue
+https://timothygruber.com/hyper-v-2/run-a-nested-vm-on-kvm-qemu-vm-in-hyper-v/ 
+https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/nested-virtualization 
+
+### Errors
+Not Hyper-V CPUID signature: 0x61774d56 0x4d566572 0x65726177 (expected 0x7263694d 0x666f736f 0x76482074) (VERR_NEM_NOT_AVAILABLE).
+VT-x is not available (VERR_VMX_NO_VMX).
+Remove App & Browser settings for VMcompute and related executables: https://stackoverflow.com/questions/41182714/unable-to-start-docker-in-windows-10-hyper-v-error-is-thrown 
+Restart VMM
+
+# Clean up
+Remove Hyper-V configured VM or delete VirtualBox VM
+
+# Linux setup
+
+## Update
+Try installing package updates executing this command in terminal:
+`sudo apt update && sudo apt upgrade -y`
+If there are proxy problems, follow the "Proxy set up" section below and try the command again.
+
+## Proxy set up
+Install without updating. Set system proxy as local network proxy.
+You may have to set package manager proxy and HTTP/HTTPS proxy environment variables after install
+e.g. http_proxy=..
+Update all installed packages
+Sudo apt-get upgrade
+Get SSH running for secure remote access
+$ sudo apt-get install openssh-server
+$ sudo service ssh status
+
+Example proxy setting: 204.1.1.1 3128
+Add to etc/environment
+```
+http_proxy=http://204.1.1.1 3128:3128/
+https_proxy=https://204.1.1.1 3128:3128/
+```
+
+Set the proxy used by Aptitude package manager
+Create a new file under the /etc/apt/apt.conf.d directory, and then add the following lines.
+```
+Acquire {
+  HTTP::proxy "http://204.40.130.129:3128";
+  HTTPS::proxy "http://204.40.130.129:3128";
+}
+```
+or set up shell `proxy_http=204.40.130.129:3128`
+
+## VM Network
+Hyper-V: get IP of machine using ifconfig. IP is assigned by default switch in Hyper-V. Use external switch if external IPs are required.
+	Update again
+
+## Install Docker 
+Use instructions provided by Docker
+https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository 
+
