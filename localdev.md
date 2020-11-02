@@ -71,11 +71,10 @@ From error messages like
 - VT-X is not enabled
 - Not Hyper-V CPUID signature: 0x61774d56 0x4d566572 0x65726177 (expected 0x7263694d 0x666f736f 0x76482074) (VERR_NEM_NOT_AVAILABLE).
 - VT-x is not available (VERR_VMX_NO_VMX)
-About the issue and suggested fixes
+##### About the issue and suggested fixes
 - https://timothygruber.com/hyper-v-2/run-a-nested-vm-on-kvm-qemu-vm-in-hyper-v/ 
 - https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/nested-virtualization 
-Remove App & Browser settings for VMcompute and related executables: https://stackoverflow.com/questions/41182714/unable-to-start-docker-in-windows-10-hyper-v-error-is-thrown 
-Restart VMM
+- Remove App & Browser settings for VMcompute and related executables: https://stackoverflow.com/questions/41182714/unable-to-start-docker-in-windows-10-hyper-v-error-is-thrown , Restart VMM
 
 #### VM Clean up
 Remove Hyper-V configured VM or delete VirtualBox VM
