@@ -82,19 +82,18 @@ Remove Hyper-V configured VM or delete VirtualBox VM
 # Linux setup
 
 ## Update
-Try installing package updates executing this command in terminal:
-`sudo apt update && sudo apt upgrade -y`
-If there are proxy problems, follow the "Proxy set up" section below and try the command again.
-
-## Proxy set up
-Install without updating. Set system proxy as local network proxy.
-You may have to set package manager proxy and HTTP/HTTPS proxy environment variables after install
-e.g. http_proxy=..
-Update all installed packages
-Sudo apt-get upgrade
-Get SSH running for secure remote access
+- Try installing package updates executing this command in terminal:
+```$ sudo apt update && sudo apt upgrade -y```
+- If there are proxy problems, follow the "Proxy set up" section below and try the command again.
+- Get SSH running for secure remote access
+```
 $ sudo apt-get install openssh-server
 $ sudo service ssh status
+```
+
+## Proxy set up
+This step is required if the VM's host or network uses a proxy to the internet.
+You may have to set package manager proxy and HTTP/HTTPS proxy environment variables (e.g. http_proxy=...)
 
 Example proxy setting: 204.1.1.1 3128
 Add to etc/environment
