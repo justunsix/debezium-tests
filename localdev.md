@@ -1,5 +1,8 @@
 # Steps to set up a sandbox environment to test debezium
 
+My team runs a Windows only environment, so instructions are focusing on Windows. 
+Ideally, the sandbox environment should run Linux natively with the developer having full access.
+
 ## Option 1 Windows Subsystem for Linux (WSL) =
 1. Install WSL using instructions below.
 2. Summary of instructions from [Setting up a Windows/Linux dev env](https://dev.to/mattetti/setting-up-a-windows-linux-dev-env-2oi):
@@ -18,9 +21,8 @@
 - Local dev reuses existing Linux VMs or container hosting for sandbox development
 
 ### Linux VM setup
-Locally, my team runs a Windows only environment, so instructions specific to Windows. Ideally, environment should run Linux natively.
 
-#### Installing a Linux Virtual Machine on Windows 10
+#### Installing a Linux Virtual Machine on Windows 10 with Linux Virtual Machine
 1. Get Installation Binaries
 - Ubuntu latest LTS 64 bit
 - Hyper V or Virtualbox
