@@ -91,22 +91,25 @@ $ sudo service ssh status
 This step is required if the VM's host or network uses a proxy to the internet.
 You may have to set package manager proxy and HTTP/HTTPS proxy environment variables (e.g. http_proxy=...)
 
-Example proxy setting: 204.1.1.1 3128
-Add to etc/environment
+Example proxy setting for 204.1.1.1 3128
+
+Add these lines to etc/environment
 ```
 http_proxy=http://204.1.1.1 3128:3128/
 https_proxy=https://204.1.1.1 3128:3128/
 ```
 
-Set the proxy used by Aptitude package manager
-Create a new file under the /etc/apt/apt.conf.d directory, and then add the following lines.
+Set the proxy used by Aptitude package manager. Create a new file under the /etc/apt/apt.conf.d directory, and then add the following lines.
 ```
 Acquire {
   HTTP::proxy "http://204.40.130.129:3128";
   HTTPS::proxy "http://204.40.130.129:3128";
 }
 ```
-or set up shell `proxy_http=204.40.130.129:3128`
+For temporary proxy settings, use the following on the commmand line
+```shell 
+proxy_http=204.40.130.129:3128
+```
 
 ## Install Docker 
 Use instructions provided by Docker
