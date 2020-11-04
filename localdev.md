@@ -10,7 +10,7 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
 -  Launch the flavour and configure it
 
 ## Option 2 Local Command line 
-- Install Cygwin on local machine, get packages for curl, git, etc.
+- Install Cygwin on local machine, get packages for curl, git, etc. or use cloud IDE, workspace e.g. [gitpod](https://gitpod.io/workspaces/)
 - Local dev reuses existing Linux VMs or container hosting for sandbox development
 
 ### Linux VM setup
