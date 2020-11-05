@@ -5,28 +5,24 @@ tasks:
   - init: npm install
     command: npm start
 
-- name: gcloud
-  command: |
-    echo $GCP_ACCOUNT > /home/gitpod/account.json
-    gcloud auth activate-service-account --key-file=/home/gitpod/account.json
-    rm /home/gitpod/account.json
-    gcloud config set project gke-playground-191013
-    gcloud container clusters get-credentials moritz-pet-clinic --zone us-west1-b --project gke-playground-191013
-    kubectl apply -f docker-engine.k8s.yaml
-    kubectl port-forward deployment/docker-engine 2375:2375 &
-    docker login --username meysholdt --password $DOCKER_HUB_TOKEN
-vscode:
-  extensions:
-    - Pivotal.vscode-spring-boot@1.11.0:gKokcVIlbvXM5pr9HCsGiA==
-    - vscjava.vscode-spring-initializr@0.4.6:WOgtgIwX3Ngy4pM9ArXjCQ==
-    - vscjava.vscode-spring-boot-dashboard@0.1.6:/G6fobfzYSrYZdNU7UB78g==
-    - ms-kubernetes-tools.vscode-kubernetes-tools@1.0.4:Xhg4EprIGTB3Rd2PNCL/xA==
-    - bajdzis.vscode-database@2.2.0:KaEYYfe8G3NOWlsM6VNLHA==
+#- name: gcloud
+#  command: |
+#    echo $GCP_ACCOUNT > /home/gitpod/account.json
+#    gcloud auth activate-service-account --key-file=/home/gitpod/account.json
+#    rm /home/gitpod/account.json
+#    gcloud config set project gke-playground-191013
+#    gcloud container clusters get-credentials moritz-pet-clinic --zone us-west1-b --project gke-playground-191013
+#    kubectl apply -f docker-engine.k8s.yaml
+#    kubectl port-forward deployment/docker-engine 2375:2375 &
+#    docker login --username meysholdt --password $DOCKER_HUB_TOKEN
+#vscode:
+#  extensions:
+#    - Pivotal.vscode-spring-boot@1.11.0:gKokcVIlbvXM5pr9HCsGiA==
+#    - vscjava.vscode-spring-initializr@0.4.6:WOgtgIwX3Ngy4pM9ArXjCQ==
+#    - vscjava.vscode-spring-boot-dashboard@0.1.6:/G6fobfzYSrYZdNU7UB78g==
+#    - ms-kubernetes-tools.vscode-kubernetes-tools@1.0.4:Xhg4EprIGTB3Rd2PNCL/xA==
+#    - bajdzis.vscode-database@2.2.0:KaEYYfe8G3NOWlsM6VNLHA==
 
 ports:
 - port: 8080
   onOpen: open-preview
-- port: 2375
-  onOpen: ignore
-- port: 3306
-  onOpen: ignore
