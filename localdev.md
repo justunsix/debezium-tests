@@ -9,6 +9,11 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
 -  Install flavour of Linux from Microsoft Store
 -  Launch the flavour and configure it
 
+### Openshift Specific
+
+[Openshift 3.11 CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html)
+[Debezium Openshift install](https://debezium.io/documentation/reference/operations/openshift.html)
+
 ## Option 2 Local Command line 
 - Install Cygwin on local machine, get packages for curl, git, etc. or use cloud IDE, workspace e.g. [gitpod](https://gitpod.io/workspaces/)
 - Local dev reuses existing Linux VMs or container hosting for sandbox development
