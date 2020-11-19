@@ -8,7 +8,8 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
   - Ubuntu 20.04 LTS was used for set up
   - Windows Terminal
   - VS Code 
-    - WSL Remote Extension
+    - [WSL Remote Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
+    - [Github Pull request extension](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
   - Create new or use existing Docker Hub ID
 - Restart your machine manually
 -  Install flavour of Linux from Microsoft Store
