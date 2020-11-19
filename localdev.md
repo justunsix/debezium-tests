@@ -139,7 +139,8 @@ Acquire {
 ```
 For temporary proxy settings, use the following on the commmand line
 ```shell 
-export proxy_http=204.1.1.129:3128
+export http_proxy=http://204.1.1.129:3128
+export https_proxy=http://204.1.1.129:3128
 ```
 
 ## Install Docker 
