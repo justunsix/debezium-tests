@@ -11,8 +11,14 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
 
 ### Openshift Specific
 
-[Openshift 3.11 CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html)
-[Debezium Openshift install](https://debezium.io/documentation/reference/operations/openshift.html)
+- [Openshift 3.11 CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html)
+- [Debezium Openshift install](https://debezium.io/documentation/reference/operations/openshift.html)
+
+Remote User Acceptance Testing
+1. Install Version 0.20 of the Strimzi operator > [installation options](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs#install-strimzi-operator)
+2.	You will not be able to see the operator as it is installed in a different namespace called strimzi-operator.  You have permissions to use it, not see it. You have to specify the namespace, for example:
+`oc process strimzi-operator//strimzi-ephemeral ....`
+
 
 ## Option 2 Local Command line 
 - Install Cygwin on local machine, get packages for curl, git, etc. or use cloud IDE, workspace e.g. [gitpod](https://gitpod.io/workspaces/)
