@@ -4,7 +4,8 @@ My team runs a Windows only environment, so instructions are focusing on Windows
 Ideally, the sandbox environment should run Linux natively with the developer having sudo (administrative) privleges.
 
 ## Option 1 Windows Subsystem for Linux (WSL)
-- Install WSL using Microsoft's [Windows Subsystem for Linux Installation Guide for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md). Alternatively, follow [Get started using Docker contianers with WSL](https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers) that covers on WSL, VS Code IDE, and Docker setup on Windows.
+- Install WSL using Microsoft's [Windows Subsystem for Linux for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md) by following [Get started using Docker contianers with WSL](https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers) that covers on WSL, VS Code IDE, and Docker setup on Windows. 
+  - Ubuntu 20.04 LTS was used for set up
 - Restart your machine manually
 -  Install flavour of Linux from Microsoft Store
 -  Launch the flavour and configure it
