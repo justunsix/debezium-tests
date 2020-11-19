@@ -128,8 +128,10 @@ http_proxy=http://204.1.1.129 3128:3128/
 https_proxy=https://204.1.1.129 3128:3128/
 ```
 
-Set the proxy used by Aptitude package manager. Create a new file under the /etc/apt/apt.conf.d directory, and then add the following lines.
+Set the proxy used by Aptitude package manager. Create a new file 'proxy.conf' under the '/etc/apt/apt.conf.d/' directory, and then add the following lines. e.g.
 ```
+$ sudo nano /etc/apt/apt.conf.d/proxy.conf
+# In editor, add these lines
 Acquire {
   HTTP::proxy "http://204.1.1.129:3128";
   HTTPS::proxy "http://204.1.1.129:3128";
@@ -137,7 +139,7 @@ Acquire {
 ```
 For temporary proxy settings, use the following on the commmand line
 ```shell 
-proxy_http=204.1.1.129:3128
+export proxy_http=204.1.1.129:3128
 ```
 
 ## Install Docker 
