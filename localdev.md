@@ -19,6 +19,7 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
      // Path to the git executable
      "git.path": "C:\\usr\\bin\\ptbl\\PortableApps\\PortableGit\\bin\\git.exe",
      ```
+  - If using a proxy, set proxy settings for git and other tools
   - Create new or use existing Docker Hub ID
 - Restart your machine manually
 -  Install flavour of Linux from Microsoft Store
