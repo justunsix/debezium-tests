@@ -1,4 +1,4 @@
-Settings for various systems in localdev.md
+Settings for various systems in [localdev.md](https://github.com/justintungonline/debezium-tests/blob/main/localdev.md)
 
 # CMDER
 ## WSL Console
@@ -13,3 +13,15 @@ set "PATH=%ConEmuBaseDirShort%\wsl;%PATH%" & %windir%\system32\wsl.exe -new_cons
 ```
 
 ![CMDER settings for a new Windows Subsystem for Linux WSL console](https://github.com/justintungonline/debezium-tests/blob/main/images/CMDer%20WSL%20Console%20settings%20Screenshot%202020-11-19%20160323.png)
+
+# VS Code
+## settings.json
+
+Set git path
+```
+// Is git enabled
+"git.enabled": true,
+
+// Path to the git executable
+"git.path": "C:\\usr\\bin\\ptbl\\PortableApps\\PortableGit\\bin\\git.exe",
+```
