@@ -5,11 +5,20 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
 
 ## Option 1 Windows Subsystem for Linux (WSL)
 - Install WSL using Microsoft's [Windows Subsystem for Linux for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md) by following [Get started using Docker contianers with WSL](https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers) that covers on WSL, Windows Terminal, VS Code IDE, and Docker setup on Windows. 
+  - Enable virtualization on local machine BIOS
   - Ubuntu 20.04 LTS was used for set up
   - Windows Terminal
   - VS Code 
     - [WSL Remote Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
     - [Github Pull request extension](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
+      - Set git path, e.g. edit settings.json 
+     ```
+     // Is git enabled
+     "git.enabled": true,
+
+     // Path to the git executable
+     "git.path": "C:\\usr\\bin\\ptbl\\PortableApps\\CygwinPortable\\bin\\git.exe"
+     ```
   - Create new or use existing Docker Hub ID
 - Restart your machine manually
 -  Install flavour of Linux from Microsoft Store
