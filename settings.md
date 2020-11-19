@@ -17,7 +17,7 @@ set "PATH=%ConEmuBaseDirShort%\wsl;%PATH%" & %windir%\system32\wsl.exe -new_cons
 # VS Code
 ## settings.json
 
-Example: Set git path to portable git binaries
+Example: Set git path to portable [git for Windows](https://git-scm.com/download/win) binaries
 ```
 // Is git enabled
 "git.enabled": true,
