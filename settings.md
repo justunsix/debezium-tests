@@ -32,11 +32,11 @@ Set git path
 [See Linux OS settings proxy](https://github.com/justintungonline/debezium-tests/blob/main/localdev.md#proxy-set-up)
 e.g.
 ```console
-$ proxy_http=http://204.1.1.1:3128
+$ proxy_http=http://204.1.1.129:3128
 ```
 
 ## git
 Replace IP/port with your proxy
 ```console
-$ git config --global http.proxy http://204.1.1.1:3128
+$ git config --global http.proxy http://204.1.1.129:3128
 ```
