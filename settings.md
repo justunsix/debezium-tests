@@ -25,3 +25,18 @@ Set git path
 // Path to the git executable
 "git.path": "C:\\usr\\bin\\ptbl\\PortableApps\\PortableGit\\bin\\git.exe",
 ```
+
+# Linux proxy
+
+## bash
+[See Linux OS settings proxy](https://github.com/justintungonline/debezium-tests/blob/main/localdev.md#proxy-set-up)
+e.g.
+```console
+$ proxy_http=http://204.1.1.1:3128
+```
+
+## git
+Replace IP/port with your proxy
+```console
+$ git config --global http.proxy http://204.1.1.1:3128
+```
