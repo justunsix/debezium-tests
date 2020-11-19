@@ -9,7 +9,9 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
   - Ubuntu 20.04 LTS was used for set up
   - Windows Terminal
   - VS Code 
-    - [WSL Remote Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
+    - [WSL Remote Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) - enables you to open your Linux project running on WSL in VS Code (no need to worry about pathing issues, binary compatibility, or other cross-OS challenges)
+    - [Remote-Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) - enables you to open your project folder or repo inside of a container, taking advantage of Visual Studio Code's full feature set to do your development work within the container.
+    - [Docker extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker) - adds the functionality to build, manage, and deploy containerized applications from inside VS Code. (You need the Remote-Container extension to actually use the container as your dev environment.)
     - [Github Pull request extension](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
       - Set git path, e.g. edit settings.json 
      ```
