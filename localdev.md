@@ -17,7 +17,7 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
      "git.enabled": true,
 
      // Path to the git executable
-     "git.path": "C:\\usr\\bin\\ptbl\\PortableApps\\CygwinPortable\\bin\\git.exe"
+     "git.path": "C:\\usr\\bin\\ptbl\\PortableApps\\PortableGit\\bin\\git.exe",
      ```
   - Create new or use existing Docker Hub ID
 - Restart your machine manually
