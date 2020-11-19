@@ -9,6 +9,7 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
   - Windows Terminal
   - VS Code 
     - WSL Remote Extension
+  - Create new or use existing Docker Hub ID
 - Restart your machine manually
 -  Install flavour of Linux from Microsoft Store
 -  Launch the flavour and configure it
