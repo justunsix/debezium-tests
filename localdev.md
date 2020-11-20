@@ -105,13 +105,13 @@ Remove Hyper-V configured VM or delete VirtualBox VM
 
 ## Update
 - Try installing package updates executing this command in terminal. The commands will check updates and then upgrade packages, then remove any unused packages due to upgrades.
-```
+```shell
 $ sudo apt update && sudo apt upgrade -y
 $ sudo apt-get autoremove
 ```
 - If there are proxy problems, follow the "Proxy set up" section below and try the command again.
 - Get SSH running for secure remote access
-```
+```shell
 $ sudo apt-get install openssh-server
 $ sudo service ssh status
 ```
@@ -123,13 +123,13 @@ You may have to set package manager proxy and HTTP/HTTPS proxy environment varia
 Example proxy setting for 204.1.1.129 3128
 
 Add these lines to etc/environment
-```
+```shell
 http_proxy=http://204.1.1.129 3128:3128/
 https_proxy=https://204.1.1.129 3128:3128/
 ```
 
 Set the proxy used by Aptitude package manager. Create a new file 'proxy.conf' under the '/etc/apt/apt.conf.d/' directory, and then add the following lines. e.g.
-```
+```shell
 $ sudo nano /etc/apt/apt.conf.d/proxy.conf
 # In editor, add these lines
 Acquire {
