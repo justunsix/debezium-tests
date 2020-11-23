@@ -38,7 +38,7 @@ Remote User Acceptance Testing
 
 
 ## Option 2 Local Command line 
-- Install Cygwin on local machine, get packages for curl, git, etc. or use cloud IDE, workspace e.g. [gitpod](https://gitpod.io/workspaces/)
+- Install Cygwin on local machine, get packages for curl, git, etc. and use cloud IDE, workspace e.g. [Gitpod](https://gitpod.io/workspaces/), [Cloud9](https://aws.amazon.com/cloud9/), [Google Cloud Shell (includes Docker)](https://cloud.google.com/shell)
 - Local dev reuses existing Linux VMs or container hosting for sandbox development
 
 ### Linux VM setup
