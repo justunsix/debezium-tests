@@ -1,7 +1,7 @@
 # Steps to set up a sandbox environment to test debezium
 
 My team runs a Windows only environment, so instructions are focusing on Windows. 
-Ideally, the sandbox environment should run Linux natively with the developer having sudo (administrative) privleges.
+Ideally, a sandbox environment should run Linux with the developer having sudo (administrative) privleges.
 
 # Docker, Windows Subsystem for Linux (WSL)
 - Install WSL using Microsoft's [Windows Subsystem for Linux for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md) by following [Get started using Docker contianers with WSL](https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers) that covers on WSL, Windows Terminal, VS Code IDE, and Docker setup on Windows. 
@@ -21,20 +21,20 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
      // Path to the git executable
      "git.path": "C:\\usr\\bin\\ptbl\\PortableApps\\PortableGit\\bin\\git.exe",
      ```
-  - If using a proxy, set proxy settings for [git, Aptitude, and other tools](https://github.com/justintungonline/debezium-tests/blob/main/localdev.md#proxy-set-up)
+  - If using a proxy, set proxy settings for [git, Advanced Package Tool (apt), and other tools](https://github.com/justintungonline/debezium-tests/blob/main/localdev.md#proxy-set-up)
   - Create new or use existing Docker Hub ID
 - Restart your machine manually
 -  Install a Linux distribution (e.g. Ubuntu LTS, Fedora Remix) from Microsoft Store
 -  Launch Linux and configure it
 
-# Kubernetes
+# A. Kubernetes
 - [Debezium Openshift install](https://debezium.io/documentation/reference/operations/openshift.html)
 - Install a Kubernetes cluster for development or use a remote cluster such as the [Openshift 3.11 Playground for 1 hour usage](https://learn.openshift.com/playgrounds/openshift311/).
 
-## Kubernetes
+## A.1 Kubernetes local
 - Install [Docker desktop Kubernetes](https://docs.docker.com/docker-for-windows/#kubernetes)
 
-## Openshift
+## A.2 Openshift local
 - Install [Minishift 3.11](https://docs.okd.io/3.11/minishift/index.html)
 - [Openshift 3.11 CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html)
 
@@ -43,13 +43,13 @@ Remote User Acceptance Testing
 2.	If the operator is installed in a different namespace (e.g. strimzi-operator), grant persmissions for your user to use it. It is a cluster wide operator. Specify the namespace to use it - e.g.: `oc process strimzi-operator//strimzi-ephemeral ....`
 
 
-## Option 2 Local Command line 
+# Local Command line 
 - Install Cygwin on local machine, get packages for curl, git, etc. and use cloud IDE, workspace e.g. [Gitpod](https://gitpod.io/workspaces/), [Cloud9](https://aws.amazon.com/cloud9/), [Google Cloud Shell (includes Docker)](https://cloud.google.com/shell)
-- Local dev reuses existing Linux VMs or container hosting for sandbox development
+- Local development can reuse existing Linux VMs or container hosting for sandbox development
 
-### Linux VM setup
+# Linux VM setup
 
-#### Installing a Linux Virtual Machine on Windows 10 with Linux Virtual Machine
+## Installing a Linux Virtual Machine on Windows 10 with Linux Virtual Machine
 1. Get Installation Binaries
 - Ubuntu latest LTS 64 bit
 - Hyper V or Virtualbox
@@ -65,7 +65,7 @@ Remote User Acceptance Testing
 
 - When your VM is started, open your terminal and try to connect: `ssh yourusername@127.0.0.1 -p 2222`
 
-#### Guide to create the Linux VM on Hyper-V
+## Guide to create the Linux VM on Hyper-V
 Follow steps at [Run Linux Hyper-V](https://www.nakivo.com/blog/run-linux-hyper-v/)
 Settings used during the set up were:
 - Specific Name and Location: Ubuntu 18 and use default VM location on Windows 'C:\ProgramData\Microsoft\Windows\Hyper-V\'
@@ -80,34 +80,36 @@ Settings used during the set up were:
 - Run the VM by right click on the VM then Connect.
 - To get IP of machine using ifconfig. IP is assigned by default switch in Hyper-V. Use external switch if external IPs are required.
 
-### Troubleshooting VM Install
+## Troubleshooting VM Install
+Issues that might be encountered
 
-#### Setup - Windows 10 machine
+### Setup - Windows 10 machine
 Example specifications for the host of the Linux VM
 - Uses Processor - [Intel(R) Xeon(R) CPU E5-2690](https://ark.intel.com/content/www/us/en/ark/products/64596/intel-xeon-processor-e5-2690-20m-cache-2-90-ghz-8-00-gt-s-intel-qpi.html) v4 @ 2.60GHz, 2600 Mhz, 2 Core(s), 2 Logical Processor(s).  
 - 4 GB RAM
 - Intel® Virtualization Technology (VT-x) is supported, so 64 bit guests are supported on it.
 - Only has limited GB free, may need to free space in future for use
 
-#### Virtualbox cannot detect 64 bit. 
+### Virtualbox cannot detect 64 bit. 
 Follow these steps [on VirtualBox forums](https://forums.virtualbox.org/viewtopic.php?f=1&t=62339)
 
-#### Nested virtualization
-From error messages like 
+### Nested virtualization
+You are receiving error messages like:
 - VT-X is not enabled
 - Not Hyper-V CPUID signature: 0x61774d56 0x4d566572 0x65726177 (expected 0x7263694d 0x666f736f 0x76482074) (VERR_NEM_NOT_AVAILABLE).
 - VT-x is not available (VERR_VMX_NO_VMX)
-##### About the issue and suggested fixes
+#### About the issue and suggested fixes
 - [Run a nester VM on KVM QEMU VM in Hyper-V](https://timothygruber.com/hyper-v-2/run-a-nested-vm-on-kvm-qemu-vm-in-hyper-v/)
 - [Microsoft Hyper-V on Windows User Guide, nested virtualization](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/nested-virtualization)
 - [Remove App & Browser settings for VMcompute and related executables](https://stackoverflow.com/questions/41182714/unable-to-start-docker-in-windows-10-hyper-v-error-is-thrown), Restart VMM
 
-#### VM Clean up
+## VM Clean up
 Remove Hyper-V configured VM or delete VirtualBox VM
 
 # Linux setup
 
 ## Update
+- Assume Linux is Debian/Ubuntu distribution
 - Try installing package updates executing this command in terminal. The commands will check updates and then upgrade packages, then remove any unused packages due to upgrades.
 ```shell
 $ sudo apt update && sudo apt upgrade -y
