@@ -8,7 +8,7 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
   - Enable virtualization on local machine BIOS
   - Ubuntu 20.04 LTS was used for set up
   - Windows Terminal
-  - VS Code 
+  - VS Code with extensions:
     - [WSL Remote Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) - enables you to open your Linux project running on WSL in VS Code (no need to worry about pathing issues, binary compatibility, or other cross-OS challenges)
     - [Remote-Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) - enables you to open your project folder or repo inside of a container, taking advantage of Visual Studio Code's full feature set to do your development work within the container.
     - [Docker extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker) - adds the functionality to build, manage, and deploy containerized applications from inside VS Code. (You need the Remote-Container extension to actually use the container as your dev environment.)
@@ -21,11 +21,11 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
      // Path to the git executable
      "git.path": "C:\\usr\\bin\\ptbl\\PortableApps\\PortableGit\\bin\\git.exe",
      ```
-  - If using a proxy, set proxy settings for [git and other tools](https://github.com/justintungonline/debezium-tests/blob/main/localdev.md#proxy-set-up)
+  - If using a proxy, set proxy settings for [git, Aptitude, and other tools](https://github.com/justintungonline/debezium-tests/blob/main/localdev.md#proxy-set-up)
   - Create new or use existing Docker Hub ID
 - Restart your machine manually
--  Install flavour of Linux from Microsoft Store
--  Launch the flavour and configure it
+-  Install a Linux distribution (e.g. Ubuntu LTS, Fedora Remix) from Microsoft Store
+-  Launch Linux and configure it
 
 ### Openshift Specific
 
@@ -34,8 +34,7 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
 
 Remote User Acceptance Testing
 1. Install Version 0.20 of the Strimzi operator > [installation options](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs#install-strimzi-operator)
-2.	You will not be able to see the operator as it is installed in a different namespace called strimzi-operator.  You have permissions to use it, not see it. You have to specify the namespace, for example:
-`oc process strimzi-operator//strimzi-ephemeral ....`
+2.	If the operator is installed in a different namespace (e.g. strimzi-operator), grant persmissions for your user to use it. It is a cluster wide operator. Specify the namespace to use it - e.g.: `oc process strimzi-operator//strimzi-ephemeral ....`
 
 
 ## Option 2 Local Command line 
