@@ -14,7 +14,7 @@ Ideally, a sandbox environment should run Linux with the developer having sudo (
     - [Docker extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker) - adds the functionality to build, manage, and deploy containerized applications from inside VS Code. (You need the Remote-Container extension to actually use the container as your dev environment.)
     - [Github Pull request extension](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
       - Set git path, e.g. edit settings.json 
-     ```
+     ```json
      // Is git enabled
      "git.enabled": true,
 
@@ -111,13 +111,13 @@ Remove Hyper-V configured VM or delete VirtualBox VM
 ## Update
 - Assume Linux is Debian/Ubuntu distribution
 - Try installing package updates executing this command in terminal. The commands will check updates and then upgrade packages, then remove any unused packages due to upgrades.
-```shell
+```sh
 sudo apt update && sudo apt upgrade -y
 sudo apt-get autoremove
 ```
 - If there are proxy problems, follow the "Proxy set up" section below and try the command again.
 - Get SSH running for secure remote access
-```shell
+```sh
 sudo apt-get install openssh-server
 sudo service ssh status
 ```
@@ -129,13 +129,13 @@ You may have to set package manager proxy and HTTP/HTTPS proxy environment varia
 Example proxy setting for 204.40.130.129 port 3128
 
 Add these lines to etc/environment
-```shell
+```sh
 http_proxy=http://204.40.130.129 3128:3128/
 https_proxy=https://204.40.130.129 3128:3128/
 ```
 
 Set the proxy used by Aptitude package manager. Create a new file 'proxy.conf' under the '/etc/apt/apt.conf.d/' directory, and then add the following lines. e.g.
-```shell
+```sh
 sudo nano /etc/apt/apt.conf.d/proxy.conf
 # In editor, add these lines
 Acquire {
@@ -144,7 +144,7 @@ Acquire {
 }
 ```
 For temporary proxy settings, use the following on the commmand line
-```shell 
+```sh
 export http_proxy=http://204.40.130.129:3128
 export https_proxy=http://204.40.130.129:3128
 # git proxy
