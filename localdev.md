@@ -3,7 +3,7 @@
 My team runs a Windows only environment, so instructions are focusing on Windows. 
 Ideally, the sandbox environment should run Linux natively with the developer having sudo (administrative) privleges.
 
-## Option 1 Windows Subsystem for Linux (WSL)
+# Docker, Windows Subsystem for Linux (WSL)
 - Install WSL using Microsoft's [Windows Subsystem for Linux for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md) by following [Get started using Docker contianers with WSL](https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers) that covers on WSL, Windows Terminal, VS Code IDE, and Docker setup on Windows. 
   - Enable virtualization on local machine BIOS
   - Ubuntu 20.04 LTS was used for set up
@@ -27,10 +27,16 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
 -  Install a Linux distribution (e.g. Ubuntu LTS, Fedora Remix) from Microsoft Store
 -  Launch Linux and configure it
 
-### Openshift Specific
-
-- [Openshift 3.11 CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html)
+# Kubernetes
 - [Debezium Openshift install](https://debezium.io/documentation/reference/operations/openshift.html)
+- Install a Kubernetes cluster for development or use a remote cluster such as the [Openshift 3.11 Playground for 1 hour usage](https://learn.openshift.com/playgrounds/openshift311/).
+
+## Kubernetes
+- Install [Docker desktop Kubernetes](https://docs.docker.com/docker-for-windows/#kubernetes)
+
+## Openshift
+- Install [Minishift 3.11](https://docs.okd.io/3.11/minishift/index.html)
+- [Openshift 3.11 CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html)
 
 Remote User Acceptance Testing
 1. Install Version 0.20 of the Strimzi operator > [installation options](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs#install-strimzi-operator)
