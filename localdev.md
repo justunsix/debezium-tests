@@ -129,7 +129,7 @@ You may have to set package manager proxy and HTTP/HTTPS proxy environment varia
 
 Example proxy setting for 204.40.130.129 port 3128
 
-Add these lines to etc/environment
+Add these lines to etc/environment or shell initialization like ~/.bashrc
 ```sh
 http_proxy=http://204.40.130.129 3128:3128/
 https_proxy=https://204.40.130.129 3128:3128/
@@ -144,12 +144,25 @@ Acquire {
   HTTPS::proxy "http://204.40.130.129:3128";
 }
 ```
-For temporary proxy settings, use the following on the commmand line
+
+### Temporary proxy settings
+#### Set
+
 ```sh
 export http_proxy=http://204.40.130.129:3128
 export https_proxy=http://204.40.130.129:3128
 # git proxy
 git config --global http.proxy http://204.40.130.129:3128
+```
+
+#### Unset (remove proxy settings)
+
+```sh
+# remove system proxy
+unset http_proxy
+unset https_proxy
+# remove git proxy
+git config --global --unset http.proxy  
 ```
 
 ## Install Docker 
