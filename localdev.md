@@ -112,14 +112,14 @@ Remove Hyper-V configured VM or delete VirtualBox VM
 - Assume Linux is Debian/Ubuntu distribution
 - Try installing package updates executing this command in terminal. The commands will check updates and then upgrade packages, then remove any unused packages due to upgrades.
 ```shell
-$ sudo apt update && sudo apt upgrade -y
-$ sudo apt-get autoremove
+sudo apt update && sudo apt upgrade -y
+sudo apt-get autoremove
 ```
 - If there are proxy problems, follow the "Proxy set up" section below and try the command again.
 - Get SSH running for secure remote access
 ```shell
-$ sudo apt-get install openssh-server
-$ sudo service ssh status
+sudo apt-get install openssh-server
+sudo service ssh status
 ```
 
 ## Proxy set up
@@ -130,13 +130,13 @@ Example proxy setting for 204.40.130.129 port 3128
 
 Add these lines to etc/environment
 ```shell
-$ http_proxy=http://204.40.130.129 3128:3128/
-$ https_proxy=https://204.40.130.129 3128:3128/
+http_proxy=http://204.40.130.129 3128:3128/
+https_proxy=https://204.40.130.129 3128:3128/
 ```
 
 Set the proxy used by Aptitude package manager. Create a new file 'proxy.conf' under the '/etc/apt/apt.conf.d/' directory, and then add the following lines. e.g.
 ```shell
-$ sudo nano /etc/apt/apt.conf.d/proxy.conf
+sudo nano /etc/apt/apt.conf.d/proxy.conf
 # In editor, add these lines
 Acquire {
   HTTP::proxy "http://204.40.130.129:3128";
@@ -145,10 +145,10 @@ Acquire {
 ```
 For temporary proxy settings, use the following on the commmand line
 ```shell 
-$ export http_proxy=http://204.40.130.129:3128
-$ export https_proxy=http://204.40.130.129:3128
+export http_proxy=http://204.40.130.129:3128
+export https_proxy=http://204.40.130.129:3128
 # git proxy
-$ git config --global http.proxy http://204.40.130.129:3128
+git config --global http.proxy http://204.40.130.129:3128
 ```
 
 ## Install Docker 
