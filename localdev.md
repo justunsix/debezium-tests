@@ -21,7 +21,7 @@ Ideally, the sandbox environment should run Linux natively with the developer ha
      // Path to the git executable
      "git.path": "C:\\usr\\bin\\ptbl\\PortableApps\\PortableGit\\bin\\git.exe",
      ```
-  - If using a proxy, set proxy settings for git and other tools
+  - If using a proxy, set proxy settings for [git and other tools](https://github.com/justintungonline/debezium-tests/blob/main/localdev.md#proxy-set-up)
   - Create new or use existing Docker Hub ID
 - Restart your machine manually
 -  Install flavour of Linux from Microsoft Store
@@ -55,16 +55,15 @@ Remote User Acceptance Testing
 - Note the VB installation will temporarily disconnect the network. Simply reconnect to your remote server if needed.
 3. Create Linux Virtual Machine
 - Resources:
-  - https://medium.com/nycdev/how-to-ssh-from-a-host-to-a-guest-vm-on-your-local-machine-6cb4c91acc2e written for VirtualBox v6 and Ubuntu 18.04 LTS
-  - Activate SSH using Virtualbox port forwarding and configure guest machine network. Alternate instructions at 
-https://medium.com/@pierangelo1982/setting-ssh-connection-to-ubuntu-on-virtualbox-af243f737b8b 
+  - [How to ssh from host to guest VM on local](https://medium.com/nycdev/how-to-ssh-from-a-host-to-a-guest-vm-on-your-local-machine-6cb4c91acc2e) written for VirtualBox v6 and Ubuntu 18.04 LTS
+  - Activate SSH using Virtualbox port forwarding and configure guest machine network. Alternate instructions at [setting sshe connection to Ubuntu on VirtualBox](https://medium.com/@pierangelo1982/setting-ssh-connection-to-ubuntu-on-virtualbox-af243f737b8b)
 
 - When your VM is started, open your terminal and try to connect: `ssh yourusername@127.0.0.1 -p 2222`
 
 #### Guide to create the Linux VM on Hyper-V
-Follow steps at https://www.nakivo.com/blog/run-linux-hyper-v/  
+Follow steps at [Run Linux Hyper-V](https://www.nakivo.com/blog/run-linux-hyper-v/)
 Settings used during the set up were:
-- Specific Name and Location: Ubuntu 18 and use default VM location on Windows C:\ProgramData\Microsoft\Windows\Hyper-V\
+- Specific Name and Location: Ubuntu 18 and use default VM location on Windows 'C:\ProgramData\Microsoft\Windows\Hyper-V\'
 - Specify Generation: 1 for compatibility reasons
 - Assign Memory: 2 GB 
 - 2048 mb or half of host OS
@@ -80,13 +79,13 @@ Settings used during the set up were:
 
 #### Setup - Windows 10 machine
 Example specifications for the host of the Linux VM
-- Uses Processor - Intel(R) Xeon(R) CPU E5-2690 v4 @ 2.60GHz, 2600 Mhz, 2 Core(s), 2 Logical Processor(s). https://ark.intel.com/content/www/us/en/ark/products/64596/intel-xeon-processor-e5-2690-20m-cache-2-90-ghz-8-00-gt-s-intel-qpi.html 
+- Uses Processor - [Intel(R) Xeon(R) CPU E5-2690](https://ark.intel.com/content/www/us/en/ark/products/64596/intel-xeon-processor-e5-2690-20m-cache-2-90-ghz-8-00-gt-s-intel-qpi.html) v4 @ 2.60GHz, 2600 Mhz, 2 Core(s), 2 Logical Processor(s).  
 - 4 GB RAM
 - Intel® Virtualization Technology (VT-x) is supported, so 64 bit guests are supported on it.
 - Only has limited GB free, may need to free space in future for use
 
 #### Virtualbox cannot detect 64 bit. 
-Follow these steps https://forums.virtualbox.org/viewtopic.php?f=1&t=62339 
+Follow these steps [on VirtualBox forums](https://forums.virtualbox.org/viewtopic.php?f=1&t=62339)
 
 #### Nested virtualization
 From error messages like 
@@ -94,9 +93,9 @@ From error messages like
 - Not Hyper-V CPUID signature: 0x61774d56 0x4d566572 0x65726177 (expected 0x7263694d 0x666f736f 0x76482074) (VERR_NEM_NOT_AVAILABLE).
 - VT-x is not available (VERR_VMX_NO_VMX)
 ##### About the issue and suggested fixes
-- https://timothygruber.com/hyper-v-2/run-a-nested-vm-on-kvm-qemu-vm-in-hyper-v/ 
-- https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/nested-virtualization 
-- Remove App & Browser settings for VMcompute and related executables: https://stackoverflow.com/questions/41182714/unable-to-start-docker-in-windows-10-hyper-v-error-is-thrown , Restart VMM
+- [Run a nester VM on KVM QEMU VM in Hyper-V](https://timothygruber.com/hyper-v-2/run-a-nested-vm-on-kvm-qemu-vm-in-hyper-v/)
+- [Microsoft Hyper-V on Windows User Guide, nested virtualization](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/nested-virtualization)
+- [Remove App & Browser settings for VMcompute and related executables](https://stackoverflow.com/questions/41182714/unable-to-start-docker-in-windows-10-hyper-v-error-is-thrown), Restart VMM
 
 #### VM Clean up
 Remove Hyper-V configured VM or delete VirtualBox VM
@@ -124,8 +123,8 @@ Example proxy setting for 204.1.1.129 3128
 
 Add these lines to etc/environment
 ```shell
-http_proxy=http://204.1.1.129 3128:3128/
-https_proxy=https://204.1.1.129 3128:3128/
+$ http_proxy=http://204.1.1.129 3128:3128/
+$ https_proxy=https://204.1.1.129 3128:3128/
 ```
 
 Set the proxy used by Aptitude package manager. Create a new file 'proxy.conf' under the '/etc/apt/apt.conf.d/' directory, and then add the following lines. e.g.
@@ -139,10 +138,11 @@ Acquire {
 ```
 For temporary proxy settings, use the following on the commmand line
 ```shell 
-export http_proxy=http://204.1.1.129:3128
-export https_proxy=http://204.1.1.129:3128
+$ export http_proxy=http://204.1.1.129:3128
+$ export https_proxy=http://204.1.1.129:3128
+# git proxy
+$ git config --global http.proxy http://204.1.1.129:3128
 ```
 
 ## Install Docker 
-Use instructions provided by Docker
-https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository 
+Use [install instructions provided by Docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
