@@ -27,7 +27,7 @@ Ideally, a sandbox environment should run Linux with the developer having sudo (
 -  Install a Linux distribution (e.g. Ubuntu LTS, Fedora Remix) from Microsoft Store
 -  Launch Linux and configure it
 
-# A. Kubernetes
+# A. Kubernetes (K8S)
 - [Debezium Openshift install](https://debezium.io/documentation/reference/operations/openshift.html)
 - Install a Kubernetes cluster for development or use a remote cluster such as the [Openshift 3.11 Playground for 1 hour usage](https://learn.openshift.com/playgrounds/openshift311/).
 
@@ -37,6 +37,7 @@ Ideally, a sandbox environment should run Linux with the developer having sudo (
 ## A.2 Openshift local
 - Install [Minishift 3.11](https://docs.okd.io/3.11/minishift/index.html)
 - [Openshift 3.11 CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html)
+- [Debezium Openshift install with Strimzi operator and MS SQL connector](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs)
 
 Remote User Acceptance Testing
 1. Install Version 0.20 of the Strimzi operator > [installation options](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs#install-strimzi-operator)
