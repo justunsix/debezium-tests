@@ -179,3 +179,19 @@ git config --global --unset http.proxy
 
 ## Install Docker 
 Use [install instructions provided by Docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+
+# Conectivity
+
+## Check connectivity to MS SQL database and Azure Events Hubs Kakfa endpoint
+
+Windows
+```sh
+tnc -ComputerName "eventhub-dev.servicebus.windows.net" -InformationLevel "Detailed" -Port 9093
+tnc -ComputerName "192.168.2.1" -InformationLevel "Detailed" -Port 1433
+```
+
+Linux
+```sh
+telnet eventhub-dev.servicebus.windows.net 9093
+telnet 192.168.2.1 1433
+```
