@@ -37,7 +37,19 @@ Ideally, a sandbox environment should run Linux with the developer having sudo (
 ## A.2 Openshift local
 - Install [Minishift 3.11](https://docs.okd.io/3.11/minishift/index.html)
 - [Openshift 3.11 CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html)
+
+# Debezium, Azure Event Hubs Set up
+
+## High level steps
+1. Install Strimzi Cluster Operator
+2. Build Debezium image with connectors needed
+3. Set configuration files with Azure Event Hubs and database connections
+4. Set up Kafka Connect Cluster with image and configuration files
+5. Test changes
+
+## Resources
 - [Debezium Openshift install with Strimzi operator and MS SQL connector](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs)
+- [Kafka Connect on Kubernetes the easy way](https://itnext.io/kafka-connect-on-kubernetes-the-easy-way-b5b617b7d5e9)
 
 Remote User Acceptance Testing
 1. Install Version 0.20 of the Strimzi operator > [installation options](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs#install-strimzi-operator)
