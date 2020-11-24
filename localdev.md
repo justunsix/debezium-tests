@@ -184,14 +184,20 @@ Use [install instructions provided by Docker](https://docs.docker.com/engine/ins
 
 ## Check connectivity to MS SQL database and Azure Events Hubs Kakfa endpoint
 
-Windows
+### Windows
 ```sh
 tnc -ComputerName "eventhub-dev.servicebus.windows.net" -InformationLevel "Detailed" -Port 9093
 tnc -ComputerName "192.168.2.1" -InformationLevel "Detailed" -Port 1433
 ```
 
-Linux
+### Linux
+#### Telnet
 ```sh
 telnet eventhub-dev.servicebus.windows.net 9093
 telnet 192.168.2.1 1433
 ```
+#### Ncat aka nc
+
+```sh
+nc -vz eventhub-dev.servicebus.windows.net 9093
+nc -vz 192.168.2.1 1433
