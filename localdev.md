@@ -201,3 +201,14 @@ telnet 192.168.2.1 1433
 ```sh
 nc -vz eventhub-dev.servicebus.windows.net 9093
 nc -vz 192.168.2.1 1433
+```
+
+#### curl
+
+```sh
+curl -v telnet://142.1.1.1:1433
+
+* About to connect() to 142.1.1.1 port 1433 (#0)
+*   Trying 142.1.1.1...
+^C
+```
