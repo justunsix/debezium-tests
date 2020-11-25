@@ -182,7 +182,7 @@ Use [install instructions provided by Docker](https://docs.docker.com/engine/ins
 
 # Conectivity
 
-## Check connectivity to MS SQL database and Azure Events Hubs Kakfa endpoint
+## Check connectivity to databases and Kakfa endpoints
 
 ### Windows
 ```sh
