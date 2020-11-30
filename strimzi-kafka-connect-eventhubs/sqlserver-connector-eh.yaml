@@ -1,0 +1,34 @@
+apiVersion: kafka.strimzi.io/v1alpha1
+kind: KafkaConnector
+metadata:
+  name: azure-sql-connector
+  labels:
+    strimzi.io/cluster: kafka-connect-cluster-debezium
+spec:
+  class: io.debezium.connector.sqlserver.SqlServerConnector
+  tasksMax: 1
+  config:
+    database.hostname: "cdctestsmi.public.144a376e88cf.database.windows.net" 
+    database.port: "3342"
+    database.dbname: "cdcKafka"
+    database.server.name: "cdctestsmi"
+    database.user: ${file:/opt/kafka/external-configuration/connector-config/sqlserver-credentials.properties:database.user}
+    database.password: ${file:/opt/kafka/external-configuration/connector-config/sqlserver-credentials.properties:database.password}
+    table.include.list: "dbo.Persons"
+    include.schema.changes: "true" 
+    
+
+    # NOT inMemory but requires CDC Configs bug fixed https://github.com/Azure/azure-event-hubs-for-kafka/issues/61
+    database.history.kafka.topic: "cdc-updates"
+    database.history.kafka.bootstrap.servers: "kafkastore.servicebus.windows.net:9093"
+    database.history.security.protocol: "SASL_SSL"
+    database.history.sasl.mechanism: "PLAIN"
+    database.history.sasl.jaas.config: "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\" password=\"Endpoint=sb://kafkastore.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=\";"
+
+    database.history.producer.security.protocol: "SASL_SSL"
+    database.history.producer.sasl.mechanism: "PLAIN"
+    database.history.producer.sasl.jaas.config: "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\" password=\"Endpoint=sb://kafkastore.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=\";"
+
+    database.history.consumer.security.protocol: "SASL_SSL"
+    database.history.consumer.sasl.mechanism: "PLAIN"
+    database.history.consumer.sasl.jaas.config: "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\" password=\"Endpoint=sb://kafkastore.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=\";"

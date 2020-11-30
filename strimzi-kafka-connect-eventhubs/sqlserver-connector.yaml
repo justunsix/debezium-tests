@@ -1,0 +1,21 @@
+apiVersion: kafka.strimzi.io/v1alpha1
+kind: KafkaConnector
+metadata:
+  name: azure-sql-connector
+  labels:
+    strimzi.io/cluster: kafka-connect-cluster-debezium
+spec:
+  class: io.debezium.connector.sqlserver.SqlServerConnector
+  tasksMax: 1
+  config:
+    database.hostname: "cdctestsmi.public.144a376e88cf.database.windows.net" 
+    database.port: "3342"
+    database.dbname: "cdcKafka"
+    database.server.name: "cdctestsmi"
+    database.user: ${file:/opt/kafka/external-configuration/connector-config/sqlserver-credentials.properties:database.user}
+    database.password: ${file:/opt/kafka/external-configuration/connector-config/sqlserver-credentials.properties:database.password}
+    table.include.list: "dbo.Persons"
+    database.history.kafka.topic: "cdc-updates"
+    include.schema.changes: "true" 
+    database.history: "io.debezium.relational.history.MemoryDatabaseHistory"
+    errors.log.enable: "true"
