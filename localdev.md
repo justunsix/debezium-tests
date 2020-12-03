@@ -41,13 +41,13 @@ Ideally, a sandbox environment should run Linux with the developer having sudo (
 # Debezium, Azure Event Hubs Set up
 
 ## High level steps
-1. Install Strimzi Cluster Operator
+1. [Install Strimzi Cluster Operator](https://strimzi.io/docs/operators/latest/quickstart.html)
 2. Build Debezium image with connectors needed
 3. Set configuration files with Azure Event Hubs and database connections
 4. Set up Kafka Connect Cluster with image and configuration files
 5. Test changes
 
-## Resources
+## Tutorials on Above Steps
 - [Debezium Openshift install with Strimzi operator and MS SQL connector](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs)
 - [Kafka Connect on Kubernetes the easy way](https://itnext.io/kafka-connect-on-kubernetes-the-easy-way-b5b617b7d5e9)
 
