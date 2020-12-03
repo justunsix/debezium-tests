@@ -32,7 +32,7 @@ Ideally, a sandbox environment should run Linux with the developer having sudo (
 - Install a Kubernetes cluster for development or use a remote cluster such as the [Openshift 3.11 Playground for 1 hour usage](https://learn.openshift.com/playgrounds/openshift311/).
 
 ## A.1 Kubernetes local
-- Install [Docker desktop Kubernetes](https://docs.docker.com/docker-for-windows/#kubernetes)
+- Install [Docker desktop Kubernetes](https://docs.docker.com/docker-for-windows/#kubernetes) which includes [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
 
 ## A.2 Openshift local
 - Install [Minishift 3.11](https://docs.okd.io/3.11/minishift/index.html)
