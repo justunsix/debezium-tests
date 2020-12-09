@@ -1,8 +1,5 @@
 Original files based on a split from this github repository https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs
 
-# TODO 
-- placeholder
-
 # Streaming CDC changes to Azure Event Hubs using Strimzi and Debezium
 
 Table of contents
@@ -385,7 +382,9 @@ https://github.com/Azure/azure-event-hubs-for-kafka/issues/61
 ## Details
 
 Configuration and Envrionment details for a Openshift deployment
-Pod scaling is 1
+- Pod scaling is 1
+- Burst quota is 2 cores and 8 GB memory
+- 
 
 ```
 Selectors:
@@ -451,5 +450,6 @@ Secret:
 - KAFKA_CONNECT_TLS = true
 - KAFKA_CONNECT_SASL_USERNAME = $ConnectionString
 - KAFKA_CONNECT_SASL_MECHANISM = plain
-- KAFKA_CONNECT_SASL_PASSWORD_FILE = <set to secret and its variable name stored in Kubernetes>
+- KAFKA_CONNECT_SASL_PASSWORD_FILE = <set to Kubernetes secret and variable in secret>
 ```
+- About [Kubernetes secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
