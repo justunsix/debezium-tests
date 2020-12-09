@@ -384,6 +384,10 @@ https://github.com/Azure/azure-event-hubs-for-kafka/issues/61
 
 ## Details
 
+Configuration and Envrionment details for a Openshift deployment
+Pod scaling is 1
+
+```
 Selectors:
     strimzi.io/cluster=connect-cluster-debezium
     strimzi.io/kind=KafkaConnect
@@ -435,8 +439,10 @@ Type:
     secret (populated by a secret when the pod is created) 
 Secret:
     sql-credentials 
+```
 
 ## Environment Settings
+```
 - KAFKA_CONNECT_CONFIGURATION = offset.storage.topic=connect-cluster-offsetsvalue.converter=org.apache.kafka.connect.json.JsonConverterconfig.storage.topic=connect-cluster-configskey.converter=org.apache.kafka.connect.json.JsonConvertergroup.id=connect-clusterstatus.storage.topic=connect-cluster-statusconfig.providers=fileconfig.providers.file.class=org.apache.kafka.common.config.provider.FileConfigProviderconfig.storage.replication.factor=1key.converter.schemas.enable=falseoffset.storage.replication.factor=1status.storage.replication.factor=1value.converter.schemas.enable=false
 - KAFKA_CONNECT_METRICS_ENABLED = false
 - KAFKA_CONNECT_BOOTSTRAP_SERVERS = <set to Event Hub address
@@ -446,3 +452,4 @@ Secret:
 - KAFKA_CONNECT_SASL_USERNAME = $ConnectionString
 - KAFKA_CONNECT_SASL_MECHANISM = plain
 - KAFKA_CONNECT_SASL_PASSWORD_FILE = <set to secret and its variable name stored in Kubernetes>
+```
