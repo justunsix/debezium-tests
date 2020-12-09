@@ -1,7 +1,7 @@
 Original files based on a split from this github repository https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs
 
 # TODO 
-- Store multiple secrets in one file (e.g. different DB connections)
+- placeholder
 
 # Streaming CDC changes to Azure Event Hubs using Strimzi and Debezium
 
@@ -74,7 +74,7 @@ helm install strimzi-kafka strimzi/strimzi-kafka-operator
 or [Running Debezium on OpenShift](https://debezium.io/documentation/reference/operations/openshift.html)
 
 ```sh
-export STRIMZI_VERSION=0.19.0
+export STRIMZI_VERSION=0.20.0
 git clone -b $STRIMZI_VERSION https://github.com/strimzi/strimzi-kafka-operator
 cd strimzi-kafka-operator
 
@@ -87,10 +87,10 @@ oc create -f install/cluster-operator && oc create -f examples/templates/cluster
 
 KafkaConnect Loads Connectors from its internal `plugin.path`. Debezium is the most popular connector for CDC capture from various Databases.
 
-The default KafkaConnect image does not include Debezium connector so we need extend the image. `Dockerfile` in this repo demonstrates the technique, using as base image versions that installed Operator supports:
+The default KafkaConnect image does not include Debezium connector so we need extend the image. `Dockerfile` in this repo demonstrates the technique. Note for Debezium some connector version may have issues with your environment and require changing the version to have it work. The following Dockerfile use base image version that the installed Operator supports:
 
 ```Dockerfile
-FROM strimzi/kafka:0.19.0-kafka-2.5.0
+FROM strimzi/kafka:0.20.0-kafka-2.5.0
 USER root:root
 RUN mkdir -p /opt/kafka/plugins/debezium
 
