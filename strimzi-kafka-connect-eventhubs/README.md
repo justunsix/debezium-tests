@@ -382,9 +382,10 @@ https://github.com/Azure/azure-event-hubs-for-kafka/issues/61
 ## Details
 
 Configuration and Envrionment details for a Openshift deployment
-- Pod scaling is 1
-- Burst quota is 2 cores and 8 GB memory
-- 
+- Pod scaling: 1
+- Burst quota: 2 cores and 8 GB memory
+- One endpoint: connect-cluster-debezium-connect-api
+
 
 ```
 Selectors:
