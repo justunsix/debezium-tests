@@ -379,3 +379,70 @@ Known bugs with history table and workaround:
 https://github.com/Azure/azure-event-hubs-for-kafka/issues/53
 
 https://github.com/Azure/azure-event-hubs-for-kafka/issues/61
+
+# Appendix - Example Openshift Settings
+
+## Details
+
+Selectors:
+    strimzi.io/cluster=connect-cluster-debezium
+    strimzi.io/kind=KafkaConnect
+    strimzi.io/name=connect-cluster-debezium-connect
+Replicas:
+    1 replica
+Strategy:
+    Rolling update
+Max Unavailable:
+    0 
+Max Surge:
+    1 
+Min Ready:
+    0 sec 
+Revision History Limit:
+    10 
+Progress Deadline:
+    600 sec 
+
+Template
+Containers
+connect-cluster-debezium-connect
+Image: <org name>/strimzi-kafka-connect-debezium:2.5.0-1.2.5 <versions of strimzi kafka connect and debezium connector used>
+Command: /opt/kafka/kafka_connect_run.sh
+Ports: 8083/TCP (rest-api)
+Mount: kafka-metrics-and-logging → /opt/kafka/custom-config/ read-write
+Mount: deveventhubssecret → /opt/kafka/connect-password/deveventhubssecret read-write
+Mount: ext-conf-connector-config → /opt/kafka/external-configuration/connector-config read-write
+CPU: 1 core to 2 cores
+Memory: 2 GiB to 2 GiB
+Readiness Probe: GET / on port rest-api (HTTP) 15s delay, 5s timeout
+Liveness Probe: GET / on port rest-api (HTTP) 15s delay, 5s timeout
+Volumes
+
+kafka-metrics-and-logging 
+Type:
+    config map (populated by a config map) 
+Config Map:
+    connect-cluster-debezium-connect-config
+
+deveventhubssecret 
+Type:
+    secret (populated by a secret when the pod is created) 
+Secret:
+    deveventhubssecret 
+
+ext-conf-connector-config 
+Type:
+    secret (populated by a secret when the pod is created) 
+Secret:
+    sql-credentials 
+
+## Environment Settings
+- KAFKA_CONNECT_CONFIGURATION = offset.storage.topic=connect-cluster-offsetsvalue.converter=org.apache.kafka.connect.json.JsonConverterconfig.storage.topic=connect-cluster-configskey.converter=org.apache.kafka.connect.json.JsonConvertergroup.id=connect-clusterstatus.storage.topic=connect-cluster-statusconfig.providers=fileconfig.providers.file.class=org.apache.kafka.common.config.provider.FileConfigProviderconfig.storage.replication.factor=1key.converter.schemas.enable=falseoffset.storage.replication.factor=1status.storage.replication.factor=1value.converter.schemas.enable=false
+- KAFKA_CONNECT_METRICS_ENABLED = false
+- KAFKA_CONNECT_BOOTSTRAP_SERVERS = <set to Event Hub address
+- STRIMZI_KAFKA_GC_LOG_ENABLED = false
+- KAFKA_HEAP_OPTS = -Xms1g -Xmx1g
+- KAFKA_CONNECT_TLS = true
+- KAFKA_CONNECT_SASL_USERNAME = $ConnectionString
+- KAFKA_CONNECT_SASL_MECHANISM = plain
+- KAFKA_CONNECT_SASL_PASSWORD_FILE = <set to secret and its variable name stored in Kubernetes>
