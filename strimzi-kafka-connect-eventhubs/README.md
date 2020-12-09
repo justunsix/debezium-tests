@@ -1,6 +1,7 @@
 Original files based on a split from this github repository https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs
 
-# TODO store multiple secrets in one file (e.g. different DB connections)
+# TODO 
+- Store multiple secrets in one file (e.g. different DB connections)
 
 # Streaming CDC changes to Azure Event Hubs using Strimzi and Debezium
 
