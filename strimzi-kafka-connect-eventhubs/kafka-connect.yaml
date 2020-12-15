@@ -33,6 +33,9 @@ spec:
       rootLogger.level: DEBUG
   resources:
     requests:
+      # 1 cpu = 1000 milicores
+      # 2 Gigibytes = 2048 mb
+      # requests will still be capped at pod level regardless of the request
       cpu: "1"
       memory: 2Gi
     limits:
