@@ -156,6 +156,9 @@ spec:
     loggers:
       rootLogger.level: DEBUG
   resources:
+    # Requests will still be limited by maximums/caps set at the Kubernetes level regardless of the request
+    # 1 cpu = 1000 milicores
+    # 2 Gigibytes = 2048 mb
     requests:
       cpu: "1"
       memory: 2Gi
