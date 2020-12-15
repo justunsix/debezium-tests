@@ -454,3 +454,11 @@ Secret:
 - KAFKA_CONNECT_SASL_PASSWORD_FILE = <set to Kubernetes secret and variable in secret>
 ```
 - About [Kubernetes secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
+
+## Sample Performance Data
+- With CDC for 3 SQL development databases with low change activity and send updates to 1 Event Hubs
+- Openshift performance monitor results over 1 week:
+  - Requests 2048 mb memory and uses ~900 mb on average
+  - Requests 1 cpu (1000 milicores) and only using 6-7 milicores on average
+  - On network sends 3.10 KiB/s and receives 3.10 KiB/s on average
+  - Usage is steady with no spikes for memory, cpu, and network
