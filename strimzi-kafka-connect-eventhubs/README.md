@@ -1,6 +1,6 @@
 Original files based on a split from this github repository https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs
 
-# Streaming CDC changes to Azure Event Hubs using Strimzi and Debezium
+# Streaming CDC changes to Azure Event Hubs using Strimzi and Debezium on Redhat Openshift
 
 Table of contents
 =================
