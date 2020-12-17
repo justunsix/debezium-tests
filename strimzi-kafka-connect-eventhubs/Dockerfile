@@ -1,6 +1,6 @@
 FROM strimzi/kafka:0.20.0-kafka-2.5.0
 USER root:root
-RUN mkdir -p /opt/kafka/plugins/debezium2
+RUN mkdir -p /opt/kafka/plugins/debezium325
 RUN mkdir -p /opt/kafka/plugins/debezium
 
 # Download and copy connector, latest was 1.3.0, using 1.2.5 due to issues with latest SQL connector
