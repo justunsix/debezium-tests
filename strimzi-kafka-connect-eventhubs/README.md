@@ -52,7 +52,6 @@ Create Azure EventHubs and take note of access keys
 ![Docs](./images/KafkaAccess.png)
 
 
-
 ## Install Strimzi Operator
 KafkaConnect with its connectors could be used as a middleman that would stream CDC events to Azure EventHubs Broker.
 To install Kafka connect we will use popular Strimzi operator but will only use CRDs to setup KafkaConnect and KafkaConnect SQL Connector.
@@ -91,17 +90,18 @@ FROM strimzi/kafka:0.20.0-kafka-2.5.0
 USER root:root
 RUN mkdir -p /opt/kafka/plugins/debezium
 
-# DOWNLOAD and copy connector
-RUN curl https://repo1.maven.org/maven2/io/debezium/debezium-connector-sqlserver/1.3.0.Final/debezium-connector-sqlserver-1.3.0.Final-plugin.tar.gz | tar xvz
+# Download and copy connector, latest was 1.3.0, using 1.2.5 due to issues with latest SQL connector
+RUN curl https://repo1.maven.org/maven2/io/debezium/debezium-connector-sqlserver/1.2.5.Final/debezium-connector-sqlserver-1.2.5.Final-plugin.tar.gz | tar xvz
 RUN mv ./debezium-connector-sqlserver/* /opt/kafka/plugins/debezium/ 
     
 USER 1001
 ```
 
-Buid and push the image (sample is using my repo on dockerhub)
-```
-docker build -t lenisha/kafka-connect-debezium:2.5.0-1.3.0 .
-docker push lenisha/kafka-connect-debezium:2.5.0-1.3.0
+In the directory where the Dockerfile is located, build and push the image (sample is using my repo on DockerHub)
+
+```sh
+docker build -t justintungonline/strimzi-kafka-connect-debezium:2.5.0-1.2.5 .
+docker push justintungonline/strimzi-kafka-connect-debezium:2.5.0-1.2.5
 ```
 
 ## Install Kafka Connect
