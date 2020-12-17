@@ -388,10 +388,8 @@ curl -s -X PUT -H "Content-Type:application/json"  http://kafka-connect-cluster-
 ```
 
 Known bugs with history table and workaround:
-
-https://github.com/Azure/azure-event-hubs-for-kafka/issues/53
-
-https://github.com/Azure/azure-event-hubs-for-kafka/issues/61
+- [Debezium CDC Connector to send Events to Kafka-Enabled Event Hub #53](https://github.com/Azure/azure-event-hubs-for-kafka/issues/53)
+- [Error "The broker does not support DESCRIBE_CONFIGS" #61](https://github.com/Azure/azure-event-hubs-for-kafka/issues/61)
 
 # Appendix - Example Openshift Settings
 
