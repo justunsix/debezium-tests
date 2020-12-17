@@ -6,7 +6,7 @@ This technology can be used where you want to stream database change events (cre
 
 The demo uses the Debezium SQL connector to stream database changes from SQL to Kafka topics in Azure Event Hubs.
 
-![Stream with Apache Kafka: Flow of data from MS SQL to Debezium (Kakfa Connect) to Azure Event Hubs (Kafka)](MSSQL-Debezium-KafkaConnection-AzureEventHubs-Kafka.png)
+![Stream with Apache Kafka: Flow of data from MS SQL to Debezium (Kakfa Connect) to Azure Event Hubs (Kafka)](./images/MSSQL-Debezium-KafkaConnection-AzureEventHubs-Kafka.png)
 
 
 For this tutorial:
