@@ -4,22 +4,16 @@ Demo on how to set up a change data capture flow using [Azure Event Hubs](https:
 
 This technology can be used where you want to stream database change events (create/update/delete operations in database tables) for processing. Debezium can use change data capture features available in different databases and gives a set of Kafka Connect connectors that takes row-level changes in database table(s) and can make them into event streams that are then sent to Apache Kafka.
 
-The demo uses the Debezium SQL connector to stream database changes from SQL to Kafka topics in Azure Event Hubs.
+Demo and files are based on a split from this github repository https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs
+
+## What is in the Demo
+1. Create an SQL database
+2. Create Azure Event Hubs
+3. Install Debezium
+4. Test everything
+5. Example settings and performance data
 
 ![Stream with Apache Kafka: Flow of data from MS SQL to Debezium (Kakfa Connect) to Azure Event Hubs (Kafka)](./images/MSSQL-Debezium-KafkaConnection-AzureEventHubs-Kafka.png)
-
-
-For this tutorial:
-- Debezium is deployed on Openshift. Other options are to run Debezium with Docker or another Kubernetes platform. 
-- The SQL database is hosted on Azure. Other optionsare to deploy the SQL database elsewhere like locally or on premise.
-- Demo and files are based on a split from this github repository https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs
-
-The tutorial will go through the following:
-1. Creating an SQL database
-2. Creating Azure Event Hubs
-3. Installing Debezium
-4. Testing everything
-5. Appendix with example settings and performance data
 
 Table of contents
 =================
