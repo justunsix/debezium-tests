@@ -10,8 +10,8 @@ cd strimzi-kafka-operator
 # oc login -u system:admin # Required for remote Openshift instance, not required for local kuberctl
 
 kubectl create -f install/cluster-operator && kubectl create -f examples/templates/cluster-operator
-docker build -t justintungonline/kafka-connect-debezium:2.5.0-1.3.0 .
-docker push justintungonline/kafka-connect-debezium:2.5.0-1.3.0
+docker build -t justintungonline/strimzi-kafka-connect-debezium:latest .
+docker push justintungonline/strimzi-kafka-connect-debezium:latest
 
 # Kubernetes namespace cdc-kafka
 kubectl apply -f eventhubs-secret.yaml

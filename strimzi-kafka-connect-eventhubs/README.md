@@ -100,8 +100,8 @@ USER 1001
 In the directory where the Dockerfile is located, build and push the image (sample is using my repo on DockerHub)
 
 ```sh
-docker build -t justintungonline/strimzi-kafka-connect-debezium:2.5.0-1.2.5 .
-docker push justintungonline/strimzi-kafka-connect-debezium:2.5.0-1.2.5
+docker build -t justintungonline/strimzi-kafka-connect-debezium:latest .
+docker push justintungonline/strimzi-kafka-connect-debezium:latest
 ```
 
 ## Install Kafka Connect
@@ -413,7 +413,7 @@ Progress Deadline:
 Template
 Containers
 connect-cluster-debezium-connect
-Image: <org name>/strimzi-kafka-connect-debezium:2.5.0-1.2.5 <versions of strimzi kafka connect and debezium connector used>
+Image: justintungonline/strimzi-kafka-connect-debezium:latest
 Command: /opt/kafka/kafka_connect_run.sh
 Ports: 8083/TCP (rest-api)
 Mount: kafka-metrics-and-logging → /opt/kafka/custom-config/ read-write

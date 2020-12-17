@@ -7,7 +7,7 @@ metadata:
 spec:
   replicas: 1
   bootstrapServers: kafkastore.servicebus.windows.net:9093
-  image: justintungonline/strimzi-kafka-connect-debezium:2.5.0-1.2.5
+  image: justintungonline/strimzi-kafka-connect-debezium:latest
   version: 2.5.0
   config:
     group.id: connect-cluster
