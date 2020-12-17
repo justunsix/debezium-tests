@@ -13,7 +13,7 @@ Demo and files are based on a split from this github repository https://github.c
 4. Test everything
 5. Example settings and performance data
 
-![Stream with Apache Kafka: Flow of data from MS SQL to Debezium (Kakfa Connect) to Azure Event Hubs (Kafka)](./images/MSSQL-Debezium-KafkaConnection-AzureEventHubs-Kafka.png)
+![Stream with Apache Kafka: Flow of data from MS SQL to Debezium (Kakfa Connect) to Azure Event Hubs (Kafka)](./images/MS-SQL-Debezium-KafkaConnection-AzureEventHubs-Kafka.png)
 
 Table of contents
 =================
