@@ -73,7 +73,7 @@ To install Kafka connect we will use popular Strimzi operator but will only use 
 ![Docs](./images/OpsHub.png)
 
 - Option2. Install operator using Helm or YAML manifests
-Described in  [Kafka Connect the eay way](https://itnext.io/kafka-connect-on-kubernetes-the-easy-way-b5b617b7d5e9)
+Described in  [Kafka Connect the easy way](https://itnext.io/kafka-connect-on-kubernetes-the-easy-way-b5b617b7d5e9)
 ```sh
 //add helm chart repo for Strimzi
 helm repo add strimzi https://strimzi.io/charts/
