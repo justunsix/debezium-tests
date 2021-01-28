@@ -215,11 +215,11 @@ curl -v telnet://142.1.1.1:1433
 
 ## Check connectivity in Docker, Kuberenetes, Openshift
 
-Before setup, connectivity to endpoints can be tested quickly using an simple container that has the curl command.
+Before setup, connectivity to endpoints can be tested quickly using an simple container that has the curl command such as [tutum/curl](https://hub.docker.com/r/tutum/curl) container that has curl on an ubuntu base image.
 
 ### Docker
 
-Pull an image with curl, run it, then run the connectivity test. Example uses the [official Docker image for curl](https://hub.docker.com/r/curlimages/curl)
+Pull an image with curl, run it, then run the connectivity test.
 ```sh
 docker pull tutum/curl
 docker run -it tutum/curl bash
@@ -228,7 +228,7 @@ $ curl -v telnet://eventhub-dev.servicebus.windows.net:9093
 
 ### Kubernetes / Openshift
 
-Create a new pod using this configuration below. Example uses [tutum/curl](https://hub.docker.com/r/tutum/curl) container that has curl on an ubuntu image.
+Create a new pod using this configuration below that uses the image with curl.
 
 ```yaml
 apiVersion: v1
