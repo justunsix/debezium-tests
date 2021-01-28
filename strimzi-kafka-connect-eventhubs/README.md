@@ -110,7 +110,7 @@ RUN mv ./debezium-connector-sqlserver/* /opt/kafka/plugins/debezium/
 USER 1001
 ```
 
-In the directory where the Dockerfile is located, build and push the image (sample is using my repo on DockerHub)
+In the directory where the Dockerfile is located, build and push the image (sample is using a repo on DockerHub)
 
 ```sh
 docker build -t justintungonline/strimzi-kafka-connect-debezium:latest .
@@ -468,6 +468,201 @@ Secret:
 - KAFKA_CONNECT_SASL_PASSWORD_FILE = <set to Kubernetes secret and variable in secret>
 ```
 - About [Kubernetes secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
+
+Sample YAML configuration
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: '1'
+  creationTimestamp: '2021-28-19T19:29:33Z'
+  generation: 1
+  labels:
+    app.kubernetes.io/instance: connect-cluster-debezium
+    app.kubernetes.io/managed-by: strimzi-cluster-operator
+    app.kubernetes.io/name: kafka-connect
+    app.kubernetes.io/part-of: strimzi-connect-cluster-debezium
+    strimzi.io/cluster: connect-cluster-debezium
+    strimzi.io/kind: KafkaConnect
+    strimzi.io/name: connect-cluster-debezium-connect
+  name: connect-cluster-debezium-connect
+  namespace: cdc-kafka
+  ownerReferences:
+    - apiVersion: kafka.strimzi.io/v1beta1
+      blockOwnerDeletion: false
+      controller: false
+      kind: KafkaConnect
+      name: connect-cluster-debezium
+      uid: ...
+  resourceVersion: '...'
+  selfLink: >-
+    /apis/apps/v1/namespaces/cdc-kafka/deployments/connect-cluster-debezium-connect
+  uid: ....
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      strimzi.io/cluster: connect-cluster-debezium
+      strimzi.io/kind: KafkaConnect
+      strimzi.io/name: connect-cluster-debezium-connect
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        strimzi.io/logging-appenders-hash: ....
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: connect-cluster-debezium
+        app.kubernetes.io/managed-by: strimzi-cluster-operator
+        app.kubernetes.io/name: kafka-connect
+        app.kubernetes.io/part-of: strimzi-connect-cluster-debezium
+        strimzi.io/cluster: connect-cluster-debezium
+        strimzi.io/kind: KafkaConnect
+        strimzi.io/name: connect-cluster-debezium-connect
+    spec:
+      affinity: {}
+      containers:
+        - command:
+            - /opt/kafka/kafka_connect_run.sh
+          env:
+            - name: KAFKA_CONNECT_CONFIGURATION
+              value: >
+                offset.storage.topic=connect-cluster-offsets
+
+                value.converter=org.apache.kafka.connect.json.JsonConverter
+
+                config.storage.topic=connect-cluster-configs
+
+                key.converter=org.apache.kafka.connect.json.JsonConverter
+
+                group.id=connect-cluster
+
+                status.storage.topic=connect-cluster-status
+
+                config.providers=file
+
+                config.providers.file.class=org.apache.kafka.common.config.provider.FileConfigProvider
+
+                config.storage.replication.factor=1
+
+                key.converter.schemas.enable=false
+
+                offset.storage.replication.factor=1
+
+                producer.connections.max.idle.ms=180000
+
+                status.storage.replication.factor=1
+
+                value.converter.schemas.enable=false
+            - name: KAFKA_CONNECT_METRICS_ENABLED
+              value: 'false'
+            - name: KAFKA_CONNECT_BOOTSTRAP_SERVERS
+              value: 'eventhub-dev.servicebus.windows.net:9093'
+            - name: STRIMZI_KAFKA_GC_LOG_ENABLED
+              value: 'false'
+            - name: KAFKA_HEAP_OPTS
+              value: '-Xms1g -Xmx1g'
+            - name: KAFKA_CONNECT_TLS
+              value: 'true'
+            - name: KAFKA_CONNECT_SASL_USERNAME
+              value: $ConnectionString
+            - name: KAFKA_CONNECT_SASL_MECHANISM
+              value: plain
+            - name: KAFKA_CONNECT_SASL_PASSWORD_FILE
+              value: deveventhubssecret/eventhubspassword
+          image: 'justintungonline/strimzi-kafka-connect-debezium:latest'
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: rest-api
+              scheme: HTTP
+            initialDelaySeconds: 15
+            periodSecconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: connect-cluster-debezium-connect
+          ports:
+            - containerPort: 8080
+              name: rest-api
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: rest-api
+              scheme: HTTP
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: '2'
+              memory: 2Gi
+            requests:
+              cpu: '1'
+              memory: 2Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /opt/kafka/custom-config/
+              name: kafka-metrics-and-logging
+            - mountPath: /opt/kafka/connect-password/deveventhubssecret
+              name: deveventhubssecret
+            - mountPath: /opt/kafka/external-configuration/connector-config
+              name: ext-conf-connector-config
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: connect-cluster-debezium-connect
+      serviceAccountName: connect-cluster-debezium-connect
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: connect-cluster-debezium-connect-config
+          name: kafka-metrics-and-logging
+        - name: deveventhubssecret
+          secret:
+            defaultMode: 288
+            secretName: deveventhubssecret
+        - name: ext-conf-connector-config
+          secret:
+            defaultMode: 288
+            secretName: sql-credentials
+status:
+  availableReplicas: 1
+  conditions:
+    - lastTransitionTime: '....'
+      lastUpdateTime: '....'
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: 'True'
+      type: Available
+    - lastTransitionTime: '....'
+      lastUpdateTime: '....'
+      message: >-
+        ReplicaSet "connect-cluster-debezium-connect-..." has
+        successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: 'True'
+      type: Progressing
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
+```
 
 ## Sample Performance Data
 - With CDC for 3 SQL development databases with low change activity and send updates to 1 Event Hubs
