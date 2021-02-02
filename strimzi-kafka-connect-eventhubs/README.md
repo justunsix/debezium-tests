@@ -96,7 +96,10 @@ oc create -f install/cluster-operator && oc create -f examples/templates/cluster
 
 KafkaConnect Loads Connectors from its internal `plugin.path`. Debezium is the most popular connector for CDC capture from various Databases.
 
-The default KafkaConnect image does not include Debezium connector so we need extend the image. `Dockerfile` in this repo demonstrates the technique. Note for Debezium some connector version may have issues with your environment and require changing the version to have it work. The following Dockerfile use base image version that the installed Operator supports:
+The default KafkaConnect image does not include Debezium connector so we need extend the image.
+The `Dockerfile` in this repo demonstrates how to extend the image. 
+Note for Debezium some connector versions may have issues with your environment and requires changing the version to have it work. 
+The following Dockerfile use a base image from the Strimzi operator. The Strimzi version of the base image should correspond with the version installed in Openshift as a cluster operator.
 
 ```Dockerfile
 FROM strimzi/kafka:0.20.0-kafka-2.5.0
@@ -217,8 +220,10 @@ NAME                                         TYPE        CLUSTER-IP       EXTERN
 kafka-connect-cluster-debezium-connect-api   ClusterIP   172.30.109.146   <none>        8083/TCP   33m
 ```
 
-Connect to the KafkaConnect Server and verify that SQl Connector plugin is loaded and available:
+Connect to the Kafka Connect Server using the [Kafka Connect API](https://docs.confluent.io/platform/current/connect/references/restapi.html) and verify that SQL Connector plugin is loaded and available by executing commands in the container shell:
 ```sh
+oc exec -i -n cdc-kafka kafka-connect-cluster-debezium-connect-6668b7d974-wcgnf -- curl localhost:8083/connector-plugins | jq
+# or use this command
 oc exec -i -n cdc-kafka kafka-connect-cluster-debezium-connect-6668b7d974-wcgnf -- curl -X GET http://kafka-connect-cluster-debezium-connect-api:808
 3/connector-plugins | jq .
 
