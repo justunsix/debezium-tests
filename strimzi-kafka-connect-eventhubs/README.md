@@ -134,8 +134,9 @@ Now we need to setup KafkaConnect worker to be able to talk to Azure EventHubs a
 oc -n cdc-kafka create secret generic sql-credentials --from-file=sqlserver-credentials.properties
 ```
 
-- Create KafkaConnect worker Cluster, using the image that was created in the step above
-
+Apply to `kafka-connect.yaml` file to set up the kafka connector. Notes on settings:
+- It creates the KafkaConnect worker Cluster, using the image that was created in the step above.
+- For TLS settings (e.g. cipher, protocol), set it in the config section of the file. By default in this configuration, the connector will use the highest possible TLS version when connecting to Kafka. See [Strimzi SSL reference](https://strimzi.io/docs/operators/master/using.html#con-common-configuration-ssl-reference) for details on variables and accepted values.
 
 ```yaml
 apiVersion: kafka.strimzi.io/v1beta1
