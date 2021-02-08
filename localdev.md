@@ -390,6 +390,7 @@ zookeeper.connect=localhost:2181
 zookeeper.connection.timeout.ms=18000
 
 
+
 ############################# Group Coordinator Settings #############################
 
 # The following configuration specifies the time, in milliseconds, that the GroupCoordinator will delay the initial consumer rebalance.
