@@ -257,6 +257,7 @@ $ oc rsh  --shell=/bin/bash tutum
 ```
 
 # Kafka server.properties
+Defaults in the Strimzi base image
 ```sh
 [kafka@44db389f6bbe config]$ cd /opt/kafka/config/
 [kafka@44db389f6bbe config]$ more server.properties 
