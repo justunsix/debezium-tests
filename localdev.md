@@ -254,6 +254,12 @@ NAME         READY     STATUS             RESTARTS   AGE
 tutum        1/1       Running            0          114m
 $ oc rsh  --shell=/bin/bash tutum
 1000710000@tutum:/$ curl -v telnet://eventhub-dev.servicebus.windows.net:9093
+* Rebuilt URL to: telnet://eventhub-dev.servicebus.windows.net:9093/
+* Hostname was NOT found in DNS cache
+*   Trying 13.71.212.10...
+* Connected to eventhub-dev.servicebus.windows.net (13.71.212.10) port 9093 (#0)
+# optional - remove temporary pod used for network test
+$ oc delete pod tutum
 ```
 
 # Kafka server.properties
