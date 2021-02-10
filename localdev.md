@@ -6,7 +6,7 @@ Ideally, a sandbox environment should run Linux with the developer having sudo (
 # Docker, Windows Subsystem for Linux (WSL)
 - Install WSL using Microsoft's [Windows Subsystem for Linux for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md) by following [Get started using Docker contianers with WSL](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/tutorials/wsl-containers.md) that covers on WSL, Windows Terminal, VS Code IDE, and Docker setup on Windows. 
   - Enable virtualization on local machine BIOS
-  - Ubuntu 20.04 LTS was used for set up
+  - Latest Ubuntu LTS was used for set up
   - Windows Terminal
   - VS Code with extensions:
     - [WSL Remote Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) - enables you to open your Linux project running on WSL in VS Code (no need to worry about pathing issues, binary compatibility, or other cross-OS challenges)
@@ -57,7 +57,7 @@ Remote User Acceptance Testing
 
 
 # Local Command line 
-- Install Cygwin on local machine, get packages for curl, git, etc. and use cloud IDE, workspace e.g. [Gitpod](https://gitpod.io/workspaces/), [Cloud9](https://aws.amazon.com/cloud9/), [Google Cloud Shell (includes Docker)](https://cloud.google.com/shell)
+- Install Cygwin on local machine, get packages for curl, git, etc. and use cloud IDE, workspace e.g. [Gitpod (includes Docker in preview)](https://gitpod.io/workspaces/), [Cloud9](https://aws.amazon.com/cloud9/), [Google Cloud Shell (includes Docker)](https://cloud.google.com/shell)
 - Local development can reuse existing Linux VMs or container hosting for sandbox development
 
 # Linux VM setup
@@ -104,7 +104,7 @@ Example specifications for the host of the Linux VM
 - Only has limited GB free, may need to free space in future for use
 
 ### Virtualbox cannot detect 64 bit. 
-Follow these steps [on VirtualBox forums](https://forums.virtualbox.org/viewtopic.php?f=1&t=62339)
+Follow steps [on VirtualBox forums](https://forums.virtualbox.org/viewtopic.php?f=1&t=62339)
 
 ### Nested virtualization
 You are receiving error messages like:
