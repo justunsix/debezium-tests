@@ -397,6 +397,14 @@ Known bugs with history table and workaround:
 - [Debezium CDC Connector to send Events to Kafka-Enabled Event Hub #53](https://github.com/Azure/azure-event-hubs-for-kafka/issues/53)
 - [Error "The broker does not support DESCRIBE_CONFIGS" #61](https://github.com/Azure/azure-event-hubs-for-kafka/issues/61)
 
+# Uninstall
+
+For a clean uninstall, these are high level steps
+1. Remove the pod / set replicas to 0
+2. Delete secrets applied
+3. Delete Strimzi connectors and kafka connect deployments
+4. Remove Strimzi operator
+
 # Appendix - Example Openshift Settings
 
 ## Details
