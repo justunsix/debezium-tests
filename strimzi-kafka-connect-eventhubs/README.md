@@ -26,6 +26,7 @@ Table of contents
    * [Install KafkaConnect](#install-kafka-connect)
    * [Install Debezium SQL Connector](#install-debezium-sql-connector)
    * [Test](#test)
+   * [Uninstall](#uninstall)
  <!--te-->
 
 # Create SQL DB and enable CDC
