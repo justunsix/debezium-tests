@@ -382,7 +382,29 @@ To see the output of the SQL Connector and KafkaConnect monitor the logs:
  oc logs kafka-connect-cluster-debezium-connect-5d96664b98-tn5j7 -n cdc-kafka --tail 200 -f
 ```
 
-You could dynamically change verbosity for the various components as described in this article: [Changing KafkaConnect logging dynamically](https://rmoff.net/2020/01/16/changing-the-logging-level-for-kafka-connect-dynamically/)
+You could dynamically change verbosity for the various components as described in this article: [Changing KafkaConnect logging dynamically](https://rmoff.net/2020/01/16/changing-the-logging-level-for-kafka-connect-dynamically/). 
+
+The Openshift logs will show as connections as made. Security and TLS settings used by the connector can also be seen:
+
+```log
+2021-02-01 23:46:36,177 INFO Kafka startTimeMs: 1612223196177 (org.apache.kafka.common.utils.AppInfoParser) [DistributedHerder-connect-1-1]
+2021-02-01 23:46:36,598 INFO ProducerConfig values: 
+...
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2]
+	ssl.endpoint.identification.algorithm = https
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.2
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+...
+ (org.apache.kafka.clients.producer.ProducerConfig) [DistributedHerder-connect-1-1]
+```
 
 ```sh
 # exec into the pod
