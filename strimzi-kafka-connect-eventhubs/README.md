@@ -27,6 +27,7 @@ Table of contents
    * [Install Debezium SQL Connector](#install-debezium-sql-connector)
    * [Test](#test)
    * [Uninstall](#uninstall)
+   * [Appendix Example Openshift Settings](#Appendix-Example-Openshift-Settings)
  <!--te-->
 
 # Create SQL DB and enable CDC
@@ -428,7 +429,7 @@ For a clean uninstall, these are high level steps
 3. Delete Strimzi connectors and kafka connect deployments
 4. Remove Strimzi operator
 
-# Appendix - Example Openshift Settings
+# Appendix Example Openshift Settings
 
 ## Details
 
