@@ -258,8 +258,21 @@ $ oc rsh  --shell=/bin/bash tutum
 * Hostname was NOT found in DNS cache
 *   Trying 13.71.212.10...
 * Connected to eventhub-dev.servicebus.windows.net (13.71.212.10) port 9093 (#0)
+```
+
+After doing the test, the pod can be removed in two ways:
+```sh
 # optional - remove temporary pod used for network test
 $ oc delete pod tutum
+```
+or
+```sh
+$ oc get deployments
+NAME      READY     UP-TO-DATE   AVAILABLE   AGE
+curl      0/1       1            0           16m
+
+$ oc delete deployment curl
+deployment.apps "curl" deleted
 ```
 
 # Kafka server.properties
