@@ -261,11 +261,13 @@ $ oc rsh  --shell=/bin/bash tutum
 ```
 
 After doing the test, the pod can be removed in two ways:
+1. Remove the pod
 ```sh
 # optional - remove temporary pod used for network test
 $ oc delete pod tutum
 ```
-or
+or 2. Remove the deployment configuration which will remove the pod
+
 ```sh
 $ oc get deployments
 NAME      READY     UP-TO-DATE   AVAILABLE   AGE
