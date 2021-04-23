@@ -1,18 +1,18 @@
 # Steps to set up a sandbox environment to test debezium
 
-This document describes several options to test Debezium on Windows and create a development environment.
+This document describes several options to test Debezium and create a development environment.
 
 - The steps assume setting up of Debezium running on Redhat Openshift and connecting to Azure Event Hubs.
-- I found the first option, Docker with WSL, the easiest to set up.
+- I found the first option, Docker with WSL, the easiest to set up locally. For a quick test, the second option using an existing Kubernetes deployment such as the free [Openshift Playground](https://learn.openshift.com/playgrounds/) is fast to test and can be done all in a web browser.
 - Ideally, a sandbox environment should run Linux with the developer having administrative (sudo) privleges. My team runs a Windows only environment, so instructions are focusing on Windows. 
 
 Table of contents
 =================
 
 <!--ts-->
-   * [Docker, Windows Subsystem for Linux (WSL) Option](#docker-windows-subsystem-for-linux-wsl)
-   * [Kubernetes Option](#a-kubernetes-k8s)
-   * [Linux VM Option](#linux-vm-setup)
+   * [Docker, Windows Subsystem for Linux (WSL) Option](#a-docker-windows-subsystem-for-linux-wsl-option)
+   * [Kubernetes Option](#b-kubernetes-k8s-option)
+   * [Linux Virtual Machine (VM) Option](#c-linux-vm-option)
    * [Local and Online Development Tools](#local-and-online-development-tools)
    * [Debezium, Azure Event Hubs Set up](#debezium-azure-event-hubs-set-up)
    * [Testing Connectivity](#Testing-Connectivity)
@@ -43,13 +43,16 @@ Table of contents
 -  Launch Linux and configure it
 
 # B. Kubernetes (K8S) Option
-- [Debezium Openshift install](https://debezium.io/documentation/reference/operations/openshift.html)
-- Install a Kubernetes cluster for development or use a remote cluster such as the [Openshift 3.11 Playground for 1 hour usage](https://learn.openshift.com/playgrounds/openshift311/).
+- Install a Kubernetes cluster for development or use an existing one.
+- Follow instructions at [Debezium Openshift install](https://debezium.io/documentation/reference/operations/openshift.html)
 
-## B.1 Kubernetes local
+## B.1 Openshift remote
+Use remote cluster such as the [Openshift Playground for 1 hour usage](https://learn.openshift.com/playgrounds/) or [Red Hat CodeReady Workspaces](https://workspaces.openshift.com/dashboard/) which are both free to use. This option is recommended to avoid installing/maintaining kubernetes locally which takes time.
+
+## B.2 Kubernetes local
 - Install [Docker desktop Kubernetes](https://docs.docker.com/docker-for-windows/#kubernetes) which includes [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
 
-## B.2 Openshift local
+## B.3 Openshift local
 - Install [Minishift 3.11](https://docs.okd.io/3.11/minishift/index.html)
 - [Openshift 3.11 CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html)
 
