@@ -1,7 +1,18 @@
 # Steps to set up a sandbox environment to test debezium
 
-My team runs a Windows only environment, so instructions are focusing on Windows. 
-Ideally, a sandbox environment should run Linux with the developer having sudo (administrative) privleges.
+This document describes several options to test Debezium on Windows and create a development environment.
+
+- The steps assume setting up of Debezium running on Redhat Openshift and connecting to Azure Event Hubs.
+- Ideally, a sandbox environment should run Linux with the developer having administrative (sudo) privleges. My team runs a Windows only environment, so instructions are focusing on Windows. 
+
+Table of contents
+=================
+
+<!--ts-->
+   * [Docker, Windows Subsystem for Linux (WSL) Option](#docker-windows-subsystem-for-linux-wsl)
+   * [Kubernetes Option](#a-kubernetes-k8s)
+   * [Debezium, Azure Event Hubs Set up](#debezium-azure-event-hubs-set-up)
+ <!--te-->
 
 # Docker, Windows Subsystem for Linux (WSL)
 - Install WSL using Microsoft's [Windows Subsystem for Linux for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md) by following [Get started using Docker contianers with WSL](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/tutorials/wsl-containers.md) that covers on WSL, Windows Terminal, VS Code IDE, and Docker setup on Windows. 
@@ -56,7 +67,7 @@ Remote User Acceptance Testing
 2.	If the operator is installed in a different namespace (e.g. strimzi-operator), grant persmissions for your user to use it. It is a cluster wide operator. Specify the namespace to use it - e.g.: `oc process strimzi-operator//strimzi-ephemeral ....`
 
 
-# Local Command line 
+# Local and Online Development Tools
 - Install Cygwin on local machine, get packages for curl, git, etc. and use cloud IDE, workspace e.g. [Gitpod (includes Docker in preview)](https://gitpod.io/workspaces/), [Cloud9](https://aws.amazon.com/cloud9/), [Google Cloud Shell (includes Docker)](https://cloud.google.com/shell)
 - Local development can reuse existing Linux VMs or container hosting for sandbox development
 
