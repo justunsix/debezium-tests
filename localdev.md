@@ -3,6 +3,7 @@
 This document describes several options to test Debezium on Windows and create a development environment.
 
 - The steps assume setting up of Debezium running on Redhat Openshift and connecting to Azure Event Hubs.
+- I found the first option, Docker with WSL, the easiest to set up.
 - Ideally, a sandbox environment should run Linux with the developer having administrative (sudo) privleges. My team runs a Windows only environment, so instructions are focusing on Windows. 
 
 Table of contents
@@ -17,7 +18,7 @@ Table of contents
    * [Testing Connectivity](#Testing-Connectivity)
  <!--te-->
 
-# Docker, Windows Subsystem for Linux (WSL)
+# A. Docker, Windows Subsystem for Linux (WSL) Option
 - Install WSL using Microsoft's [Windows Subsystem for Linux for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md) by following [Get started using Docker contianers with WSL](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/tutorials/wsl-containers.md) that covers on WSL, Windows Terminal, VS Code IDE, and Docker setup on Windows. 
   - Enable virtualization on local machine BIOS
   - Latest Ubuntu LTS was used for set up
@@ -41,35 +42,18 @@ Table of contents
 -  Install a Linux distribution (e.g. Ubuntu LTS, Fedora Remix) from Microsoft Store
 -  Launch Linux and configure it
 
-# A. Kubernetes (K8S)
+# B. Kubernetes (K8S) Option
 - [Debezium Openshift install](https://debezium.io/documentation/reference/operations/openshift.html)
 - Install a Kubernetes cluster for development or use a remote cluster such as the [Openshift 3.11 Playground for 1 hour usage](https://learn.openshift.com/playgrounds/openshift311/).
 
-## A.1 Kubernetes local
+## B.1 Kubernetes local
 - Install [Docker desktop Kubernetes](https://docs.docker.com/docker-for-windows/#kubernetes) which includes [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
 
-## A.2 Openshift local
+## B.2 Openshift local
 - Install [Minishift 3.11](https://docs.okd.io/3.11/minishift/index.html)
 - [Openshift 3.11 CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html)
 
-# Debezium, Azure Event Hubs Set up
-
-## High level steps
-1. [Install Strimzi Cluster Operator](https://strimzi.io/docs/operators/latest/quickstart.html)
-2. Build Debezium image with connectors needed
-3. Set configuration files with Azure Event Hubs and database connections
-4. Set up Kafka Connect Cluster with image and configuration files
-5. Test changes
-
-## Tutorials on Above Steps
-- [Debezium Openshift install with Strimzi operator and MS SQL connector](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs)
-- [Kafka Connect on Kubernetes the easy way](https://itnext.io/kafka-connect-on-kubernetes-the-easy-way-b5b617b7d5e9)
-
-Remote User Acceptance Testing
-1. Install Version 0.20 of the Strimzi operator > [installation options](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs#install-strimzi-operator)
-2.	If the operator is installed in a different namespace (e.g. strimzi-operator), grant persmissions for your user to use it. It is a cluster wide operator. Specify the namespace to use it - e.g.: `oc process strimzi-operator//strimzi-ephemeral ....`
-
-# Linux VM Setup
+# C. Linux VM Option
 
 ## Installing a Linux Virtual Machine on Windows 10 with Linux Virtual Machine
 1. Get Installation Binaries
@@ -193,6 +177,23 @@ Remove the Hyper-V configured VM or delete the VirtualBox VM.
 # Local and Online Development Tools
 - Install Cygwin on local machine, get packages for curl, git, etc. and use cloud IDE, workspace e.g. [Gitpod (includes Docker in preview)](https://gitpod.io/workspaces/), [Cloud9](https://aws.amazon.com/cloud9/), [Google Cloud Shell (includes Docker)](https://cloud.google.com/shell)
 - Local development can reuse existing Linux VMs or container hosting for sandbox development
+
+# Debezium, Azure Event Hubs Set up
+
+## High level steps
+1. [Install Strimzi Cluster Operator](https://strimzi.io/docs/operators/latest/quickstart.html)
+2. Build Debezium image with connectors needed
+3. Set configuration files with Azure Event Hubs and database connections
+4. Set up Kafka Connect Cluster with image and configuration files
+5. Test changes
+
+## Tutorials on Above Steps
+- [Debezium Openshift install with Strimzi operator and MS SQL connector](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs)
+- [Kafka Connect on Kubernetes the easy way](https://itnext.io/kafka-connect-on-kubernetes-the-easy-way-b5b617b7d5e9)
+
+Remote User Acceptance Testing
+1. Install Version 0.20 of the Strimzi operator > [installation options](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs#install-strimzi-operator)
+2.	If the operator is installed in a different namespace (e.g. strimzi-operator), grant persmissions for your user to use it. It is a cluster wide operator. Specify the namespace to use it - e.g.: `oc process strimzi-operator//strimzi-ephemeral ....`
 
 # Testing Connectivity
 
