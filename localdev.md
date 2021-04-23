@@ -11,7 +11,10 @@ Table of contents
 <!--ts-->
    * [Docker, Windows Subsystem for Linux (WSL) Option](#docker-windows-subsystem-for-linux-wsl)
    * [Kubernetes Option](#a-kubernetes-k8s)
+   * [Linux VM Option](#linux-vm-setup)
+   * [Local and Online Development Tools](#local-and-online-development-tools)
    * [Debezium, Azure Event Hubs Set up](#debezium-azure-event-hubs-set-up)
+   * [Testing Connectivity](#Testing-Connectivity)
  <!--te-->
 
 # Docker, Windows Subsystem for Linux (WSL)
@@ -66,12 +69,7 @@ Remote User Acceptance Testing
 1. Install Version 0.20 of the Strimzi operator > [installation options](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs#install-strimzi-operator)
 2.	If the operator is installed in a different namespace (e.g. strimzi-operator), grant persmissions for your user to use it. It is a cluster wide operator. Specify the namespace to use it - e.g.: `oc process strimzi-operator//strimzi-ephemeral ....`
 
-
-# Local and Online Development Tools
-- Install Cygwin on local machine, get packages for curl, git, etc. and use cloud IDE, workspace e.g. [Gitpod (includes Docker in preview)](https://gitpod.io/workspaces/), [Cloud9](https://aws.amazon.com/cloud9/), [Google Cloud Shell (includes Docker)](https://cloud.google.com/shell)
-- Local development can reuse existing Linux VMs or container hosting for sandbox development
-
-# Linux VM setup
+# Linux VM Setup
 
 ## Installing a Linux Virtual Machine on Windows 10 with Linux Virtual Machine
 1. Get Installation Binaries
@@ -127,12 +125,9 @@ You are receiving error messages like:
 - [Microsoft Hyper-V on Windows User Guide, nested virtualization](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/nested-virtualization)
 - [Remove App & Browser settings for VMcompute and related executables](https://stackoverflow.com/questions/41182714/unable-to-start-docker-in-windows-10-hyper-v-error-is-thrown), Restart VMM
 
-## VM Clean up
-Remove Hyper-V configured VM or delete VirtualBox VM
+## Linux setup
 
-# Linux setup
-
-## Update
+### Update
 - Assume Linux is Debian/Ubuntu distribution
 - Try installing package updates executing this command in terminal. The commands will check updates and then upgrade packages, then remove any unused packages due to upgrades.
 ```sh
@@ -146,7 +141,7 @@ sudo apt-get install openssh-server
 sudo service ssh status
 ```
 
-## Proxy set up
+### Proxy set up
 This step is required if the VM's host or network uses a proxy to the internet.
 You may have to set package manager proxy and HTTP/HTTPS proxy environment variables (e.g. http_proxy=...)
 
@@ -168,8 +163,8 @@ Acquire {
 }
 ```
 
-### Temporary proxy settings
-#### Set
+#### Temporary proxy settings
+##### Set
 
 ```sh
 export http_proxy=http://204.40.130.129:3128
@@ -178,7 +173,7 @@ export https_proxy=http://204.40.130.129:3128
 git config --global http.proxy http://204.40.130.129:3128
 ```
 
-#### Unset (remove proxy settings)
+##### Unset (remove proxy settings)
 
 ```sh
 # remove system proxy
@@ -191,7 +186,17 @@ git config --global --unset http.proxy
 ## Install Docker 
 Use [install instructions provided by Docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
 
-# Conectivity
+## VM Clean up
+After you are done development or testting and need to remove the VM. 
+Remove the Hyper-V configured VM or delete the VirtualBox VM.
+
+# Local and Online Development Tools
+- Install Cygwin on local machine, get packages for curl, git, etc. and use cloud IDE, workspace e.g. [Gitpod (includes Docker in preview)](https://gitpod.io/workspaces/), [Cloud9](https://aws.amazon.com/cloud9/), [Google Cloud Shell (includes Docker)](https://cloud.google.com/shell)
+- Local development can reuse existing Linux VMs or container hosting for sandbox development
+
+# Testing Connectivity
+
+This section explains ways to test connectivity between the components you have set up.
 
 ## Check connectivity to databases and Kakfa endpoints
 
