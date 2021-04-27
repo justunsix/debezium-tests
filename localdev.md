@@ -10,14 +10,19 @@ Table of contents
 =================
 
 <!--ts-->
-   * [Docker, Windows Subsystem for Linux (WSL) Option](#a-docker-windows-subsystem-for-linux-wsl-option)
-   * [Kubernetes Option](#b-kubernetes-k8s-option)
-   * [Linux Virtual Machine (VM) Option](#c-linux-vm-option)
-   * [Local and Online Development Tools](#local-and-online-development-tools)
-   * [Debezium, Azure Event Hubs Set up](#debezium-azure-event-hubs-set-up)
-   * [Testing Connectivity](#Testing-Connectivity)
-   * [Testing Connectivity: Database and Kakfa](#check-connectivity-to-databases-and-kakfa-endpoints)
-   * [Testing Connectivity: Docker and Kubernetes](#check-connectivity-in-docker-kuberenetes-openshift)
+
+* [A. Docker, Windows Subsystem for Linux (WSL) Option](#a-docker-windows-subsystem-for-linux-wsl-option)
+* [B. Kubernetes (K8S) Option](#b-kubernetes-k8s-option)
+  * [B.1 Openshift remote](#b1-openshift-remote)
+  * [B.2 Kubernetes local](#b2-kubernetes-local)
+  * [B.3 Openshift local](#b3-openshift-local)
+* [C. Linux VM Option](#c-linux-vm-option)
+* [Local and Online Development Tools](#local-and-online-development-tools)
+* [Debezium, Azure Event Hubs Set up](#debezium-azure-event-hubs-set-up)
+* [Testing Connectivity](#testing-connectivity)
+  * [Check connectivity to databases and Kakfa endpoints](#check-connectivity-to-databases-and-kakfa-endpoints)
+  * [Check connectivity in Docker, Kuberenetes, Openshift](#check-connectivity-in-docker-kuberenetes-openshift)
+* [Sample Kafka server.properties](#kafka-serverproperties)
    
  <!--te-->
 
