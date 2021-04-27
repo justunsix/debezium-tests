@@ -9,18 +9,18 @@ This document describes several options to test Debezium and create a developmen
 Table of contents
 =================
 
-- [A. Docker, Windows Subsystem for Linux (WSL) Option](#a-docker-windows-subsystem-for-linux-wsl-option)
-- [B. Kubernetes (K8S) Option](#b-kubernetes-k8s-option)
-  - [B.1 Openshift remote](#b1-openshift-remote)
-  - [B.2 Kubernetes local](#b2-kubernetes-local)
-  - [B.3 Openshift local](#b3-openshift-local)
-- [C. Linux VM Option](#c-linux-vm-option)
-- [Local and Online Development Tools](#local-and-online-development-tools)
-- [Debezium, Azure Event Hubs Set up](#debezium-azure-event-hubs-set-up)
-- [Testing Connectivity](#testing-connectivity)
-  - [Check connectivity to databases and Kakfa endpoints](#check-connectivity-to-databases-and-kakfa-endpoints)
-  - [Check connectivity in Docker, Kuberenetes, Openshift](#check-connectivity-in-docker-kuberenetes-openshift)
-- [Sample Kafka server.properties](#kafka-serverproperties)
+* [A. Docker, Windows Subsystem for Linux (WSL) Option](#a-docker-windows-subsystem-for-linux-wsl-option)
+* [B. Kubernetes (K8S) Option](#b-kubernetes-k8s-option)
+  * [B.1 Openshift remote](#b1-openshift-remote)
+  * [B.2 Kubernetes local](#b2-kubernetes-local)
+  * [B.3 Openshift local](#b3-openshift-local)
+* [C. Linux VM Option](#c-linux-vm-option)
+* [Local and Online Development Tools](#local-and-online-development-tools)
+* [Debezium, Azure Event Hubs Set up](#debezium-azure-event-hubs-set-up)
+* [Testing Connectivity](#testing-connectivity)
+  * [Check connectivity to databases and Kakfa endpoints](#check-connectivity-to-databases-and-kakfa-endpoints)
+  * [Check connectivity in Docker, Kuberenetes, Openshift](#check-connectivity-in-docker-kuberenetes-openshift)
+* [Sample Kafka server.properties](#kafka-serverproperties)
 
 # A. Docker, Windows Subsystem for Linux (WSL) Option
 - Install WSL using Microsoft's [Windows Subsystem for Linux for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md) by following [Get started using Docker contianers with WSL](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/tutorials/wsl-containers.md) that covers on WSL, Windows Terminal, VS Code IDE, and Docker setup on Windows. 
