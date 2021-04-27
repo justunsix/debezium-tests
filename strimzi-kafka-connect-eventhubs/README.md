@@ -6,19 +6,11 @@ This technology can be used where you want to stream database change events (cre
 
 Demo and files are based on a split from this github repository https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs
 
-## What is in the Demo
-1. Create an SQL database
-2. Create Azure Event Hubs
-3. Install Debezium
-4. Test everything works
-5. Example settings and performance data
-
-![Stream with Apache Kafka: Flow of data from MS SQL to Debezium (Kakfa Connect) to Azure Event Hubs (Kafka)](./images/MS-SQL-Debezium-KafkaConnection-AzureEventHubs-Kafka.png)
-
 Table of contents
 =================
 
 <!--ts-->
+   * [What is in the Demo](#what-is-in-the-demo)
    * [Create SQL DB and enable CDC](#create-sql-db-and-enable-cdc)
    * [Create Azure EventHubs](#create-azure-eventhubs)
    * [Install Strimzi Kafka Operator](#install-strimzi-operator)
@@ -29,6 +21,15 @@ Table of contents
    * [Uninstall](#uninstall)
    * [Appendix Example Openshift Settings](#Appendix-Example-Openshift-Settings)
  <!--te-->
+
+## What is in the Demo
+1. Create an SQL database
+2. Create Azure Event Hubs
+3. Install Debezium
+4. Test everything works
+5. Example settings and performance data
+
+![Stream with Apache Kafka: Flow of data from MS SQL to Debezium (Kakfa Connect) to Azure Event Hubs (Kafka)](./images/MS-SQL-Debezium-KafkaConnection-AzureEventHubs-Kafka.png)
 
 # Create SQL DB and enable CDC
 This test used Azure SQL MI instance and as per docs on Debezium (Azure SQL is not yet supported)
