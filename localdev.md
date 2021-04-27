@@ -178,8 +178,15 @@ After you are done development or testting and need to remove the VM.
 Remove the Hyper-V configured VM or delete the VirtualBox VM.
 
 # Local and Online Development Tools
-- Install Cygwin on local machine, get packages for curl, git, etc. and use cloud IDE, workspace e.g. [Gitpod (includes Docker in preview)](https://gitpod.io/workspaces/), [Cloud9](https://aws.amazon.com/cloud9/), [Google Cloud Shell (includes Docker)](https://cloud.google.com/shell)
-- Local development can reuse existing Linux VMs or container hosting for sandbox development
+
+Both options listed below can reuse existing Linux VMs or container hosting for sandbox development.
+
+## Local Option
+- Install Cygwin on local machine, get packages for curl, git, etc. and/or 
+
+## Online Options
+- Use a cloud integrated development environment e.g. [Gitpod (includes Docker)](https://gitpod.io/workspaces/), [Cloud9](https://aws.amazon.com/cloud9/), [Google Cloud Shell (includes Docker)](https://cloud.google.com/shell). 
+- The advantage is only a browser is required and the environment can be managed as code and accessed anywhere.
 
 # Debezium, Azure Event Hubs Set up
 
