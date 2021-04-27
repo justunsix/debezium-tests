@@ -16,6 +16,9 @@ Table of contents
    * [Local and Online Development Tools](#local-and-online-development-tools)
    * [Debezium, Azure Event Hubs Set up](#debezium-azure-event-hubs-set-up)
    * [Testing Connectivity](#Testing-Connectivity)
+   * [Testing Connectivity: Database and Kakfa](#check-connectivity-to-databases-and-kakfa-endpoints)
+   * [Testing Connectivity: Docker and Kubernetes](#check-connectivity-in-docker-kuberenetes-openshift)
+   
  <!--te-->
 
 # A. Docker, Windows Subsystem for Linux (WSL) Option
