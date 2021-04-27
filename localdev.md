@@ -47,8 +47,12 @@ Table of contents
 - Follow instructions at [Debezium Openshift install](https://debezium.io/documentation/reference/operations/openshift.html)
 
 ## B.1 Openshift remote
-Use existing remote Kubernetes instance such as the [Openshift Playground for 1 hour usage](https://learn.openshift.com/playgrounds/) or [Red Hat CodeReady Workspaces](https://workspaces.openshift.com/dashboard/) which are both free to use or pay for an instance. This option is recommended to avoid installing/maintaining Kubernetes locally which takes time.
-Using this option with [an online development environment with Docker](#online-options) means you only need a browser to develop and deploy your program - no local installations required and environments can be easily shared with others with minimal setup.
+Use existing remote Kubernetes instance such as the:
+- [Openshift Playground for 1 hour usage](https://learn.openshift.com/playgrounds/) - free
+- [Red Hat CodeReady Workspaces](https://workspaces.openshift.com/dashboard/) - free
+- A paid cloud instance such at IBM Redhat, Microsoft Azure, Amazon Web Services
+
+This option is recommended to avoid installing/maintaining Kubernetes locally which takes time. Using this option with [an online development environment with Docker](#online-options) means you only need a browser to develop and deploy the program. No local installations required and environments can be easily shared with others with minimal setup. 
 
 ## B.2 Kubernetes local
 - Install [Docker desktop Kubernetes](https://docs.docker.com/docker-for-windows/#kubernetes) which includes [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
@@ -186,7 +190,10 @@ Both options listed below can reuse existing Linux VMs or container hosting for 
 - Install Cygwin on local machine, get packages for curl, git, etc.
 
 ## Online Options
-- Use a cloud integrated development environment e.g. [Gitpod (includes Docker)](https://gitpod.io/workspaces/), [Cloud9](https://aws.amazon.com/cloud9/), [Google Cloud Shell (includes Docker)](https://cloud.google.com/shell). 
+Use a cloud integrated development environment e.g. 
+- [Gitpod](https://gitpod.io/workspaces/) (includes [Docker and sudo access](https://www.gitpod.io/docs/feature-preview))
+- [Cloud9](https://aws.amazon.com/cloud9/) with EC2 machines with Docker
+- [Google Cloud Shell](https://cloud.google.com/shell) (includes Docker natively). 
 - The advantage is only a browser is required and the environment can be managed as code and accessed anywhere.
 
 # Debezium, Azure Event Hubs Set up
