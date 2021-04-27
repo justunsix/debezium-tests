@@ -28,3 +28,6 @@ tasks:
 ports:
   - port: 8080
     onOpen: open-preview
+vscode:
+  extensions:
+    - yzhang.markdown-all-in-one@3.4.0:191f58ef00379b6fcbb2e6712da085b6
