@@ -292,7 +292,7 @@ $ oc get pods
 NAME         READY     STATUS             RESTARTS   AGE
 curl        1/1       Running            0          114m
 $ oc rsh  --shell=/bin/sh curl
-1000710000@tutum:/$ curl -v telnet://eventhub-dev.servicebus.windows.net:9093
+$ curl -v telnet://eventhub-dev.servicebus.windows.net:9093
 * Rebuilt URL to: telnet://eventhub-dev.servicebus.windows.net:9093/
 * Hostname was NOT found in DNS cache
 *   Trying 13.71.212.10...
