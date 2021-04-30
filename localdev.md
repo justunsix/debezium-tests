@@ -261,7 +261,7 @@ Before setup, connectivity to endpoints can be tested quickly using an simple co
 Pull an image with curl, run it, then run the connectivity test.
 ```sh
 docker pull pstauffer/curl
-docker run -it pstauffer/curl bash
+docker run -it pstauffer/curl sh
 $ curl -v telnet://eventhub-dev.servicebus.windows.net:9093
 ```
 
@@ -291,7 +291,7 @@ When the pod is running, get into the container's shell, then run connectivity t
 $ oc get pods
 NAME         READY     STATUS             RESTARTS   AGE
 curl        1/1       Running            0          114m
-$ oc rsh  --shell=/bin/bash curl
+$ oc rsh  --shell=/bin/sh curl
 1000710000@tutum:/$ curl -v telnet://eventhub-dev.servicebus.windows.net:9093
 * Rebuilt URL to: telnet://eventhub-dev.servicebus.windows.net:9093/
 * Hostname was NOT found in DNS cache
