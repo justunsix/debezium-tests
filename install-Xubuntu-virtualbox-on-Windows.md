@@ -23,3 +23,5 @@ sudo apt install build-essential dkms linux-headers-$(uname -r)`
 
 # Install other Software
 - [Docker](https://docs.docker.com/engine/install/ubuntu/)
+- [SSHD to ssh to VirtualBox VM from host](https://dev.to/yassineselllami/how-to-ssh-into-ubuntu-vm-virtualbox-from-host-machine-1kii)
+- [git](https://www.digitalocean.com/community/tutorials/how-to-install-git-on-ubuntu-20-04)
