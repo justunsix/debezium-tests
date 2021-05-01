@@ -20,3 +20,6 @@ sudo apt install build-essential dkms linux-headers-$(uname -r)`
 9. Restart Linux `shutdown -r now`
 10. When booted into Linux against, against VM Window. If it adjusts, the guest additions installed successfully
 11. Optionally, in Virtualbox menu for the VM, enable Devices > Shared Clipboard and Drag and Drop
+
+# Install other Software
+- [Docker](https://docs.docker.com/engine/install/ubuntu/)
