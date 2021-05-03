@@ -76,12 +76,18 @@ To install Kafka connect we will use popular Strimzi operator but will only use 
 ![Docs](./images/OpsHub.png)
 
 - Option2. Install operator using Helm or YAML manifests
-Described in  [Kafka Connect the easy way](https://itnext.io/kafka-connect-on-kubernetes-the-easy-way-b5b617b7d5e9)
+
+[Install Helm](https://helm.sh/docs/intro/install/)
+
+Install operator described in [Kafka Connect the easy way](https://itnext.io/kafka-connect-on-kubernetes-the-easy-way-b5b617b7d5e9)
 ```sh
-//add helm chart repo for Strimzi
+# add helm chart repo for Strimzi
 helm repo add strimzi https://strimzi.io/charts/
-//install it! (I have used strimzi-kafka as the release name)
+# install it! (I have used strimzi-kafka as the release name)
 helm install strimzi-kafka strimzi/strimzi-kafka-operator
+
+# Verify operator install
+helm ls
 ```
 or [Running Debezium on OpenShift](https://debezium.io/documentation/reference/operations/openshift.html)
 
@@ -94,6 +100,7 @@ cd strimzi-kafka-operator
 oc login -u system:admin
 oc create -f install/cluster-operator && oc create -f examples/templates/cluster-operator
 ```
+Ensure [permissions are set](https://strimzi.io/docs/operators/latest/deploying.html) for the Strimzi Operator for users that will managed it.
 
 # Prepare Kafka Connect Image with Debezium Plugin
 
