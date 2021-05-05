@@ -4,26 +4,23 @@ This document describes several options to test Debezium and create a developmen
 
 - The steps assume setting up of Debezium running on Redhat Openshift and connecting to Azure Event Hubs.
 - I found the first option, Docker with WSL, the easiest to set up locally. For a quick test, the second option using an existing Kubernetes deployment such as the free [Openshift Playground](https://learn.openshift.com/playgrounds/) is fast to test and can be done all in a web browser.
-- Ideally, a sandbox environment should run Linux with the developer having administrative (sudo) privleges. My team runs a Windows only environment, so instructions are focusing on Windows. 
+- Ideally, a sandbox environment should run Linux with the developer having administrative (sudo) privleges. My team runs a Windows only environment, so instructions are focusing on Windows.
 
-Table of contents
-=================
+## Table of contents
 
-* [A. Docker, Windows Subsystem for Linux (WSL) Option](#a-docker-windows-subsystem-for-linux-wsl-option)
-* [B. Kubernetes (K8S) Option](#b-kubernetes-k8s-option)
-  * [B.1 Openshift remote](#b1-openshift-remote)
-  * [B.2 Kubernetes local](#b2-kubernetes-local)
-  * [B.3 Openshift local](#b3-openshift-local)
-* [C. Linux VM Option](#c-linux-vm-option)
-* [Local and Online Development Tools](#local-and-online-development-tools)
-* [Debezium, Azure Event Hubs Set up](#debezium-azure-event-hubs-set-up)
-* [Testing Connectivity](#testing-connectivity)
-  * [Check connectivity to databases and Kakfa endpoints](#check-connectivity-to-databases-and-kakfa-endpoints)
-  * [Check connectivity in Docker, Kuberenetes, Openshift](#check-connectivity-in-docker-kuberenetes-openshift)
-* [Sample Kafka server.properties](#kafka-serverproperties)
+- [Steps to set up a sandbox environment to test debezium](#steps-to-set-up-a-sandbox-environment-to-test-debezium)
+  - [Table of contents](#table-of-contents)
+  - [A. Docker, Windows Subsystem for Linux (WSL) Option](#a-docker-windows-subsystem-for-linux-wsl-option)
+  - [B. Kubernetes (K8S) Option](#b-kubernetes-k8s-option)
+  - [C. Linux VM Option](#c-linux-vm-option)
+  - [Local and Online Development Tools](#local-and-online-development-tools)
+  - [Debezium, Azure Event Hubs Set up](#debezium-azure-event-hubs-set-up)
+  - [Testing Connectivity](#testing-connectivity)
+  - [Kafka server.properties](#kafka-serverproperties)
 
-# A. Docker, Windows Subsystem for Linux (WSL) Option
-- Install WSL using Microsoft's [Windows Subsystem for Linux for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md) by following [Get started using Docker contianers with WSL](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/tutorials/wsl-containers.md) that covers on WSL, Windows Terminal, VS Code IDE, and Docker setup on Windows. 
+## A. Docker, Windows Subsystem for Linux (WSL) Option
+
+- Install WSL using Microsoft's [Windows Subsystem for Linux for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md) by following [Get started using Docker contianers with WSL](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/tutorials/wsl-containers.md) that covers on WSL, Windows Terminal, VS Code IDE, and Docker setup on Windows.
   - Enable virtualization on local machine BIOS
   - Latest Ubuntu LTS was used for set up
   - Windows Terminal
@@ -32,7 +29,8 @@ Table of contents
     - [Remote-Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) - enables you to open your project folder or repo inside of a container, taking advantage of Visual Studio Code's full feature set to do your development work within the container.
     - [Docker extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker) - adds the functionality to build, manage, and deploy containerized applications from inside VS Code. (You need the Remote-Container extension to actually use the container as your dev environment.)
     - [Github Pull request extension](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
-      - Set git path, e.g. edit settings.json 
+      - Set git path, e.g. edit settings.json
+
      ```json
      // Is git enabled
      "git.enabled": true,
@@ -40,55 +38,63 @@ Table of contents
      // Path to the git executable
      "git.path": "C:\\usr\\bin\\ptbl\\PortableApps\\PortableGit\\bin\\git.exe",
      ```
+
   - If using a proxy, set proxy settings for [git, Advanced Package Tool (apt), and other tools](https://github.com/justintungonline/debezium-tests/blob/main/localdev.md#proxy-set-up)
   - Create new or use existing Docker Hub ID
 - Restart your machine manually
--  Install a Linux distribution (e.g. Ubuntu LTS, Fedora Remix) from Microsoft Store
--  Launch Linux and configure it
+- Install a Linux distribution (e.g. Ubuntu LTS, Fedora Remix) from Microsoft Store
+- Launch Linux and configure it
 
-# B. Kubernetes (K8S) Option
+## B. Kubernetes (K8S) Option
+
 - Install a Kubernetes cluster for development or use an existing one.
 - Follow instructions at [Debezium Openshift install](https://debezium.io/documentation/reference/operations/openshift.html)
 
-## B.1 Openshift remote
+### B.1 Openshift remote
+
 Use existing remote Kubernetes instance such as the:
+
 - [Openshift Playground for 1 hour usage](https://learn.openshift.com/playgrounds/) - free
 - [Red Hat CodeReady Workspaces](https://workspaces.openshift.com/dashboard/) - free
 - A paid cloud instance such at IBM Redhat, Microsoft Azure, Amazon Web Services
 
-This option is recommended to avoid installing/maintaining Kubernetes locally which takes time. Using this option with [an online development environment with Docker](#online-options) means you only need a browser to develop and deploy the program. No local installations required and environments can be easily shared with others with minimal setup. 
+This option is recommended to avoid installing/maintaining Kubernetes locally which takes time. Using this option with [an online development environment with Docker](#online-options) means you only need a browser to develop and deploy the program. No local installations required and environments can be easily shared with others with minimal setup.
 
-## B.2 Kubernetes local
+### B.2 Kubernetes local
+
 - Install [Docker desktop Kubernetes](https://docs.docker.com/docker-for-windows/#kubernetes) which includes [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
 
-## B.3 Openshift local
+### B.3 Openshift local
+
 - Install [Minishift 3.11](https://docs.okd.io/3.11/minishift/index.html)
 - [Openshift 3.11 CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html)
 
-# C. Linux VM Option
+## C. Linux VM Option
 
-## Installing a Linux Virtual Machine on Windows 10 with Linux Virtual Machine
+### Installing a Linux Virtual Machine on Windows 10 with Linux Virtual Machine
+
 1. Get Installation Binaries
-- Ubuntu latest LTS 64 bit
-- Hyper V or Virtualbox
-  - Virtualbox, for Windows, got 6.1.12-139181-Win, latest as of 2020-07-27
-- Either download the files on the host from the internet or copy the files using remote desktop clipboard copy and paste. Mounting local drives or secure file transfer may also be an option
+   - Ubuntu latest LTS 64 bit
+   - Hyper V or Virtualbox
+   - Virtualbox, for Windows, got 6.1.12-139181-Win, latest as of 2020-07-27
+   - Either download the files on the host from the internet or copy the files using remote desktop clipboard copy and paste. Mounting local drives or secure file transfer may also be an option
 2. Install/Activate Virtualization:
-- Install VirtualBox (VB) or activate Hyper V on the host machine.
-- Note the VB installation will temporarily disconnect the network. Simply reconnect to your remote server if needed.
+   - Install VirtualBox (VB) or activate Hyper V on the host machine.
+   - Note the VB installation will temporarily disconnect the network. Simply reconnect to your remote server if needed.
 3. Create Linux Virtual Machine
-- Resources:
-  - [How to ssh from host to guest VM on local](https://medium.com/nycdev/how-to-ssh-from-a-host-to-a-guest-vm-on-your-local-machine-6cb4c91acc2e) written for VirtualBox v6 and Ubuntu 18.04 LTS
-  - Activate SSH using Virtualbox port forwarding and configure guest machine network. Alternate instructions at [setting sshe connection to Ubuntu on VirtualBox](https://medium.com/@pierangelo1982/setting-ssh-connection-to-ubuntu-on-virtualbox-af243f737b8b)
+   - Resources:
+   - [How to ssh from host to guest VM on local](https://medium.com/nycdev/how-to-ssh-from-a-host-to-a-guest-vm-on-your-local-machine-6cb4c91acc2e) written for VirtualBox v6 and Ubuntu 18.04 LTS
+   - - Activate SSH using Virtualbox port forwarding and configure guest machine network. Alternate instructions at [setting sshe connection to Ubuntu on VirtualBox](https://medium.com/@pierangelo1982/setting-ssh-connection-to-ubuntu-on-virtualbox-af243f737b8b)
+   - When your VM is started, open your terminal and try to connect: `ssh yourusername@127.0.0.1 -p 2222`
 
-- When your VM is started, open your terminal and try to connect: `ssh yourusername@127.0.0.1 -p 2222`
+### Guide to create the Linux VM on Hyper-V
 
-## Guide to create the Linux VM on Hyper-V
 Follow steps at [Run Linux Hyper-V](https://www.nakivo.com/blog/run-linux-hyper-v/)
 Settings used during the set up were:
+
 - Specific Name and Location: Ubuntu 18 and use default VM location on Windows 'C:\ProgramData\Microsoft\Windows\Hyper-V\'
 - Specify Generation: 1 for compatibility reasons
-- Assign Memory: 2 GB 
+- Assign Memory: 2 GB
 - 2048 mb or half of host OS
 - Connection: Default Switch
   - Later other virtual switches can be created/used
@@ -98,58 +104,73 @@ Settings used during the set up were:
 - Run the VM by right click on the VM then Connect.
 - To get IP of machine using ifconfig. IP is assigned by default switch in Hyper-V. Use external switch if external IPs are required.
 
-## Troubleshooting VM Install
+### Troubleshooting VM Install
+
 Issues that might be encountered
 
-### Setup - Windows 10 machine
+#### Setup - Windows 10 machine
+
 Example specifications for the host of the Linux VM
+
 - Uses Processor - [Intel(R) Xeon(R) CPU E5-2690](https://ark.intel.com/content/www/us/en/ark/products/64596/intel-xeon-processor-e5-2690-20m-cache-2-90-ghz-8-00-gt-s-intel-qpi.html) v4 @ 2.60GHz, 2600 Mhz, 2 Core(s), 2 Logical Processor(s).  
 - 4 GB RAM
 - Intel® Virtualization Technology (VT-x) is supported, so 64 bit guests are supported on it.
 - Only has limited GB free, may need to free space in future for use
 
-### Virtualbox cannot detect 64 bit. 
+#### Virtualbox cannot detect 64 bit
+
 Follow steps [on VirtualBox forums](https://forums.virtualbox.org/viewtopic.php?f=1&t=62339)
 
-### Nested virtualization
+#### Nested virtualization
+
 You are receiving error messages like:
+
 - VT-X is not enabled
 - Not Hyper-V CPUID signature: 0x61774d56 0x4d566572 0x65726177 (expected 0x7263694d 0x666f736f 0x76482074) (VERR_NEM_NOT_AVAILABLE).
 - VT-x is not available (VERR_VMX_NO_VMX)
-#### About the issue and suggested fixes
+  
+##### About the issue and suggested fixes
+
 - [Run a nested VM on KVM QEMU VM in Hyper-V](https://timothygruber.com/hyper-v-2/run-a-nested-vm-on-kvm-qemu-vm-in-hyper-v/)
 - [Microsoft Hyper-V on Windows User Guide, nested virtualization](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/nested-virtualization)
 - [Remove App & Browser settings for VMcompute and related executables](https://stackoverflow.com/questions/41182714/unable-to-start-docker-in-windows-10-hyper-v-error-is-thrown), Restart VMM
 
-## Linux setup
+### Linux setup
 
-### Update
+#### Update
+
 - Assume Linux is Debian/Ubuntu distribution
 - Try installing package updates executing this command in terminal. The commands will check updates and then upgrade packages, then remove any unused packages due to upgrades.
+
 ```sh
 sudo apt update && sudo apt upgrade -y
 sudo apt-get autoremove
 ```
+
 - If there are proxy problems, follow the "Proxy set up" section below and try the command again.
 - Get SSH running for secure remote access
+
 ```sh
 sudo apt-get install openssh-server
 sudo service ssh status
 ```
 
-### Proxy set up
+#### Proxy set up
+
 This step is required if the VM's host or network uses a proxy to the internet.
 You may have to set package manager proxy and HTTP/HTTPS proxy environment variables (e.g. http_proxy=...)
 
 Example proxy setting for 204.40.130.129 port 3128
 
 Add these lines to etc/environment or shell initialization like ~/.bashrc
+
 ```sh
 http_proxy=http://204.40.130.129 3128:3128/
 https_proxy=https://204.40.130.129 3128:3128/
 ```
 
 Set the proxy used by Aptitude package manager. Create a new file 'proxy.conf' under the '/etc/apt/apt.conf.d/' directory, and then add the following lines. e.g.
+
 ```sh
 sudo nano /etc/apt/apt.conf.d/proxy.conf
 # In editor, add these lines
@@ -159,8 +180,9 @@ Acquire {
 }
 ```
 
-#### Temporary proxy settings
-##### Set
+##### Temporary proxy settings
+
+###### Set
 
 ```sh
 export http_proxy=http://204.40.130.129:3128
@@ -169,7 +191,7 @@ export https_proxy=http://204.40.130.129:3128
 git config --global http.proxy http://204.40.130.129:3128
 ```
 
-##### Unset (remove proxy settings)
+###### Unset (remove proxy settings)
 
 ```sh
 # remove system proxy
@@ -179,70 +201,82 @@ unset https_proxy
 git config --global --unset http.proxy  
 ```
 
-## Install Docker 
+### Install Docker
+
 Use [install instructions provided by Docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
 
-## VM Clean up
-After you are done development or testting and need to remove the VM. 
+### VM Clean up
+
+After you are done development or testting and need to remove the VM.
 Remove the Hyper-V configured VM or delete the VirtualBox VM.
 
-# Local and Online Development Tools
+## Local and Online Development Tools
 
 Both options listed below can reuse existing Linux VMs or container hosting for sandbox development.
 
-## Local Option
+### Local Option
+
 - Install Cygwin on local machine, get packages for curl, git, etc.
 
-## Online Options
-Use a cloud integrated development environment e.g. 
+### Online Options
+
+Use a cloud integrated development environment e.g.
+
 - [Gitpod](https://gitpod.io/workspaces/) (includes [Docker and sudo access](https://www.gitpod.io/docs/feature-preview))
 - [Cloud9](https://aws.amazon.com/cloud9/) with EC2 machines with Docker
-- [Google Cloud Shell](https://cloud.google.com/shell) (includes Docker natively). 
+- [Google Cloud Shell](https://cloud.google.com/shell) (includes Docker natively).
 - The advantage is only a browser is required and the environment can be managed as code and accessed anywhere.
 
-# Debezium, Azure Event Hubs Set up
+## Debezium, Azure Event Hubs Set up
 
-## High level steps
+### High level steps
+
 1. [Install Strimzi Cluster Operator](https://strimzi.io/docs/operators/latest/quickstart.html)
 2. Build Debezium image with connectors needed
 3. Set configuration files with Azure Event Hubs and database connections
 4. Set up Kafka Connect Cluster with image and configuration files
 5. Test changes
 
-## Tutorials on Above Steps
+### Tutorials on Above Steps
+
 - [Debezium Openshift install with Strimzi operator and MS SQL connector](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs)
 - [Kafka Connect on Kubernetes the easy way](https://itnext.io/kafka-connect-on-kubernetes-the-easy-way-b5b617b7d5e9)
 
 Remote User Acceptance Testing
-1. Install Version 0.20 of the Strimzi operator > [installation options](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs#install-strimzi-operator)
-2.	If the operator is installed in a different namespace (e.g. strimzi-operator), grant persmissions for your user to use it. It is a cluster wide operator. Specify the namespace to use it - e.g.: `oc process strimzi-operator//strimzi-ephemeral ....`
 
-# Testing Connectivity
+1. Install Version 0.20 of the Strimzi operator > [installation options](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs#install-strimzi-operator)
+2. If the operator is installed in a different namespace (e.g. strimzi-operator), grant persmissions for your user to use it. It is a cluster wide operator. Specify the namespace to use it - e.g.: `oc process strimzi-operator//strimzi-ephemeral ....`
+
+## Testing Connectivity
 
 This section explains ways to test connectivity between the components you have set up.
 
-## Check connectivity to databases and Kakfa endpoints
+### Check connectivity to databases and Kakfa endpoints
 
-### Windows
+#### Windows
+
 ```sh
 tnc -ComputerName "eventhub-dev.servicebus.windows.net" -InformationLevel "Detailed" -Port 9093
 tnc -ComputerName "192.168.2.1" -InformationLevel "Detailed" -Port 1433
 ```
 
-### Linux
-#### Telnet
+#### Linux
+
+##### Telnet
+
 ```sh
 telnet eventhub-dev.servicebus.windows.net 9093
 telnet 192.168.2.1 1433
 ```
-#### Ncat aka nc
+
+##### Ncat aka nc
 
 ```sh
 nc -vz eventhub-dev.servicebus.windows.net 9093
 nc -vz 192.168.2.1 1433
 ```
 
-#### curl
+##### curl
 
 ```sh
 curl -v telnet://142.1.1.1:1433
@@ -252,20 +286,21 @@ curl -v telnet://142.1.1.1:1433
 ^C
 ```
 
-## Check connectivity in Docker, Kuberenetes, Openshift
+### Check connectivity in Docker, Kuberenetes, Openshift
 
 Before setup, connectivity to endpoints can be tested quickly using an simple container that has the curl command such as [tutum/curl](https://hub.docker.com/r/tutum/curl) container that has curl on an ubuntu base image.
 
-### Docker
+#### Docker
 
 Pull an image with curl, run it, then run the connectivity test.
+
 ```sh
 docker pull pstauffer/curl
 docker run -it pstauffer/curl sh
 $ curl -v telnet://eventhub-dev.servicebus.windows.net:9093
 ```
 
-### Kubernetes / Openshift
+#### Kubernetes / Openshift
 
 Create a new pod using this configuration below that uses the image with curl.
 
@@ -300,11 +335,14 @@ $ curl -v telnet://eventhub-dev.servicebus.windows.net:9093
 ```
 
 After doing the test, the pod can be removed in two ways:
+
 1. Remove the pod
+
 ```sh
 # optional - remove temporary pod used for network test
 $ oc delete pod tutum
 ```
+
 or 2. Remove the deployment configuration which will remove the pod
 
 ```sh
@@ -316,12 +354,15 @@ $ oc delete deployment curl
 deployment.apps "curl" deleted
 ```
 
-# Kafka server.properties
+## Kafka server.properties
+
 Defaults in the Strimzi base image
+
 ```sh
 [kafka@44db389f6bbe config]$ cd /opt/kafka/config/
 [kafka@44db389f6bbe config]$ more server.properties 
 ```
+
 ```properties
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with

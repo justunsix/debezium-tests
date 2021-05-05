@@ -4,25 +4,24 @@ Demo on how to set up a change data capture flow using [Azure Event Hubs](https:
 
 This technology can be used where you want to stream database change events (create/update/delete operations in database tables) for processing. Debezium can use change data capture features available in different databases and gives a set of Kafka Connect connectors that takes row-level changes in database table(s) and can make them into event streams that are then sent to Apache Kafka.
 
-Demo and files are based on a split from this github repository https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs
+Demo and files are based on a split from this github repository [strimzi-kafka-connect-eventhubs](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs)
 
-Table of contents
-=================
+## Table of contents
 
 <!--ts-->
-   * [What is in the Demo](#what-is-in-the-demo)
-   * [Create SQL DB and enable CDC](#create-sql-db-and-enable-cdc)
-   * [Create Azure EventHubs](#create-azure-eventhubs)
-   * [Install Strimzi Kafka Operator](#install-strimzi-operator)
-   * [Prepare KafkaConnect Image with Debezium Plugin](#prepare-kafka-connect-image-with-debezium-plugin)
-   * [Install KafkaConnect](#install-kafka-connect)
-   * [Install Debezium SQL Connector](#install-debezium-sql-connector)
-   * [Test](#test)
-   * [Uninstall](#uninstall)
-   * [Appendix Example Openshift Settings](#Appendix-Example-Openshift-Settings)
+- [Streaming Change Data Capture (CDC) changes to Azure Event Hubs using Strimzi and Debezium on Redhat Openshift](#streaming-change-data-capture-cdc-changes-to-azure-event-hubs-using-strimzi-and-debezium-on-redhat-openshift)
+  - [Table of contents](#table-of-contents)
+  - [What is in the Demo](#what-is-in-the-demo)
+  - [Create SQL DB and enable CDC](#create-sql-db-and-enable-cdc)
+  - [Prepare Kafka Connect Image with Debezium Plugin](#prepare-kafka-connect-image-with-debezium-plugin)
+  - [Uninstall](#uninstall)
+  - [Appendix Example Openshift Settings](#appendix-example-openshift-settings)
+  - [Environment Settings](#environment-settings)
+  - [Sample Performance Data](#sample-performance-data)
  <!--te-->
 
 ## What is in the Demo
+
 1. Create an SQL database
 2. Create Azure Event Hubs
 3. Install Debezium
@@ -31,13 +30,14 @@ Table of contents
 
 ![Stream with Apache Kafka: Flow of data from MS SQL to Debezium (Kakfa Connect) to Azure Event Hubs (Kafka)](./images/MS-SQL-Debezium-KafkaConnection-AzureEventHubs-Kafka.png)
 
-# Create SQL DB and enable CDC
+## Create SQL DB and enable CDC
+
 This test used Azure SQL MI instance and as per docs on Debezium (Azure SQL is not yet supported)
 
 - Create Azure SQL MI instance with Public endpoint, make sure port 3342 is enabled on NSG rules for access, get connection string for public endpoint
 ![Docs](./images/MIConnect.png)
 
-- Enable CDC Capture as per docs: [CDC with ADF ](https://docs.microsoft.com/en-us/azure/data-factory/tutorial-incremental-copy-change-tracking-feature-portal)
+- Enable CDC Capture as per docs: [CDC with ADF](https://docs.microsoft.com/en-us/azure/data-factory/tutorial-incremental-copy-change-tracking-feature-portal)
 
 ```sql
 create table Persons
@@ -60,15 +60,15 @@ EXEC sys.sp_cdc_enable_table
 @supports_net_changes = 1
 ```
 
-## Create Azure EventHubs
+### Create Azure EventHubs
 
 We will use Azure EventHubs as Kafka broker and integrate it with Kafka Connect to stream data.
 
 Create Azure EventHubs and take note of access keys
 ![Docs](./images/KafkaAccess.png)
 
+### Install Strimzi Operator
 
-## Install Strimzi Operator
 KafkaConnect with its connectors could be used as a middleman that would stream CDC events to Azure EventHubs Broker.
 To install Kafka connect we will use popular Strimzi operator but will only use CRDs to setup KafkaConnect and KafkaConnect SQL Connector.
 
@@ -89,6 +89,7 @@ helm install strimzi-kafka strimzi/strimzi-kafka-operator
 # Verify operator install
 helm ls
 ```
+
 or [Running Debezium on OpenShift](https://debezium.io/documentation/reference/operations/openshift.html)
 
 ```sh
@@ -100,9 +101,10 @@ cd strimzi-kafka-operator
 oc login -u system:admin
 oc create -f install/cluster-operator && oc create -f examples/templates/cluster-operator
 ```
+
 Ensure [permissions are set](https://strimzi.io/docs/operators/latest/deploying.html) for the Strimzi Operator for users that will managed it.
 
-# Prepare Kafka Connect Image with Debezium Plugin
+## Prepare Kafka Connect Image with Debezium Plugin
 
 KafkaConnect Loads Connectors from its internal `plugin.path`. Debezium is the most popular connector for CDC capture from various Databases.
 
@@ -130,7 +132,7 @@ docker build -t justintungonline/strimzi-kafka-connect-debezium:latest .
 docker push justintungonline/strimzi-kafka-connect-debezium:latest
 ```
 
-## Install Kafka Connect
+### Install Kafka Connect
 
 **Note:** all examples use kubernetes namespace `cdc-kafka`
 
@@ -145,6 +147,7 @@ oc -n cdc-kafka create secret generic sql-credentials --from-file=sqlserver-cred
 ```
 
 Apply to `kafka-connect.yaml` file to set up the kafka connector. Notes on settings:
+
 - It creates the KafkaConnect worker Cluster, using the image that was created in the step above.
 - For TLS settings (e.g. cipher, protocol), set it in the config section of the file. By default in this configuration, the connector will use the highest possible TLS version when connecting to Kafka. See [Strimzi SSL reference](https://strimzi.io/docs/operators/master/using.html#con-common-configuration-ssl-reference) for details on variables and accepted values.
 
@@ -210,10 +213,11 @@ spec:
 ```
 
 update:
+
 - `bootstrapServers` to point to your AzureEventHubs namespace
 - `image` with your connector image
-
 - Apply the manifest
+
 ```sh
 oc apply -f kafka-connect.yaml -n cdc-kafka
 ```
@@ -232,6 +236,7 @@ kafka-connect-cluster-debezium-connect-api   ClusterIP   172.30.109.146   <none>
 ```
 
 Connect to the Kafka Connect Server using the [Kafka Connect API](https://docs.confluent.io/platform/current/connect/references/restapi.html) and verify that SQL Connector plugin is loaded and available by executing commands in the container shell:
+
 ```sh
 oc exec -i -n cdc-kafka kafka-connect-cluster-debezium-connect-6668b7d974-wcgnf -- curl localhost:8083/connector-plugins | jq
 # or use this command
@@ -276,7 +281,7 @@ oc exec -i -n cdc-kafka kafka-connect-cluster-debezium-connect-6668b7d974-wcgnf 
 Once the KafkaConnect Cluster started it will create topics for its internal operations:
 ![Docs](./images/KafkaConnectTopics.png)
 
-## Install Debezium SQL Connector
+### Install Debezium SQL Connector
 
 Now we will configure and  install SQLConnector instance. It's typically done using REST api but Strimzi Operator automated it using K8S CRD objects.
 
@@ -343,7 +348,7 @@ onnectors | jq .
 ]
 ```
 
-## Test
+### Test
 
 Debezium SQL Connector creates topics for schema and table updates:
 
@@ -371,11 +376,13 @@ kafkacat -C -b kafkastore.servicebus.windows.net:9093 -t cdctestsmi.dbo.Persons 
 ```
 
 - insert the data into the `Persons` table
+  
 ```sql
 INSERT INTO Persons (PersonID,Name, Age) VALUES (7, 'Targarien', 125);
 ```
 
 And see the event apper in the topic:
+
 ```json
 {"schema":{"type":"struct","fields":[{"type":"struct","fields":[{"type":"int32","optional":false,"field":"PersonID"},{"type":"string","optional":true,"field":"Name"},{"type":"int32","optional":true,"field":"Age"}],"optional":true,"name":"cdctestsmi.dbo.Persons.Value","field":"before"},{"type":"struct","fields":[{"type":"int32","optional":false,"field":"PersonID"},{"type":"string","optional":true,"field":"Name"},{"type":"int32","optional":true,"field":"Age"}],"optional":true,"name":"cdctestsmi.dbo.Persons.Value","field":"after"},{"type":"struct","fields":[{"type":"string","optional":false,"field":"version"},{"type":"string","optional":false,"field":"connector"},{"type":"string","optional":false,"field":"name"},{"type":"int64","optional":false,"field":"ts_ms"},{"type":"string","optional":true,"name":"io.debezium.data.Enum","version":1,"parameters":{"allowed":"true,last,false"},"default":"false","field":"snapshot"},{"type":"string","optional":false,"field":"db"},{"type":"string","optional":false,"field":"schema"},{"type":"string","optional":false,"field":"table"},{"type":"string","optional":true,"field":"change_lsn"},{"type":"string","optional":true,"field":"commit_lsn"},{"type":"int64","optional":true,"field":"event_serial_no"}],"optional":false,"name":"io.debezium.connector.sqlserver.Source","field":"source"},{"type":"string","optional":false,"field":"op"},{"type":"int64","optional":true,"field":"ts_ms"},{"type":"struct","fields":[{"type":"string","optional":false,"field":"id"},{"type":"int64","optional":false,"field":"total_order"},{"type":"int64","optional":false,"field":"data_collection_order"}],"optional":true,"field":"transaction"}],"optional":false,"name":"cdctestsmi.dbo.Persons.Envelope"},"payload":{
     "before":null,
@@ -383,7 +390,7 @@ And see the event apper in the topic:
     "source":{"version":"1.3.0.Final","connector":"sqlserver","name":"cdctestsmi","ts_ms":1603986207443,"snapshot":"false","db":"cdcKafka","schema":"dbo","table":"Persons","change_lsn":"0000002b:000004f8:0004","commit_lsn":"0000002b:000004f8:0005","event_serial_no":1},"op":"c","ts_ms":1603986211338,"transaction":null}}
 ```
 
-## Troubleshooting
+### Troubleshooting
 
 To see the output of the SQL Connector and KafkaConnect monitor the logs:
 
@@ -399,18 +406,18 @@ The Openshift logs will show as connections as made. Security and TLS settings u
 2021-02-01 23:46:36,177 INFO Kafka startTimeMs: 1612223196177 (org.apache.kafka.common.utils.AppInfoParser) [DistributedHerder-connect-1-1]
 2021-02-01 23:46:36,598 INFO ProducerConfig values: 
 ...
-	ssl.cipher.suites = null
-	ssl.enabled.protocols = [TLSv1.2]
-	ssl.endpoint.identification.algorithm = https
-	ssl.key.password = null
-	ssl.keymanager.algorithm = SunX509
-	ssl.keystore.location = null
-	ssl.keystore.password = null
-	ssl.keystore.type = JKS
-	ssl.protocol = TLSv1.2
-	ssl.provider = null
-	ssl.secure.random.implementation = null
-	ssl.trustmanager.algorithm = PKIX
+ssl.cipher.suites = null
+ssl.enabled.protocols = [TLSv1.2]
+ssl.endpoint.identification.algorithm = https
+ssl.key.password = null
+ssl.keymanager.algorithm = SunX509
+ssl.keystore.location = null
+sl.keystore.password = null
+ssl.keystore.type = JKS
+ssl.protocol = TLSv1.2
+ssl.provider = null
+ssl.secure.random.implementation = null
+ssl.trustmanager.algorithm = PKIX
 ...
  (org.apache.kafka.clients.producer.ProducerConfig) [DistributedHerder-connect-1-1]
 ```
@@ -426,28 +433,30 @@ curl -s -X PUT -H "Content-Type:application/json"  http://kafka-connect-cluster-
 ```
 
 Known bugs with history table and workaround:
+
 - [Debezium CDC Connector to send Events to Kafka-Enabled Event Hub #53](https://github.com/Azure/azure-event-hubs-for-kafka/issues/53)
 - [Error "The broker does not support DESCRIBE_CONFIGS" #61](https://github.com/Azure/azure-event-hubs-for-kafka/issues/61)
 
-# Uninstall
+## Uninstall
 
 For a clean uninstall, these are high level steps
+
 1. Remove the pod / set replicas to 0
 2. Delete secrets applied
 3. Delete Strimzi connectors and kafka connect deployments
 4. Remove Strimzi operator
 
-# Appendix Example Openshift Settings
+## Appendix Example Openshift Settings
 
-## Details
+### Details
 
 Configuration and Envrionment details for a Openshift deployment
+
 - Pod scaling: 1
 - Burst quota: 2 cores and 8 GB memory
 - One endpoint: connect-cluster-debezium-connect-api
 
-
-```
+```yaml
 Selectors:
     strimzi.io/cluster=connect-cluster-debezium
     strimzi.io/kind=KafkaConnect
