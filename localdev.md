@@ -55,7 +55,7 @@ This document describes several options to test Debezium and create a developmen
 Use existing remote Kubernetes instance such as the:
 
 - [Openshift Playground for 1 hour usage](https://learn.openshift.com/playgrounds/) - free
-- [Red Hat CodeReady Workspaces](https://workspaces.openshift.com/dashboard/) - free
+- [Red Hat CodeReady Workspaces](https://workspaces.openshift.com/) - free
 - A paid cloud instance such at IBM Redhat, Microsoft Azure, Amazon Web Services
 
 This option is recommended to avoid installing/maintaining Kubernetes locally which takes time. Using this option with [an online development environment with Docker](#online-options) means you only need a browser to develop and deploy the program. No local installations required and environments can be easily shared with others with minimal setup.
