@@ -222,9 +222,10 @@ Both options listed below can reuse existing Linux VMs or container hosting for 
 
 Use a cloud integrated development environment e.g.
 
-- [Gitpod](https://gitpod.io/workspaces/) (includes [Docker and sudo access](https://www.gitpod.io/docs/feature-preview)
+- [Gitpod](https://gitpod.io/workspaces/) - includes [Docker and sudo access](https://www.gitpod.io/docs/feature-preview)
 - [Cloud9](https://aws.amazon.com/cloud9/) with EC2 machines with Docker
-- [Google Cloud Shell](https://cloud.google.com/shell) (includes Docker natively).
+- [Google Cloud Shell](https://cloud.google.com/shell) - includes Docker 
+- [Github Codespaces](https://github.com/features/codespaces) - includes Docker
 - The advantage is only a browser is required and the environment can be managed as code and accessed anywhere.
 
 ## Debezium, Azure Event Hubs Set up
