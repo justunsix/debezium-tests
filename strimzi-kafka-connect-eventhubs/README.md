@@ -80,6 +80,7 @@ To install Kafka connect we will use popular Strimzi operator but will only use 
 [Install Helm](https://helm.sh/docs/intro/install/)
 
 Install operator described in [Kafka Connect the easy way](https://itnext.io/kafka-connect-on-kubernetes-the-easy-way-b5b617b7d5e9)
+
 ```sh
 # add helm chart repo for Strimzi
 helm repo add strimzi https://strimzi.io/charts/
@@ -109,8 +110,8 @@ Ensure [permissions are set](https://strimzi.io/docs/operators/latest/deploying.
 KafkaConnect Loads Connectors from its internal `plugin.path`. Debezium is the most popular connector for CDC capture from various Databases.
 
 The default KafkaConnect image does not include Debezium connector so we need extend the image.
-The `Dockerfile` in this repo demonstrates how to extend the image. 
-Note for Debezium some connector versions may have issues with your environment and requires changing the version to have it work. 
+The `Dockerfile` in this repo demonstrates how to extend the image.
+Note for Debezium some connector versions may have issues with your environment and requires changing the version to have it work.
 The following Dockerfile use a base image from the Strimzi operator. The Strimzi version of the base image should correspond with the version installed in Openshift as a cluster operator.
 
 ```Dockerfile
@@ -137,6 +138,7 @@ docker push justintungonline/strimzi-kafka-connect-debezium:latest
 **Note:** all examples use kubernetes namespace `cdc-kafka`
 
 Now we need to setup KafkaConnect worker to be able to talk to Azure EventHubs as a broker.
+
 - Create a secret to hold AzureEventHubs auth details, replace in this yaml file `eventhubspassword` with your EventHubs Keys and apply:
 `oc apply -f eventhubs-secret.yaml`
 
@@ -356,8 +358,7 @@ Debezium SQL Connector creates topics for schema and table updates:
 
 For testing we will use `kafkacat` to monitor the Azure Event Hubs.
 
-
-- configure the connection details for `kafkacat` in `~/.config/kafkacat.conf` 
+- configure the connection details for `kafkacat` in `~/.config/kafkacat.conf`
 
 ```properties
 metadata.broker.list=kafkastore.servicebus.windows.net:9093
@@ -398,7 +399,7 @@ To see the output of the SQL Connector and KafkaConnect monitor the logs:
  oc logs kafka-connect-cluster-debezium-connect-5d96664b98-tn5j7 -n cdc-kafka --tail 200 -f
 ```
 
-You could dynamically change verbosity for the various components as described in this article: [Changing KafkaConnect logging dynamically](https://rmoff.net/2020/01/16/changing-the-logging-level-for-kafka-connect-dynamically/). 
+You could dynamically change verbosity for the various components as described in this article: [Changing KafkaConnect logging dynamically](https://rmoff.net/2020/01/16/changing-the-logging-level-for-kafka-connect-dynamically/).
 
 The Openshift logs will show as connections as made. Security and TLS settings used by the connector can also be seen:
 
@@ -511,6 +512,7 @@ Secret:
 ```
 
 ## Environment Settings
+
 ```
 - KAFKA_CONNECT_CONFIGURATION = offset.storage.topic=connect-cluster-offsetsvalue.converter=org.apache.kafka.connect.json.JsonConverterconfig.storage.topic=connect-cluster-configskey.converter=org.apache.kafka.connect.json.JsonConvertergroup.id=connect-clusterstatus.storage.topic=connect-cluster-statusconfig.providers=fileconfig.providers.file.class=org.apache.kafka.common.config.provider.FileConfigProviderconfig.storage.replication.factor=1key.converter.schemas.enable=falseoffset.storage.replication.factor=1status.storage.replication.factor=1value.converter.schemas.enable=false
 - KAFKA_CONNECT_METRICS_ENABLED = false
@@ -522,6 +524,7 @@ Secret:
 - KAFKA_CONNECT_SASL_MECHANISM = plain
 - KAFKA_CONNECT_SASL_PASSWORD_FILE = <set to Kubernetes secret and variable in secret>
 ```
+
 - About [Kubernetes secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
 
 Sample YAML configuration
@@ -720,6 +723,7 @@ status:
 ```
 
 ## Sample Performance Data
+
 - With CDC for 3 SQL development databases with low change activity and send updates to 1 Event Hubs
 - Openshift performance monitor results over 1 week:
   - Requests 2048 mb memory and uses ~900 mb on average
