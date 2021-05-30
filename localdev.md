@@ -240,7 +240,7 @@ Use a cloud integrated development environment e.g.
 
 ### Tutorials on Above Steps
 
-- [Debezium Openshift install with Strimzi operator and MS SQL connector](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs)
+- [Debezium Openshift install with Strimzi operator and MS SQL connector](https://github.com/justintungonline/debezium-tests/blob/main/strimzi-kafka-connect-eventhubs/README.md)
 - [Kafka Connect on Kubernetes the easy way](https://itnext.io/kafka-connect-on-kubernetes-the-easy-way-b5b617b7d5e9)
 
 Remote User Acceptance Testing
