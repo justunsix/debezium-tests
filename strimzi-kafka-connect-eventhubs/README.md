@@ -1,10 +1,10 @@
 # Streaming Change Data Capture (CDC) changes to Azure Event Hubs using Strimzi and Debezium on Redhat Openshift
 
-Demo on how to set up a change data capture flow using [Azure Event Hubs](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-about), MS SQL, and [Debezium](https://debezium.io/). Debezium is deployed in a container using the Strimzi Kakfa Connect base image to used within Openshift.
+Demo on how to set up a change data capture flow using [Azure Event Hubs](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-about), MS SQL, and [Debezium](https://debezium.io/). Debezium is deployed in a container using the Strimzi Kafka Connect base image to used within Openshift.
 
 This technology can be used where you want to stream database change events (create/update/delete operations in database tables) for processing. Debezium can use change data capture features available in different databases and gives a set of Kafka Connect connectors that takes row-level changes in database table(s) and can make them into event streams that are then sent to Apache Kafka.
 
-Demo and files are based on a split from this github repository [strimzi-kafka-connect-eventhubs](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs)
+Demo and files are based on a split from this GitHub repository [strimzi-kafka-connect-eventhubs](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs)
 
 ## Table of contents
 
@@ -18,6 +18,7 @@ Demo and files are based on a split from this github repository [strimzi-kafka-c
   - [Appendix Example Openshift Settings](#appendix-example-openshift-settings)
   - [Environment Settings](#environment-settings)
   - [Sample Performance Data](#sample-performance-data)
+  - [Upgrading Strimzi and Debezium Kafka Connector](#upgrading-strimzi-and-debezium-kafka-connector)
  <!--te-->
 
 ## What is in the Demo
@@ -28,7 +29,7 @@ Demo and files are based on a split from this github repository [strimzi-kafka-c
 4. Test everything works
 5. Example settings and performance data
 
-![Stream with Apache Kafka: Flow of data from MS SQL to Debezium (Kakfa Connect) to Azure Event Hubs (Kafka)](./images/MS-SQL-Debezium-KafkaConnection-AzureEventHubs-Kafka.png)
+![Stream with Apache Kafka: Flow of data from MS SQL to Debezium (Kafka Connect) to Azure Event Hubs (Kafka)](./images/MS-SQL-Debezium-KafkaConnection-AzureEventHubs-Kafka.png)
 
 ## Create SQL DB and enable CDC
 
@@ -79,7 +80,7 @@ To install Kafka connect we will use popular Strimzi operator but will only use 
 
 [Install Helm](https://helm.sh/docs/intro/install/)
 
-Install operator described in [Kafka Connect the easy way](https://itnext.io/kafka-connect-on-kubernetes-the-easy-way-b5b617b7d5e9)
+Install operator described in [Kafka Connect the easy way](https://itnext.io/kafka-connect-on-kubernetes-the-easy-way-b5b617b7d5e9).
 
 ```sh
 # add helm chart repo for Strimzi
@@ -91,7 +92,7 @@ helm install strimzi-kafka strimzi/strimzi-kafka-operator
 helm ls
 ```
 
-or [Running Debezium on OpenShift](https://debezium.io/documentation/reference/operations/openshift.html)
+or and [install Kafka Connect as described in the latest Strimzi documents](https://strimzi.io/docs/operators/latest/full/deploying.html#kafka-connect-str) and [Running Debezium on OpenShift](https://debezium.io/documentation/reference/operations/openshift.html)
 
 ```sh
 export STRIMZI_VERSION=0.20.0
@@ -148,7 +149,7 @@ Now we need to setup KafkaConnect worker to be able to talk to Azure EventHubs a
 oc -n cdc-kafka create secret generic sql-credentials --from-file=sqlserver-credentials.properties
 ```
 
-Apply to `kafka-connect.yaml` file to set up the kafka connector. Notes on settings:
+Apply to `kafka-connect.yaml` file to set up the Kafka connector. Notes on settings:
 
 - It creates the KafkaConnect worker Cluster, using the image that was created in the step above.
 - For TLS settings (e.g. cipher, protocol), set it in the config section of the file. By default in this configuration, the connector will use the highest possible TLS version when connecting to Kafka. See [Strimzi SSL reference](https://strimzi.io/docs/operators/master/using.html#con-common-configuration-ssl-reference) for details on variables and accepted values.
@@ -236,6 +237,8 @@ $ oc get svc -n cdc-kafka
 NAME                                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
 kafka-connect-cluster-debezium-connect-api   ClusterIP   172.30.109.146   <none>        8083/TCP   33m
 ```
+
+If there are issues, [Strimzi can restart the Kafka Connect cluster](https://strimzi.io/docs/operators/latest/full/using.html#proc-manual-restart-connector-str) after a reconciliation every 2 minutes.
 
 Connect to the Kafka Connect Server using the [Kafka Connect API](https://docs.confluent.io/platform/current/connect/references/restapi.html) and verify that SQL Connector plugin is loaded and available by executing commands in the container shell:
 
@@ -451,7 +454,7 @@ For a clean uninstall, these are high level steps
 
 ### Details
 
-Configuration and Envrionment details for a Openshift deployment
+Configuration and Environment details for a Openshift deployment
 
 - Pod scaling: 1
 - Burst quota: 2 cores and 8 GB memory
@@ -513,7 +516,7 @@ Secret:
 
 ## Environment Settings
 
-```
+```log
 - KAFKA_CONNECT_CONFIGURATION = offset.storage.topic=connect-cluster-offsetsvalue.converter=org.apache.kafka.connect.json.JsonConverterconfig.storage.topic=connect-cluster-configskey.converter=org.apache.kafka.connect.json.JsonConvertergroup.id=connect-clusterstatus.storage.topic=connect-cluster-statusconfig.providers=fileconfig.providers.file.class=org.apache.kafka.common.config.provider.FileConfigProviderconfig.storage.replication.factor=1key.converter.schemas.enable=falseoffset.storage.replication.factor=1status.storage.replication.factor=1value.converter.schemas.enable=false
 - KAFKA_CONNECT_METRICS_ENABLED = false
 - KAFKA_CONNECT_BOOTSTRAP_SERVERS = <set to Event Hub address
@@ -730,3 +733,43 @@ status:
   - Requests 1 cpu (1000 milicores) and only using 6-7 milicores on average
   - On network sends 3.10 KiB/s and receives 3.10 KiB/s on average
   - Usage is steady with no spikes for memory, cpu, and network
+
+## Upgrading Strimzi and Debezium Kafka Connector
+
+This section summarizes steps in [Strimzi's upgrade documentation](https://strimzi.io/docs/operators/latest/deploying.html#assembly-upgrading-kafka-versions-str).
+
+### Kafka Versions
+
+Set the version property for Kafka Connect as the new version of Kafka:
+
+For Kafka Connect, update `KafkaConnect.spec.version`. In this example, use the latest Kafka supported by Strimzi 0.23. For example:
+
+```yaml
+spec:
+  replicas: 1
+  ...
+  version: 2.8.0
+  ...
+```
+
+Upgrade the `dockerfile` base image used for the Debezium Kafka Connect to use the target Strimzi version if applicable. For example:
+
+```dockerfile
+FROM quay.io/strimzi/kafka:0.23.0-kafka-2.8.0
+...
+```
+
+and apply changes with configuration file changes explained listed below.
+
+### Custom Resource Changes
+
+Follow steps in [Strimzi custom resource upgrades](https://strimzi.io/docs/operators/latest/deploying.html#assembly-upgrade-resources-str)
+
+"After you have upgraded Strimzi to 0.23.0, you must ensure that your custom resources are using API version `v1beta2`. You can do this any time after upgrading to 0.23.0, but the upgrades must be completed before the next Strimzi minor version update."
+
+Upgrade steps:
+
+1. Choose whether to convert custom resources via configuration files or change the resources directly. Both methods can be done using a [command line API conversion tool on GitHub](https://github.com/strimzi/strimzi-kafka-operator/releases) under the latest Strimzi release. The custom resources can also be [manually updated](https://strimzi.io/docs/operators/latest/deploying.html#proc-upgrade-kafka-connect-resources-str) which describe the changes in detail.
+   1. Converting custom resources [configuration files using API conversion tool](https://strimzi.io/docs/operators/latest/deploying.html#proc-upgrade-cli-tool-files-str)
+   2. Converting custom resources [directly using the API conversion tool](https://strimzi.io/docs/operators/latest/deploying.html#proc-upgrade-cli-tool-direct-str)
+2. [Upgrade Custom Resource Definitions (CRD)s](https://strimzi.io/docs/operators/latest/deploying.html#proc-upgrade-cli-tool-crds-str) to `v1beta2` using the API conversion tool.

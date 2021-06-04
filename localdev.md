@@ -4,7 +4,7 @@ This document describes several options to test Debezium and create a developmen
 
 - The steps assume setting up of Debezium running on Redhat Openshift and connecting to Azure Event Hubs.
 - I found the first option, Docker with WSL, the easiest to set up locally. For a quick test, the second option using an existing Kubernetes deployment such as the free [Openshift Playground](https://learn.openshift.com/playgrounds/) is fast to test and can be done all in a web browser.
-- Ideally, a sandbox environment should run Linux with the developer having administrative (sudo) privleges. My team runs a Windows only environment, so instructions are focusing on Windows.
+- Ideally, a sandbox environment should run Linux with the developer having administrative (sudo) privileges'. My team runs a Windows only environment, so instructions are focusing on Windows.
 
 ## Table of contents
 
@@ -20,7 +20,7 @@ This document describes several options to test Debezium and create a developmen
 
 ## A. Docker, Windows Subsystem for Linux (WSL) Option
 
-- Install WSL using Microsoft's [Windows Subsystem for Linux for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md) by following [Get started using Docker contianers with WSL](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/tutorials/wsl-containers.md) that covers on WSL, Windows Terminal, VS Code IDE, and Docker setup on Windows.
+- Install WSL using Microsoft's [Windows Subsystem for Linux for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md) by following [Get started using Docker containers with WSL](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/tutorials/wsl-containers.md) that covers on WSL, Windows Terminal, VS Code IDE, and Docker setup on Windows.
   - Enable virtualization on local machine BIOS
   - Latest Ubuntu LTS was used for set up
   - Windows Terminal
@@ -28,7 +28,7 @@ This document describes several options to test Debezium and create a developmen
     - [WSL Remote Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) - enables you to open your Linux project running on WSL in VS Code (no need to worry about pathing issues, binary compatibility, or other cross-OS challenges)
     - [Remote-Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) - enables you to open your project folder or repo inside of a container, taking advantage of Visual Studio Code's full feature set to do your development work within the container.
     - [Docker extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker) - adds the functionality to build, manage, and deploy containerized applications from inside VS Code. (You need the Remote-Container extension to actually use the container as your dev environment.)
-    - [Github Pull request extension](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
+    - [GitHub Pull request extension](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
       - Set git path, e.g. edit settings.json
 
      ```json
@@ -63,6 +63,7 @@ This option is recommended to avoid installing/maintaining Kubernetes locally wh
 ### B.2 Kubernetes local
 
 - Install [Docker desktop Kubernetes](https://docs.docker.com/docker-for-windows/#kubernetes) which includes [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
+- [Kubernetes Kind](https://github.com/kubernetes-sigs/kind)
 
 ### B.3 Openshift local
 
@@ -75,8 +76,8 @@ This option is recommended to avoid installing/maintaining Kubernetes locally wh
 
 1. Get Installation Binaries
    - Ubuntu latest LTS 64 bit
-   - Hyper V or Virtualbox
-   - Virtualbox, for Windows, got 6.1.12-139181-Win, latest as of 2020-07-27
+   - Hyper V or VirtualBox
+   - VirtualBox, for Windows, got 6.1.12-139181-Win, latest as of 2020-07-27
    - Either download the files on the host from the internet or copy the files using remote desktop clipboard copy and paste. Mounting local drives or secure file transfer may also be an option
 2. Install/Activate Virtualization:
    - Install VirtualBox (VB) or activate Hyper V on the host machine.
@@ -84,7 +85,7 @@ This option is recommended to avoid installing/maintaining Kubernetes locally wh
 3. Create Linux Virtual Machine
    - Resources:
    - [How to ssh from host to guest VM on local](https://medium.com/nycdev/how-to-ssh-from-a-host-to-a-guest-vm-on-your-local-machine-6cb4c91acc2e) written for VirtualBox v6 and Ubuntu 18.04 LTS
-   - - Activate SSH using Virtualbox port forwarding and configure guest machine network. Alternate instructions at [setting sshe connection to Ubuntu on VirtualBox](https://medium.com/@pierangelo1982/setting-ssh-connection-to-ubuntu-on-virtualbox-af243f737b8b)
+   - - Activate SSH using Virtualbox port forwarding and configure guest machine network. Alternate instructions at [setting ssh connection to Ubuntu on VirtualBox](https://medium.com/@pierangelo1982/setting-ssh-connection-to-ubuntu-on-virtualbox-af243f737b8b)
    - When your VM is started, open your terminal and try to connect: `ssh yourusername@127.0.0.1 -p 2222`
 
 ### Guide to create the Linux VM on Hyper-V
@@ -117,7 +118,7 @@ Example specifications for the host of the Linux VM
 - Intel® Virtualization Technology (VT-x) is supported, so 64 bit guests are supported on it.
 - Only has limited GB free, may need to free space in future for use
 
-#### Virtualbox cannot detect 64 bit
+#### VirtualBox cannot detect 64 bit
 
 Follow steps [on VirtualBox forums](https://forums.virtualbox.org/viewtopic.php?f=1&t=62339)
 
@@ -207,7 +208,7 @@ Use [install instructions provided by Docker](https://docs.docker.com/engine/ins
 
 ### VM Clean up
 
-After you are done development or testting and need to remove the VM.
+After you are done development or testing and need to remove the VM.
 Remove the Hyper-V configured VM or delete the VirtualBox VM.
 
 ## Local and Online Development Tools
@@ -225,7 +226,7 @@ Use a cloud integrated development environment e.g.
 - [Gitpod](https://gitpod.io/workspaces/) - includes [Docker and sudo access](https://www.gitpod.io/docs/feature-preview)
 - Amazon [Cloud9](https://aws.amazon.com/cloud9/) with EC2 machines with Docker
 - [Google Cloud Shell](https://cloud.google.com/shell) - includes Docker 
-- Microsoft [Github Codespaces](https://github.com/features/codespaces), [Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/overview) - both include Docker and graphical editors
+- Microsoft [GitHub Codespaces](https://github.com/features/codespaces), [Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/overview) - both include Docker and graphical editors
 - The advantage is only a browser is required and the environment can be managed as code and accessed anywhere.
 
 ## Debezium, Azure Event Hubs Set up
@@ -246,13 +247,13 @@ Use a cloud integrated development environment e.g.
 Remote User Acceptance Testing
 
 1. Install Version 0.20 of the Strimzi operator > [installation options](https://github.com/lenisha/aks-tests/tree/master/oshift/strimzi-kafka-connect-eventhubs#install-strimzi-operator)
-2. If the operator is installed in a different namespace (e.g. strimzi-operator), grant persmissions for your user to use it. It is a cluster wide operator. Specify the namespace to use it - e.g.: `oc process strimzi-operator//strimzi-ephemeral ....`
+2. If the operator is installed in a different namespace (e.g. strimzi-operator), grant permissions for your user to use it. It is a cluster wide operator. Specify the namespace to use it - e.g.: `oc process strimzi-operator//strimzi-ephemeral ....`
 
 ## Testing Connectivity
 
 This section explains ways to test connectivity between the components you have set up.
 
-### Check connectivity to databases and Kakfa endpoints
+### Check connectivity to databases and Kafka endpoints
 
 #### Windows
 
@@ -287,7 +288,7 @@ curl -v telnet://142.1.1.1:1433
 ^C
 ```
 
-### Check connectivity in Docker, Kuberenetes, Openshift
+### Check connectivity in Docker, Kubernetes, Openshift
 
 Before setup, connectivity to endpoints can be tested quickly using an simple container that has the curl command such as [tutum/curl](https://hub.docker.com/r/tutum/curl) container that has curl on an ubuntu base image.
 
