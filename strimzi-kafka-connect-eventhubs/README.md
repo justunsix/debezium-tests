@@ -736,7 +736,8 @@ status:
 
 ## Upgrading Strimzi and Debezium Kafka Connector
 
-This section summarizes steps in [Strimzi's upgrade documentation](https://strimzi.io/docs/operators/latest/deploying.html#assembly-upgrading-kafka-versions-str).
+Follow steps in the [Strimzi's upgrade documentation](https://strimzi.io/docs/operators/latest/deploying.html#assembly-upgrading-kafka-versions-str).
+This section summarizes steps and provides examples.
 
 ### Kafka Versions
 
