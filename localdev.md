@@ -63,7 +63,7 @@ This option is recommended to avoid installing/maintaining Kubernetes locally wh
 ### B.2 Kubernetes local
 
 - Install [Docker desktop Kubernetes](https://docs.docker.com/docker-for-windows/#kubernetes) which includes [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
-- [Kubernetes Kind](https://github.com/kubernetes-sigs/kind)
+- [Kubernetes Kind](https://github.com/kubernetes-sigs/kind) for non production clusters
 
 ### B.3 Openshift local
 
