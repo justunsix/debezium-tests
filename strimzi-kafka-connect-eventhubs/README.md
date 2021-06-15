@@ -728,10 +728,10 @@ status:
 ## Sample Performance Data
 
 - With CDC for 3 SQL development databases with low change activity and send updates to 1 Event Hubs
-- Openshift performance monitor results over 1 week:
-  - Requests 2048 mb memory and uses ~900 mb on average
+- Openshift single pod performance monitor results over 1 week:
+  - Requests 2048 mb memory and uses ~1000 mb (1 GB) on average
   - Requests 1 cpu (1000 milicores) and only using 6-7 milicores on average
-  - On network sends 3.10 KiB/s and receives 3.10 KiB/s on average
+  - On network receives 6.5 KiB/s and sends 8.8 KiB/s on average
   - Usage is steady with no spikes for memory, cpu, and network
 
 ## Upgrading Strimzi and Debezium Kafka Connector
