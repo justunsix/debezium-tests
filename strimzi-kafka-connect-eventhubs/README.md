@@ -452,8 +452,6 @@ For a clean uninstall, these are high level steps
 
 ## Appendix Example Openshift Settings
 
-### Details
-
 Configuration and Environment details for a Openshift deployment
 
 - Pod scaling: 1
@@ -513,8 +511,7 @@ Type:
 Secret:
     sql-credentials 
 ```
-
-## Environment Settings
+### Environment Settings
 
 ```log
 - KAFKA_CONNECT_CONFIGURATION = offset.storage.topic=connect-cluster-offsetsvalue.converter=org.apache.kafka.connect.json.JsonConverterconfig.storage.topic=connect-cluster-configskey.converter=org.apache.kafka.connect.json.JsonConvertergroup.id=connect-clusterstatus.storage.topic=connect-cluster-statusconfig.providers=fileconfig.providers.file.class=org.apache.kafka.common.config.provider.FileConfigProviderconfig.storage.replication.factor=1key.converter.schemas.enable=falseoffset.storage.replication.factor=1status.storage.replication.factor=1value.converter.schemas.enable=false
@@ -733,6 +730,10 @@ status:
   - Requests 1 cpu (1000 milicores) and only using 6-7 milicores on average
   - On network receives 6.5 KiB/s and sends 8.8 KiB/s on average
   - Usage is steady with no spikes for memory, cpu, and network
+
+## Openshift Monitoring
+
+[Enable monitoring of the project](https://docs.openshift.com/container-platform/4.7/monitoring/enabling-monitoring-for-user-defined-projects.html) hosting the connector. Note it requires `cluster-admin` role and [configurations](https://docs.openshift.com/container-platform/4.7/monitoring/configuring-the-monitoring-stack.html).
 
 ## Upgrading Strimzi and Debezium Kafka Connector
 
