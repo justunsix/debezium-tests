@@ -16,8 +16,8 @@ Demo and files are based on a split from this GitHub repository [strimzi-kafka-c
   - [Prepare Kafka Connect Image with Debezium Plugin](#prepare-kafka-connect-image-with-debezium-plugin)
   - [Uninstall](#uninstall)
   - [Appendix Example Openshift Settings](#appendix-example-openshift-settings)
-  - [Environment Settings](#environment-settings)
   - [Sample Performance Data](#sample-performance-data)
+  - [Openshift Monitoring for User Projects](#openshift-monitoring-for-user-projects)
   - [Upgrading Strimzi and Debezium Kafka Connector](#upgrading-strimzi-and-debezium-kafka-connector)
  <!--te-->
 
@@ -511,6 +511,7 @@ Type:
 Secret:
     sql-credentials 
 ```
+
 ### Environment Settings
 
 ```log
@@ -731,9 +732,15 @@ status:
   - On network receives 6.5 KiB/s and sends 8.8 KiB/s on average
   - Usage is steady with no spikes for memory, cpu, and network
 
-## Openshift Monitoring
+## Openshift Monitoring for User Projects
 
-[Enable monitoring of the project](https://docs.openshift.com/container-platform/4.7/monitoring/enabling-monitoring-for-user-defined-projects.html) hosting the connector. Note it requires `cluster-admin` role and [configurations](https://docs.openshift.com/container-platform/4.7/monitoring/configuring-the-monitoring-stack.html).
+Openshift manual references:
+
+1. [Description of the monitoring stack](https://docs.openshift.com/container-platform/4.7/monitoring/understanding-the-monitoring-stack.html)
+2. [Configure prerequisites of the monitoring](https://docs.openshift.com/container-platform/4.7/monitoring/configuring-the-monitoring-stack.html)
+3. [Enable monitoring of the project](https://docs.openshift.com/container-platform/4.7/monitoring/enabling-monitoring-for-user-defined-projects.html) hosting the connector. From there, manage the metrics, alerts, and dashboards.
+
+Note steps requires `cluster-admin` role and configuration changes.
 
 ## Upgrading Strimzi and Debezium Kafka Connector
 
