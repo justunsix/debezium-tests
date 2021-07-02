@@ -12,10 +12,39 @@ This document describes several options to test Debezium and create a developmen
   - [Table of contents](#table-of-contents)
   - [A. Docker, Windows Subsystem for Linux (WSL) Option](#a-docker-windows-subsystem-for-linux-wsl-option)
   - [B. Kubernetes (K8S) Option](#b-kubernetes-k8s-option)
+    - [B.1 Openshift remote](#b1-openshift-remote)
+    - [B.2 Kubernetes local](#b2-kubernetes-local)
+    - [B.3 Openshift local](#b3-openshift-local)
   - [C. Linux VM Option](#c-linux-vm-option)
+    - [Installing a Linux Virtual Machine on Windows 10 with Linux Virtual Machine](#installing-a-linux-virtual-machine-on-windows-10-with-linux-virtual-machine)
+    - [Guide to create the Linux VM on Hyper-V](#guide-to-create-the-linux-vm-on-hyper-v)
+    - [Troubleshooting VM Install](#troubleshooting-vm-install)
+      - [Setup - Windows 10 machine](#setup---windows-10-machine)
+      - [VirtualBox cannot detect 64 bit](#virtualbox-cannot-detect-64-bit)
+      - [Nested virtualization](#nested-virtualization)
+        - [About the issue and suggested fixes](#about-the-issue-and-suggested-fixes)
+    - [Linux setup](#linux-setup)
+      - [Update](#update)
+      - [Proxy set up](#proxy-set-up)
+        - [Temporary proxy settings](#temporary-proxy-settings)
+    - [Install Docker](#install-docker)
+    - [VM Clean up](#vm-clean-up)
   - [Local and Online Development Tools](#local-and-online-development-tools)
+    - [Local Option](#local-option)
+    - [Online Options](#online-options)
   - [Debezium, Azure Event Hubs Set up](#debezium-azure-event-hubs-set-up)
+    - [High level steps](#high-level-steps)
+    - [Tutorials on Above Steps](#tutorials-on-above-steps)
   - [Testing Connectivity](#testing-connectivity)
+    - [Check connectivity to databases and Kafka endpoints](#check-connectivity-to-databases-and-kafka-endpoints)
+      - [Windows](#windows)
+      - [Linux](#linux)
+        - [Telnet](#telnet)
+        - [Ncat aka nc](#ncat-aka-nc)
+        - [curl](#curl)
+    - [Check connectivity in Docker, Kubernetes, Openshift](#check-connectivity-in-docker-kubernetes-openshift)
+      - [Docker](#docker)
+      - [Kubernetes / Openshift](#kubernetes--openshift)
   - [Kafka server.properties](#kafka-serverproperties)
 
 ## A. Docker, Windows Subsystem for Linux (WSL) Option
@@ -54,8 +83,7 @@ This document describes several options to test Debezium and create a developmen
 
 Use existing remote Kubernetes instance such as the:
 
-- [Openshift Playground for 1 hour usage](https://learn.openshift.com/playgrounds/) - free
-- [Red Hat CodeReady Workspaces](https://workspaces.openshift.com/) - free
+- [Openshift Playground for 1 hour usage](https://learn.openshift.com/playgrounds/) - free.
 - A paid cloud instance such at IBM Redhat, Microsoft Azure, Amazon Web Services
 
 This option is recommended to avoid installing/maintaining Kubernetes locally which takes time. Using this option with [an online development environment with Docker](#online-options) means you only need a browser to develop and deploy the program. No local installations required and environments can be easily shared with others with minimal setup.
@@ -227,6 +255,7 @@ Use a cloud integrated development environment e.g.
 - Amazon [Cloud9](https://aws.amazon.com/cloud9/) with EC2 machines with Docker
 - [Google Cloud Shell](https://cloud.google.com/shell) - includes Docker 
 - Microsoft [GitHub Codespaces](https://github.com/features/codespaces), [Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/overview) - both include Docker and graphical editors
+-  Redhat [CodeReady workspace](https://developers.redhat.com/products/codeready-workspaces/overview) with the [`crwctl` CLI tool](https://access.redhat.com/documentation/en-us/red_hat_codeready_workspaces/2.8/html/installation_guide/installing-codeready-workspaces_crw#installing-the-crwctl-management-tool), download version for your environment and add the bin folder to your path.
 - The advantage is only a browser is required and the environment can be managed as code and accessed anywhere.
 
 ## Debezium, Azure Event Hubs Set up
