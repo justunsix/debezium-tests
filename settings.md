@@ -1,4 +1,4 @@
-Settings for various systems in [localdev.md](https://github.com/justintungonline/debezium-tests/blob/main/localdev.md)
+Settings for various systems in [localdev.md](https://github.com/justunsix/debezium-tests/blob/main/localdev.md)
 
 # CMDER
 ## WSL Console
@@ -12,7 +12,7 @@ Start Console
 set "PATH=%ConEmuBaseDirShort%\wsl;%PATH%" & %windir%\system32\wsl.exe -new_console'
 ```
 
-![CMDER settings for a new Windows Subsystem for Linux WSL console](https://github.com/justintungonline/debezium-tests/blob/main/images/CMDer%20WSL%20Console%20settings%20Screenshot%202020-11-19%20160323.png)
+![CMDER settings for a new Windows Subsystem for Linux WSL console](https://github.com/justunsix/debezium-tests/blob/main/images/CMDer%20WSL%20Console%20settings%20Screenshot%202020-11-19%20160323.png)
 
 # VS Code
 ## settings.json
@@ -29,7 +29,7 @@ Example: Set git path to portable [git for Windows](https://git-scm.com/download
 # Linux proxy
 
 ## bash
-[See Linux OS settings proxy](https://github.com/justintungonline/debezium-tests/blob/main/localdev.md#proxy-set-up)
+[See Linux OS settings proxy](https://github.com/justunsix/debezium-tests/blob/main/localdev.md#proxy-set-up)
 
 ## git
 Replace IP/port with your proxy

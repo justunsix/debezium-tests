@@ -68,7 +68,7 @@ This document describes several options to test Debezium and create a developmen
      "git.path": "C:\\usr\\bin\\ptbl\\PortableApps\\PortableGit\\bin\\git.exe",
      ```
 
-  - If using a proxy, set proxy settings for [git, Advanced Package Tool (apt), and other tools](https://github.com/justintungonline/debezium-tests/blob/main/localdev.md#proxy-set-up)
+  - If using a proxy, set proxy settings for [git, Advanced Package Tool (apt), and other tools](https://github.com/justunsix/debezium-tests/blob/main/localdev.md#proxy-set-up)
   - Create new or use existing Docker Hub ID
 - Restart your machine manually
 - Install a Linux distribution (e.g. Ubuntu LTS, Fedora Remix) from Microsoft Store
@@ -270,7 +270,7 @@ Use a cloud integrated development environment e.g.
 
 ### Tutorials on Above Steps
 
-- [Debezium Openshift install with Strimzi operator and MS SQL connector](https://github.com/justintungonline/debezium-tests/blob/main/strimzi-kafka-connect-eventhubs/README.md)
+- [Debezium Openshift install with Strimzi operator and MS SQL connector](https://github.com/justunsix/debezium-tests/blob/main/strimzi-kafka-connect-eventhubs/README.md)
 - [Kafka Connect on Kubernetes the easy way](https://itnext.io/kafka-connect-on-kubernetes-the-easy-way-b5b617b7d5e9)
 
 Remote User Acceptance Testing
