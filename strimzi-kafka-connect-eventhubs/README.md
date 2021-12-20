@@ -19,6 +19,7 @@ Demo and files are based on a split from this GitHub repository [strimzi-kafka-c
   - [Sample Performance Data](#sample-performance-data)
   - [Openshift Monitoring for User Projects](#openshift-monitoring-for-user-projects)
   - [Upgrading Strimzi and Debezium Kafka Connector](#upgrading-strimzi-and-debezium-kafka-connector)
+  - [Appendix: Check Log4J Versions related to Vulnerabilities](#appendix-check-log4j-versions-related-to-vulnerabilities)
  <!--te-->
 
 ## What is in the Demo
@@ -782,3 +783,31 @@ Upgrade steps:
    1. Converting custom resources [configuration files using API conversion tool](https://strimzi.io/docs/operators/latest/deploying.html#proc-upgrade-cli-tool-files-str)
    2. Converting custom resources [directly using the API conversion tool](https://strimzi.io/docs/operators/latest/deploying.html#proc-upgrade-cli-tool-direct-str)
 2. [Upgrade Custom Resource Definitions (CRD)s](https://strimzi.io/docs/operators/latest/deploying.html#proc-upgrade-cli-tool-crds-str) to `v1beta2` using the API conversion tool.
+
+## Appendix: Check Log4J Versions related to Vulnerabilities
+
+In December 2021, several [Log4J vulnerabilities](https://logging.apache.org/log4j/2.x/security.html) were found. The container set up in this demo is not vulnerable to these vulnerabilities for these reasons:
+
+- [CVE-2021-45105](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-45105) (Denial of service) - Debezium and Apache Kafka use version 1.x which is not vulnerable
+- [CVE-2021-45046](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-45046) (remote code execution) - Debezium and Apache Kafka use version 1.x which is not vulnerable
+- [CVE-2021-4104](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-4104) (Remote code execution) - Log4J and Apache Kafka's default configurations do not use JMSAppender
+
+These steps were used to verify the log4j versions in the container used for this demo.
+
+```sh
+# Log into Openshift
+oc login ...
+
+# Get the pod running Debezium
+oc get pods 
+
+# Log into the shell of the container
+oc rsh  --shell=/bin/sh <name of container>
+
+# Navigate to the root of the container
+# Verify all instances of log4j properties files and JARs
+cd /
+find | grep log4j
+```
+
+With the listing outputted in the last command, verify all JARs are log4j 1.x. Check each of the properties files. Each property file will show no JMSAppenders are used.
