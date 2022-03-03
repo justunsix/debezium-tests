@@ -400,7 +400,16 @@ And see the event apper in the topic:
 To see the output of the SQL Connector and KafkaConnect monitor the logs:
 
 ```sh
- oc logs kafka-connect-cluster-debezium-connect-5d96664b98-tn5j7 -n cdc-kafka --tail 200 -f
+oc logs kafka-connect-cluster-debezium-connect-5d96664b98-tn5j7 -n cdc-kafka --tail 200 -f
+```
+
+Alternatively the logs can be downloaded from pods in Openshift if output to the console which is the default or get Kafka logs in the container. 
+
+```sh
+oc rsh  --shell=/bin/bash kafka-connect-cluster-debezium-connect-5d96664b98-tn5j7
+# Find Log Location
+ps -ef | grep kafka
+# Find value for kafka.logs.dir, got to that directory to find kafka logs configured in the log4j properties for specific Kafka component
 ```
 
 You could dynamically change verbosity for the various components as described in this article: [Changing KafkaConnect logging dynamically](https://rmoff.net/2020/01/16/changing-the-logging-level-for-kafka-connect-dynamically/).
