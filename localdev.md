@@ -326,8 +326,8 @@ Before setup, connectivity to endpoints can be tested quickly using an simple co
 Pull an image with curl, run it, then run the connectivity test.
 
 ```sh
-docker pull pstauffer/curl
-docker run -it pstauffer/curl sh
+docker pull alpine/curl
+docker run -it alpine/curl sh
 $ curl -v telnet://eventhub-dev.servicebus.windows.net:9093
 ```
 
