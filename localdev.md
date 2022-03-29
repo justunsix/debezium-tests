@@ -345,7 +345,7 @@ metadata:
 spec:
   containers:
   - name: curl
-    image: pstauffer/curl
+    image: alpine/curl
     command: ["/bin/sleep", "3650d"]
     imagePullPolicy: IfNotPresent
   restartPolicy: Always
