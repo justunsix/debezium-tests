@@ -49,7 +49,7 @@ This document describes several options to test Debezium and create a developmen
 
 ## A. Docker, Windows Subsystem for Linux (WSL) Option
 
-- Install WSL using Microsoft's [Windows Subsystem for Linux for Windows 10](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/install-win10.md) by following [Get started using Docker containers with WSL](https://github.com/MicrosoftDocs/wsl/blob/master/WSL/tutorials/wsl-containers.md) that covers on WSL, Windows Terminal, VS Code IDE, and Docker setup on Windows.
+- Install WSL using Microsoft's Windows Subsystem for Linux by following [Get Started with Docker Containers on WSL](https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers) that covers on WSL, Windows Terminal, VS Code IDE, and Docker setup on Windows.
   - Enable virtualization on local machine BIOS
   - Latest Ubuntu LTS was used for set up
   - Windows Terminal
@@ -90,7 +90,7 @@ This option is recommended to avoid installing/maintaining Kubernetes locally wh
 
 ### B.2 Kubernetes local
 
-- Install [Docker desktop Kubernetes](https://docs.docker.com/docker-for-windows/#kubernetes) which includes [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
+- Install [Docker desktop Kubernetes](https://docs.docker.com/desktop/kubernetes/) which includes [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
 - [Kubernetes Kind](https://github.com/kubernetes-sigs/kind) for non production clusters
 
 ### B.3 Openshift local
@@ -189,13 +189,13 @@ sudo service ssh status
 This step is required if the VM's host or network uses a proxy to the internet.
 You may have to set package manager proxy and HTTP/HTTPS proxy environment variables (e.g. http_proxy=...)
 
-Example proxy setting for 204.40.130.129 port 3128
+Example proxy setting for 1.1.1.2 port 2000
 
 Add these lines to etc/environment or shell initialization like ~/.bashrc
 
 ```sh
-http_proxy=http://204.40.130.129 3128:3128/
-https_proxy=https://204.40.130.129 3128:3128/
+http_proxy=http://1.1.1.2 2000:2000/
+https_proxy=https://1.1.1.2 2000:2000/
 ```
 
 Set the proxy used by Aptitude package manager. Create a new file 'proxy.conf' under the '/etc/apt/apt.conf.d/' directory, and then add the following lines. e.g.
@@ -204,8 +204,8 @@ Set the proxy used by Aptitude package manager. Create a new file 'proxy.conf' u
 sudo nano /etc/apt/apt.conf.d/proxy.conf
 # In editor, add these lines
 Acquire {
-  HTTP::proxy "http://204.40.130.129:3128";
-  HTTPS::proxy "http://204.40.130.129:3128";
+  HTTP::proxy "http://1.1.1.2:2000";
+  HTTPS::proxy "http://1.1.1.2:2000";
 }
 ```
 
@@ -214,10 +214,10 @@ Acquire {
 ###### Set
 
 ```sh
-export http_proxy=http://204.40.130.129:3128
-export https_proxy=http://204.40.130.129:3128
+export http_proxy=http://1.1.1.1:3128
+export https_proxy=http://1.1.1.1:3128
 # git proxy
-git config --global http.proxy http://204.40.130.129:3128
+git config --global http.proxy http://1.1.1.1:3128
 ```
 
 ###### Unset (remove proxy settings)
@@ -227,7 +227,7 @@ git config --global http.proxy http://204.40.130.129:3128
 unset http_proxy
 unset https_proxy
 # remove git proxy
-git config --global --unset http.proxy  
+git config --global --unset http.proxy
 ```
 
 ### Install Docker
