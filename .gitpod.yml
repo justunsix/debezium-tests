@@ -3,8 +3,6 @@ image:
 
 # List the start up tasks. You can start them in parallel in multiple terminals. See https://www.gitpod.io/docs/config-start-tasks/
 tasks:
-  - init: echo 'init script' # runs during prebuild
-    command: sudo apt-get update && sudo apt-get install tailscale -y # Make sure tailscale is up to date
   - name: tailscaled
     command: |
         if [ -n "${TAILSCALE_STATE_MYPROJECT}" ]; then
