@@ -22,6 +22,7 @@ tasks:
           gp env TAILSCALE_STATE_MYPROJECT="$(sudo cat /var/lib/tailscale/tailscaled.state)"
         fi
   - name: install convience tools
+    init: sudo chown gitpod:gitpod ~/.config/fish
     command: nix-env -iA nixpkgs.starship nixpkgs.atuin nixpkgs.carapace
 
 #- name: gcloud
