@@ -21,6 +21,8 @@ tasks:
           # store the tailscale state into gitpod user
           gp env TAILSCALE_STATE_MYPROJECT="$(sudo cat /var/lib/tailscale/tailscaled.state)"
         fi
+  - name: install convience tools
+    command: nix-env -iA nixpkgs.nushell nixpkgs.starship nixpkgs.atuin nixpkgs.carapace
 
 #- name: gcloud
 #  command: |
