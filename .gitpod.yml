@@ -4,7 +4,24 @@ image:
 # List the start up tasks. You can start them in parallel in multiple terminals. See https://www.gitpod.io/docs/config-start-tasks/
 tasks:
   - init: echo 'init script' # runs during prebuild
-    command: echo 'start script'
+    command: sudo apt-get update && sudo apt-get install tailscale # Make sure tailscale is up to date
+  - name: tailscaled
+    command: |
+        if [ -n "${TAILSCALE_STATE_MYPROJECT}" ]; then
+          # restore the tailscale state from gitpod user's env vars
+          sudo mkdir -p /var/lib/tailscale
+          echo "${TAILSCALE_STATE_MYPROJECT}" | sudo tee /var/lib/tailscale/tailscaled.state > /dev/null
+        fi
+        sudo tailscaled
+  - name: tailscale
+    command: |
+        if [ -n "${TAILSCALE_STATE_MYPROJECT}" ]; then
+          sudo -E tailscale up
+        else
+          sudo -E tailscale up --hostname "gitpod-${GITPOD_GIT_USER_NAME// /-}-$(echo ${GITPOD_WORKSPACE_CONTEXT} | jq -r .repository.name)"
+          # store the tailscale state into gitpod user
+          gp env TAILSCALE_STATE_MYPROJECT="$(sudo cat /var/lib/tailscale/tailscaled.state)"
+        fi
 
 #- name: gcloud
 #  command: |
@@ -30,4 +47,4 @@ ports:
     onOpen: open-preview
 vscode:
   extensions:
-    - yzhang.markdown-all-in-one@3.4.0:191f58ef00379b6fcbb2e6712da085b6
+    - yzhang.markdown-all-in-one
