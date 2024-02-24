@@ -12,6 +12,7 @@ tasks:
         fi
         sudo tailscaled
   - name: tailscale
+    init: sudo apt-get update && sudo apt-get install tailscale -y # Make sure tailscale is up to date
     command: |
         if [ -n "${TAILSCALE_STATE_MYPROJECT}" ]; then
           sudo -E tailscale up
